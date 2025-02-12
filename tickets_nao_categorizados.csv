@@ -1,80 +1,65 @@
-Dados do Ticket;Assunto;Análise da Categorização;Análise do Tipo da Requisição;Análise do Grau de Dificuldade;Orientações para o Analista Humano;Resposta inicial para o Usuário;Análise do SLA;Vencimento do SLA Atual
-"ID da Requisição: 5680
+Dados do Ticket;Assunto;AnÃ¡lise da CategorizaÃ§Ã£o;AnÃ¡lise do Tipo da RequisiÃ§Ã£o;AnÃ¡lise do Grau de Dificuldade;OrientaÃ§Ãµes para o Analista Humano;Resposta inicial para o UsuÃ¡rio;AnÃ¡lise do SLA;Vencimento do SLA Atual
+"```
+ID da RequisiÃ§Ã£o: 5680
  Data do Ticket: 2025-02-06 16:48:01
- Assunto da Requisição: Erro de sistema
- Descrição da Requisição: <p><span style=""color: rgb(135, 134, 138);"">Estou com erro no microsiga, mas não sei como resolver</span></p>
- Cidade do Usuário: Osasco
- UF do Usuário: São Paulo
- País do Usuário: Brasil
- Telefone do Usuário: 11047723843
- Ramal do Usuário: 3843
- Email do Usuário: eder.spvgoncalves@gmail.com
- Categoria da Requisição: Protheus
- Serviço da Requisição: Módulo Faturamento
- Tarefa da Requisição: (S) Cadastros
+ Assunto da RequisiÃ§Ã£o: Erro de sistema
+ DescriÃ§Ã£o da RequisiÃ§Ã£o: <p><span style=""color: rgb(135, 134, 138);"">Estou com erro no microsiga, mas nÃ£o sei como resolver</span></p>
+ Cidade do UsuÃ¡rio: Osasco
+ UF do UsuÃ¡rio: SÃ£o Paulo
+ PaÃ­s do UsuÃ¡rio: Brasil
+ Telefone do UsuÃ¡rio: 11047723843
+ Ramal do UsuÃ¡rio: 3843
+ Email do UsuÃ¡rio: eder.spvgoncalves@gmail.com
+ Categoria da RequisiÃ§Ã£o: Protheus
+ ServiÃ§o da RequisiÃ§Ã£o: MÃ³dulo Faturamento
+ Tarefa da RequisiÃ§Ã£o: (S) Cadastros
  SLA da Tarefa: 20
  Complexidade da Tarefa: high
- Departamento do Usuário: TI Sistemas
- Empresa do Usuário: Corporativo";Erro de sistema;"Ticket Categorizado Corretamente
+ Departamento do UsuÃ¡rio: TI Sistemas
+ Empresa do UsuÃ¡rio: Corporativo
+```";Erro InterFunctionCall funÃ§Ã£o FINA470 AppMap mÃ³dulo Financeiro;Protheus;"Erro (de Sistema);
+";"4
 
-A categoria ""Protheus"", o serviço ""Módulo Faturamento"" e a tarefa ""(S) Cadastros"" estão alinhados com a descrição do problema, que envolve um erro funcional dentro do módulo Financeiro do Protheus, possivelmente relacionado a algum cadastro ou funcionalidade padrão do sistema, já que o usuário menciona ""erro no microsiga, mas não sei como resolver"" e a stack trace aponta para funções APLIB, sugerindo um erro mais profundo no sistema do que uma dúvida de uso.
-";Erro (de Sistema);"4
+Justificativa: O tÃ­cket relata um erro tÃ©cnico ""Thread Error"" indicando que o sistema nÃ£o consegue encontrar a funÃ§Ã£o ""FINA470"" no AppMap. A resoluÃ§Ã£o exigirÃ¡:
 
-Justificativa do Grau de Dificuldade:
+- Pesquisar na internet e em bases de conhecimento Protheus (sites listados) por erros semelhantes relacionados a ""FINA470"" e ""AppMap"";
+- Consultar documentaÃ§Ã£o tÃ©cnica do Protheus para entender o AppMap e a funÃ§Ã£o FINA470, possivelmente na documentaÃ§Ã£o do mÃ³dulo Financeiro, jÃ¡ que o nome da funÃ§Ã£o sugere relaÃ§Ã£o com este mÃ³dulo;
+- Testar se a funÃ§Ã£o FINA470 existe e estÃ¡ corretamente configurada no AppMap do ambiente ""WTTZNG_PRD_PREPRODUCAO"" mencionado no log de erro;
+- Configurar o sistema, modificando cadastros e parÃ¢metros relacionados ao AppMap ou Ã  funÃ§Ã£o FINA470, se necessÃ¡rio.
+- Ajustar customizaÃ§Ãµes no sistema via programaÃ§Ã£o ADVPL caso a funÃ§Ã£o seja customizada ou precise de ajustes no ponto de entrada que a chama.";"1. Analisar o log de erro: O erro ""InterFunctionCall: cannot find function FINA470 in AppMap"" indica que o Protheus nÃ£o consegue localizar a funÃ§Ã£o FINA470 no AppMap durante a execuÃ§Ã£o de alguma rotina.
 
-- Necessário pesquisar na internet: Sim, a mensagem de erro é relativamente comum, mas a solução pode variar dependendo do contexto e customizações do ambiente Protheus.
-- Necessário consultar documentação técnica: Sim, idealmente a documentação da Totvs e a AppMap do ambiente devem ser consultadas.
-- Necessário testar o sistema: Sim, após aplicar a possível solução, testes no ambiente de pré-produção são mandatórios para verificar se o erro foi corrigido e se não houve efeitos colaterais.
-- Necessário configurar o sistema modificando cadastros e parâmetros: Possivelmente, pode ser necessário ajustar o AppMap ou configurações relacionadas ao módulo Financeiro.
-- Necessário ajustar customizações no sistema via programação: Em cenários mais complexos, pode ser que a função FINA470 seja parte de uma customização e precise de ajuste ou recompilação.
+2. Pesquisar a funÃ§Ã£o FINA470:
+   - Verificar se a funÃ§Ã£o FINA470 Ã© uma funÃ§Ã£o padrÃ£o do Protheus ou uma customizaÃ§Ã£o.
+   - Pesquisar nos sites de conhecimento do Protheus (Help Facil, BlackTDN, Master ADVPL, User Function) por informaÃ§Ãµes sobre a funÃ§Ã£o FINA470.
+   - Consultar a documentaÃ§Ã£o oficial da TOTVS para o mÃ³dulo Financeiro, buscando referÃªncias Ã  funÃ§Ã£o FINA470 e seu contexto de uso.
 
-A complexidade aumenta devido à necessidade de investigação em diferentes camadas do Protheus (RPO, AppMap, configurações), testes e possível manipulação de código ADVPL ou configurações do sistema. A ausência da função FINA470 no AppMap sugere um problema de configuração ou integridade do sistema que exige uma análise mais aprofundada.
-";"1. Analisar Detalhadamente o Log de Erro: O analista humano deve revisar o log completo do erro anexado ao ticket. É crucial verificar a stack trace completa para entender o fluxo de execução do sistema no momento do erro e identificar o ponto exato onde a função FINA470 é chamada e onde ocorre a falha.
+3. Verificar o AppMap:
+   - Acessar o ambiente ""WTTZNG_PRD_PREPRODUCAO"" e verificar a configuraÃ§Ã£o do AppMap.
+   - Certificar-se de que a funÃ§Ã£o FINA470 estÃ¡ listada e configurada corretamente no AppMap.
+   - Comparar o AppMap do ambiente de prÃ©-produÃ§Ã£o com o de produÃ§Ã£o (se disponÃ­vel) para identificar possÃ­veis diferenÃ§as na configuraÃ§Ã£o.
 
-2. Verificar a Existência da Função FINA470 no RPO:
-    - Acessar o ambiente Protheus WTTZNG_PRD_PREPRODUCAO.
-    - Utilizar o Configurador do Protheus para verificar se a função `FINA470` existe no RPO (Repositório de Objetos do Protheus). Navegue até o módulo Financeiro e procure pela função na árvore de funções ou utilize a busca do configurador.
-    - Caso a função não seja encontrada no RPO, é provável que esteja faltando no pacote de RPO do ambiente ou que seja uma função customizada que não foi corretamente implementada/migrada.
+4. Analisar os PRWs chamadores:
+   - O log de erro indica que a funÃ§Ã£o FINA470 Ã© chamada dentro das rotinas APLIB090.PRW (linha 735) e MDIEXECUTE(APLIB260.PRW) (linha 931).
+   - Analisar essas rotinas para entender o fluxo de execuÃ§Ã£o e o contexto em que a funÃ§Ã£o FINA470 Ã© chamada.
+   - Verificar se hÃ¡ alguma customizaÃ§Ã£o ou ponto de entrada nessas rotinas que possa estar relacionado ao problema.
 
-3. Analisar o AppMap do Ambiente:
-    - O erro ""cannot find function FINA470 in AppMap"" indica que o Protheus não consegue localizar a função no AppMap. O AppMap é uma tabela que mapeia as funções ADVPL para seus respectivos programas RPO.
-    - Utilizar o Configurador do Protheus para acessar o AppMap do ambiente WTTZNG_PRD_PREPRODUCAO.
-    - Verificar se a função `FINA470` está declarada no AppMap, associada ao programa RPO correto (que pelo log parece ser APLIB090.PRW ou relacionado ao APLIB).
-    - Verificar se o caminho e nome do programa RPO associado à função `FINA470` no AppMap estão corretos e se o programa RPO realmente existe no ambiente.
+5. Ambiente e Build:
+   - O log menciona o ambiente ""WTTZNG_PRD_PREPRODUCAO"" e o build ""7.00.210324P-20240219"".
+   - Verificar se o build do Protheus estÃ¡ atualizado e se hÃ¡ alguma nota ou correÃ§Ã£o da TOTVS relacionada a erros de AppMap ou funÃ§Ãµes financeiras neste build.
 
-4. Verificar Customizações e Pontos de Entrada:
-    - Verificar se a função `FINA470` é uma função padrão do Protheus ou se faz parte de alguma customização específica do cliente.
-    - Caso seja customizada, verificar se a customização foi corretamente implementada e se o AppMap foi atualizado para incluir a função customizada.
-    - Verificar se há Pontos de Entrada (Entry Points) no sistema que possam estar relacionados à chamada da função `FINA470` e se algum ponto de entrada está causando a falha.
+6. Orientar o usuÃ¡rio:
+   - Solicitar ao usuÃ¡rio mais detalhes sobre o processo que estava sendo executado quando o erro ocorreu.
+   - Pedir informaÃ§Ãµes sobre qual mÃ³dulo do Protheus estava sendo utilizado e qual rotina ou tela estava sendo acessada.
+   - Solicitar prints de tela ou um vÃ­deo curto mostrando o passo a passo que leva ao erro.
 
-5. Comparar com Ambiente de Produção (se possível):
-    - Se houver um ambiente de produção funcionando corretamente, comparar o AppMap e o RPO do ambiente de pré-produção com o ambiente de produção para identificar possíveis diferenças na configuração da função `FINA470` ou módulos relacionados.
+7. AÃ§Ãµes adicionais (se necessÃ¡rio):
+   - Se a funÃ§Ã£o FINA470 for uma customizaÃ§Ã£o, verificar o cÃ³digo ADVPL da funÃ§Ã£o para identificar possÃ­veis erros ou dependÃªncias ausentes.
+   - Abrir um chamado junto ao suporte da TOTVS se a funÃ§Ã£o FINA470 for padrÃ£o do Protheus e o problema persistir apÃ³s as verificaÃ§Ãµes iniciais.
+";"Prezado(a) UsuÃ¡rio(a),
 
-6. Possíveis Soluções:
-    - Função Padrão Protheus: Se `FINA470` for uma função padrão e não estiver no AppMap, pode ser necessário atualizar o AppMap do ambiente, recompilar o módulo Financeiro ou aplicar um pacote de RPO mais recente que contenha a função.
-    - Função Customizada: Se for uma função customizada, verificar a implementação da função, se o programa ADVPL (PRW) foi corretamente compilado para RPO e se o AppMap foi atualizado. Recompilar a função customizada e atualizar o AppMap pode ser necessário.
-    - Problemas de Ambiente: Verificar se o ambiente WTTZNG_PRD_PREPRODUCAO está corretamente configurado, se as bibliotecas e dicionários estão atualizados e se não há problemas de permissões de acesso aos arquivos RPO.
-    - Consultar a Base de Conhecimento TOTVS: Pesquisar na Central de Atendimento TOTVS (documentação oficial) e em bases de conhecimento como Help Facil e BlackTDN usando a mensagem de erro ""cannot find function FINA470 in AppMap"" para buscar soluções e casos semelhantes já reportados e solucionados.
+Recebemos o seu chamado referente ao erro de sistema no Protheus. Nossa equipe tÃ©cnica jÃ¡ estÃ¡ analisando o log de erro que vocÃª anexou e investigando as possÃ­veis causas.
 
-7. Solicitar Informações Adicionais ao Usuário:
-    - Confirmar qual funcionalidade do Protheus o usuário estava tentando utilizar quando o erro ocorreu. Isso pode ajudar a restringir a área de investigação.
-    - Perguntar se houve alguma atualização recente do Protheus ou customizações no ambiente de pré-produção que possam ter causado o problema.
-    - Solicitar o manual em PDF mencionado nas instruções para verificar se há informações adicionais relevantes para o caso.
-";"Prezado(a) Usuário(a),
-
-Recebemos seu chamado e lamentamos o erro no Protheus. A mensagem ""InterFunctionCall: cannot find function FINA470 in AppMap"" indica que o sistema não está encontrando uma função necessária para a execução da funcionalidade que você está utilizando.
-
-Nossa equipe técnica já está analisando o log de erro que você anexou e investigando as possíveis causas para este problema. Em breve, um analista entrará em contato para dar seguimento à solução.
-
-Agradecemos a sua paciência e colaboração.
-
-```
-Sugestão de Dados adicionais a serem solicitados
-```
-- Poderia detalhar qual funcionalidade do Protheus você estava utilizando no momento em que o erro ocorreu?
-- Houve alguma atualização ou customização recente no sistema Protheus?
-- Poderia nos fornecer prints de tela ou um vídeo curto mostrando o fluxo de passos que levam ao erro? (opcional)
+Em breve, um analista entrarÃ¡ em contato para dar continuidade Ã  tratativa e buscar a soluÃ§Ã£o para o problema.
 ";"SLA atual correto.
-
-O SLA atual para ""Erro de Sistema"" parece ser apropriado para este caso, inicialmente. Dada a dificuldade estimada em 4, um SLA de resposta e início de tratamento dentro de 4 horas úteis e um SLA de solução de até 24 horas úteis parece razoável para investigar, diagnosticar e corrigir o problema, considerando que pode envolver diversas etapas de análise e testes no ambiente Protheus. Caso a investigação revele uma complexidade maior ou necessidade de suporte externo (TOTVS), o SLA pode ser reavaliado.";"2025-02-07 16:48
+Justificativa:  Considerando que o chamado se trata de um erro de sistema que impede o usuÃ¡rio de prosseguir com suas atividades no Protheus, o SLA atual para Erros de Sistema parece adequado para garantir uma resposta e anÃ¡lise inicial em tempo hÃ¡bil. Caso a investigaÃ§Ã£o e correÃ§Ã£o demandem mais tempo que o SLA padrÃ£o, o analista poderÃ¡ reavaliar a necessidade de um SLA diferenciado.";"2025-02-07
 "

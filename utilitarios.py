@@ -181,6 +181,24 @@ def converter_para_csv(tabela, nome_arquivo, fieldnames):
         for linha in tabela:
             writer.writerow(linha)
     pass
+
+def converter_para_csv_v2(tabela, nome_arquivo, fieldnames):
+    """Converte a tabela para um arquivo CSV, sobrescrevendo o arquivo existente ou criando um novo."""
+    try:
+        with open(nome_arquivo, 'w', encoding='utf-8', newline='') as arquivo_csv:
+            writer = csv.DictWriter(arquivo_csv, fieldnames=fieldnames, delimiter=';')
+            writer.writeheader()
+            for linha in tabela:
+                # Limpeza de caracteres problemáticos
+                linha_limpa = {}
+                for chave, valor in linha.items():
+                    if isinstance(valor, str):
+                        linha_limpa[chave] = valor.replace('\u200b', '')  # Remove espaços de largura zero
+                    else:
+                        linha_limpa[chave] = valor
+                writer.writerow(linha_limpa)
+    except Exception as e:
+        print(f"Erro ao converter para CSV: {e}")
 #
 # FIM
 #---------------------------------------------------------------------------------------------------------------

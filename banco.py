@@ -289,7 +289,7 @@ def consulta_chamados_abertos(STATUS_, TICKET_START, TICKET_END):
         question += "\n" + "Manual em Texto: \n" + texto_do_manual
         
         analise_ia  = brain.analisar_com_gemini("", arquivo_path, question, _instrucao, 10, brain.GLOBAL_MODELO_PESADO)
-        analise_ia  = brain.limpa_texto(analise_ia)
+        # analise_ia  = brain.limpa_texto(analise_ia)
         analise_ia  = "Analise IA: \n " + analise_ia
         resultado_final = "DADOS DO CHAMADO: "  + "\n" + dados_do_chamado  + "\n" + "RESULTADO FINAL DA ANÁLISE AUTOMÁTICA:" + "\n" + "ANEXOS:" + "\n" + descricao_anexos + "\n" + "ANALISE FEITA POR IA:" + "\n" + analise_ia
         #print(f'Descrição: {resultado_final}') 
@@ -327,6 +327,7 @@ def consulta_chamados_nao_categorizados(STATUS_, TICKET_START, TICKET_END):
     SLA_TAREFA_             = 14
     COMPLEXIDADE_TAREFA_    = 15
     DATA_TICKET_            = 16
+    NOME_USUARIO_           = 17
 
 
     # ANEXOS 
@@ -360,7 +361,8 @@ def consulta_chamados_nao_categorizados(STATUS_, TICKET_START, TICKET_END):
         COALESCE(EMPRESA.name, '') AS EMPRESA_USER,
         COALESCE(tb_catalog_task.time_sla, 0) AS SLA_TAREFA,
         COALESCE(tb_catalog_task.complexity, '') AS COMPLEXIDADE_TAREFA,
-        tb_request.dt_cad AS DATA_INPUT
+        tb_request.dt_cad AS DATA_INPUT,
+        tb_person.name as NOME
     FROM tb_request
     LEFT JOIN tb_tickets ON tb_tickets.fk_id_request = tb_request.id_request
     LEFT JOIN tb_user ON tb_user.id_user = tb_request.user_cad::integer
@@ -405,6 +407,7 @@ def consulta_chamados_nao_categorizados(STATUS_, TICKET_START, TICKET_END):
         dados_do_chamado +=  "\n" + " Complexidade da Tarefa: " + linha[COMPLEXIDADE_TAREFA_]
         dados_do_chamado +=  "\n" + " Departamento do Usuário: " + linha[DEPARTAMENTO_]
         dados_do_chamado +=  "\n" + " Empresa do Usuário: " + linha[EMPRESA_]
+        dados_do_chamado +=  "\n" + " Nome do Usuário: " + linha[NOME_USUARIO_]
         
         #print(linha[EMAIL_USUARIO] )
         #print(linha[TICKET] )
@@ -579,7 +582,7 @@ def consulta_chamados_nao_categorizados(STATUS_, TICKET_START, TICKET_END):
         question += "\n" + "Manual em Texto: \n" + texto_do_manual
         
         analise_ia  = brain.analisar_com_gemini("", arquivo_path, question, _instrucao, 10, brain.GLOBAL_MODELO_PESADO)
-        analise_ia  = brain.limpa_texto(analise_ia)
+        # analise_ia  = brain.limpa_texto(analise_ia)
         analise_ia  = " \n Analise IA: \n " + analise_ia
         resultado_final = "DADOS DO CHAMADO: "  + "\n" + dados_do_chamado  + "\n" + "RESULTADO FINAL DA ANÁLISE AUTOMÁTICA:" + "\n" + "ANEXOS:" + "\n" + descricao_anexos + "\n" + "ANALISE FEITA POR IA:" + "\n" + analise_ia
         # print(resultado_final)
@@ -679,7 +682,7 @@ def consulta_chamados_nao_categorizados(STATUS_, TICKET_START, TICKET_END):
                    "Análise do Tipo da Requisição", "Análise do Grau de Dificuldade", 
                    "Orientações para o Analista Humano", "Resposta inicial para o Usuário",
                    "Análise do SLA", "Vencimento do SLA Atual"]
-    Canivete.converter_para_csv(tabela_categorizacao, arq_csv,campos_csv )
+    Canivete.converter_para_csv_v2(tabela_categorizacao, arq_csv,campos_csv )
     print(" \n FIM \n ")
 #
 # FIM
@@ -713,6 +716,7 @@ def analise_profunda_ticket_nao_categorizados(STATUS_, TICKET_START, TICKET_END)
     SLA_TAREFA_             = 14
     COMPLEXIDADE_TAREFA_    = 15
     DATA_TICKET_            = 16
+    NOME_USER_              = 17
 
 
     # ANEXOS 
@@ -746,7 +750,8 @@ def analise_profunda_ticket_nao_categorizados(STATUS_, TICKET_START, TICKET_END)
         COALESCE(EMPRESA.name, '') AS EMPRESA_USER,
         COALESCE(tb_catalog_task.time_sla, 0) AS SLA_TAREFA,
         COALESCE(tb_catalog_task.complexity, '') AS COMPLEXIDADE_TAREFA,
-        tb_request.dt_cad AS DATA_INPUT
+        tb_request.dt_cad AS DATA_INPUT,
+        tb_person.name as NOME
     FROM tb_request
     LEFT JOIN tb_tickets ON tb_tickets.fk_id_request = tb_request.id_request
     LEFT JOIN tb_user ON tb_user.id_user = tb_request.user_cad::integer
@@ -791,6 +796,8 @@ def analise_profunda_ticket_nao_categorizados(STATUS_, TICKET_START, TICKET_END)
         dados_do_chamado +=  "\n" + " Complexidade da Tarefa: " + linha[COMPLEXIDADE_TAREFA_]
         dados_do_chamado +=  "\n" + " Departamento do Usuário: " + linha[DEPARTAMENTO_]
         dados_do_chamado +=  "\n" + " Empresa do Usuário: " + linha[EMPRESA_]
+        dados_do_chamado +=  "\n" + " Nome do Usuário: " + linha[NOME_USER_]
+        
         
         #print(linha[EMAIL_USUARIO] )
         #print(linha[TICKET] )
@@ -1087,6 +1094,7 @@ def listar_chamados_nao_categorizados(STATUS_, TICKET_START, TICKET_END):
     SLA_TAREFA_             = 14
     COMPLEXIDADE_TAREFA_    = 15
     DATA_TICKET_            = 16
+    NOME_USUARIO_           = 17
 
 
     #---------------------
@@ -1100,7 +1108,7 @@ def listar_chamados_nao_categorizados(STATUS_, TICKET_START, TICKET_END):
     # Para testar IA GEMINI na análise MACRO
     # Criar cabeçalho do texto
     #
-    contexto_dados  = "ID do Ticket;Data;Assunto;Descrição;Cidade;UF;País;Fone;Ramal;Email;Categoria Atual;Serviço Atual;Tarefa Atual;SLA Atual;Grau de Dificuldade;Departamento;Empresa;Anexos"+" \n "
+    contexto_dados  = "ID do Ticket;Data;Assunto;Descrição;Cidade;UF;País;Fone;Ramal;Email;Categoria Atual;Serviço Atual;Tarefa Atual;SLA Atual;Grau de Dificuldade;Departamento;Nome do Usuário;Empresa;Anexos"+" \n "
     
     # Query para buscar os Tickets Abertos no Sensr
     # CHAMADOS NÃO CATEGORIZADOS
@@ -1122,7 +1130,8 @@ def listar_chamados_nao_categorizados(STATUS_, TICKET_START, TICKET_END):
         COALESCE(EMPRESA.name, '') AS EMPRESA_USER,
         COALESCE(tb_catalog_task.time_sla, 0) AS SLA_TAREFA,
         COALESCE(tb_catalog_task.complexity, '') AS COMPLEXIDADE_TAREFA,
-        tb_request.dt_cad AS DATA_INPUT
+        tb_request.dt_cad AS DATA_INPUT,
+        tb_person.name as NOME
     FROM tb_request
     LEFT JOIN tb_tickets ON tb_tickets.fk_id_request = tb_request.id_request
     LEFT JOIN tb_user ON tb_user.id_user = tb_request.user_cad::integer
@@ -1169,6 +1178,7 @@ def listar_chamados_nao_categorizados(STATUS_, TICKET_START, TICKET_END):
         dados_do_chamado +=  "\n" + " Complexidade da Tarefa: " + linha[COMPLEXIDADE_TAREFA_]
         dados_do_chamado +=  "\n" + " Departamento do Usuário: " + linha[DEPARTAMENTO_]
         dados_do_chamado +=  "\n" + " Empresa do Usuário: " + linha[EMPRESA_]
+        dados_do_chamado +=  "\n" + " Nome do Usuário: " + linha[NOME_USUARIO_]
         
         print(" \n Dados do Ticket: \n " + dados_do_chamado)
         
@@ -1216,6 +1226,8 @@ def listar_chamados_nao_categorizados(STATUS_, TICKET_START, TICKET_END):
         complex_ticket  = linha[COMPLEXIDADE_TAREFA_]
         dept_ticket     = linha[DEPARTAMENTO_]
         emp_ticket      = linha[EMPRESA_]
+        nome_user       = linha[NOME_USUARIO_]
+        
         
         anexos_ticket   = busca_descricao_anexos_tickets(id_ticket)
         
@@ -1242,6 +1254,7 @@ def listar_chamados_nao_categorizados(STATUS_, TICKET_START, TICKET_END):
             "Grau de Dificuldade": complex_ticket,
             "Departamento": dept_ticket,
             "Empresa": emp_ticket,
+            "Nome do Usuário": nome_user,
             "Anexos": anexos_ticket,
         }
         lista_de_requisicoes.append(registro)
@@ -1253,8 +1266,8 @@ def listar_chamados_nao_categorizados(STATUS_, TICKET_START, TICKET_END):
                    "Cidade", "UF", "País", "Fone", "Ramal", "Email", 
                    "Categoria Atual", "Serviço Atual", "Tarefa Atual", 
                    "SLA Atual", "Grau de Dificuldade", "Departamento", 
-                   "Empresa", "Anexos"]
-    Canivete.converter_para_csv(lista_de_requisicoes, arq_csv,campos_csv )
+                   "Empresa", "Nome do Usuário", "Anexos"]
+    Canivete.converter_para_csv_v2(lista_de_requisicoes, arq_csv,campos_csv )
     
     _instrucao_ia        = Persona.biblioteca_de_prompts(Persona.ANALISTA_GENERALISTA_2_)
     _contexto_completo   = f"""
@@ -1266,7 +1279,7 @@ def listar_chamados_nao_categorizados(STATUS_, TICKET_START, TICKET_END):
                         """
     _contexto_completo   += contexto_dados
     resposta_ia          = brain.analisar_com_gemini('','',_contexto_completo,_instrucao_ia,10,brain.GLOBAL_MODELO_PESADO)
-    #resposta_ia          = brain.limpa_texto(resposta_ia)
+    # resposta_ia          = brain.limpa_texto(resposta_ia)
     print(" \n RESPOSTA DA IA \n" + resposta_ia)
     
     # Salvar como arquivo de texto
@@ -1294,8 +1307,9 @@ def listar_chamados_nao_categorizados(STATUS_, TICKET_START, TICKET_END):
 testar = False # True
 
 if testar:
-    listar_chamados_nao_categorizados('Open', '0000', '9999')
     print(analise_profunda_ticket_nao_categorizados('Open', '5649', '5649'))
+    listar_chamados_nao_categorizados('Open', '0000', '9999')
+    
     consulta_chamados_nao_categorizados('Open', '5680', '5680')
     consulta_chamados_abertos('In Progress', '5394', '5394')
 

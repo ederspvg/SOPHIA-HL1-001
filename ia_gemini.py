@@ -80,7 +80,7 @@ def analisar_com_gemini(_image_path, _pdf_path, _contexto, _instrucao, _tentativ
     _prompt = _instrucao + ' sendo assim, responda: ' + _contexto # gerar_prompt()
     #CONTROLES INTERNOS - APENAS PARA APRENDIZADO E UTILIDADES GERAIS
     #
-    logic_lista_modelos         = False
+    logic_lista_modelos         = True
     logic_lista_config_modelos  = False
     logic_usa_Chat              = True
     

@@ -92,8 +92,8 @@ if st.button("Análise Aprofundada"):
     analise_aprofundada = Consulta_Banco.analise_profunda_ticket_nao_categorizados('Open', ticket_alvo, ticket_alvo)
 
     # Exibe a análise aprofundada
-    st.write(analise_aprofundada)
-    # st.markdown(analise_aprofundada)
+    # st.write(analise_aprofundada)
+    st.markdown(analise_aprofundada)
 
 # Quadro Análise Aprofundada (exibe o texto retornado pelo botão Análise Aprofundada)
 # O quadro é atualizado automaticamente quando o botão é clicado
