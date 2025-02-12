@@ -1,0 +1,58 @@
+ID do Ticket;Data;Assunto;Descrição;Cidade;UF;País;Fone;Ramal;Email;Categoria Atual;Serviço Atual;Tarefa Atual;SLA Atual;Grau de Dificuldade;Departamento;Empresa;Anexos
+5581;2025-01-30 16:22:43;Favor, desbloquear meu login no Protheus; Olá. Estou tentando acessar o Protheus com meu login e senha, porém não consigo sequer abrir o Protheus.    ;Osasco;São Paulo;Brasil;11047723843;3843;eder.spvgoncalves@gmail.com;Protheus;Protheus: Acesso;Protheus: Desbloquear Login;4;low;TI Sistemas;Corporativo;anexo 1 - descrição detalhada: 7 wtt2n6-prd-protheus.totvscloud com br:1 1080/webappl 8 Erro TOTVS Build 7.00.210324P ERRDD32: Conexão entre TOTVS SmartClient TOTVS Application Server interrompida. Ccntate administrador do sistema Erro de comunicação: Erro de sincronismo 
+5646;2025-02-05 17:20:01;Como faço para imprimir o livro de ISS?; Olá.  Não estou conseguindo gerar o livro de ISS (modelo 51) no Protheus.  Poderia me fornecer um passo a passo?       ;Barueri;São Paulo;Brasil;1147723843;3843;eder.silva@luft.com.br;Protheus;Módulo Livros Fiscais;(S) - Dúvida;30;low;TI Sistemas;Corporativo;
+5648;2025-02-05 17:43:14;Como faço para incluir um Pedido de Compras no Protheus?; Olá. Não estou conseguindo incluir um Pedido de Compras no Protheus. Poderia me fornecer um passo a passo de como devo proceder?       ;Barueri;São Paulo;Brasil;1147723843;3843;eder.silva@luft.com.br;Protheus;Módulo Compras;(S) - Dúvida;30;low;TI Sistemas;Corporativo;
+5649;2025-02-05 18:11:57;Contrato Fixo; Olá.  Estou tentando lançar um Contrato de Parceria no Protheus, do tipo Fixo, para lançar as AEs de Serviço de manutenção predial.  Mas não lembro como faz para cadastrar o Contrato de Parceria do tipo Fixo.  Pode me ajudar?    ;Barueri;São Paulo;Brasil;1147723843;3843;eder.silva@luft.com.br;Protheus;Módulo Compras;(S) - Dúvida;30;low;TI Sistemas;Corporativo;
+5680;2025-02-06 16:48:01;Erro de sistema;" <span style=""color: rgb(135, 134, 138)"">Estou com erro no microsiga, mas não sei como resolver</span> ";Osasco;São Paulo;Brasil;11047723843;3843;eder.spvgoncalves@gmail.com;Protheus;Módulo Faturamento;(S) Cadastros;20;high;TI Sistemas;Corporativo;" Resumo Simplificado do Log de Erro
+
+O log de erro relata uma falha na execução da função FINA470 dentro do sistema TOTVS Protheus, em ambiente de produção (WTT2N6_PRD_PREPRODUCAO ou WTT2N6_PRD).
+
+Causa: A função FINA470 não foi encontrada no AppMap durante a execução do programa APLIB090.PRW.
+
+Ambiente:
+
+   Build TOTVS: 7.00.210324P-20240219
+   Ambiente: WTTZNG\_PRD\_PREPRODUCAO / WTT2N6\_PRD
+   RPODB: Top
+   DBAcess DB: ORACLE
+
+Informações Relevantes:
+
+   Usuário: pablo.facioli (ID 00220 1)
+   Módulo: FINA (Financeiro)
+   Data/Hora do Erro: 04/02/2025 17:17:39 e 17:19:21 (horários próximos, indicando possível recorrência)
+   Thread ID: NSJI4UCS348562 e NSJ14UCS3A8562
+   Public CARQTAB: Contém uma lista extensa de arquivos .dtc.
+
+Possíveis Causas e Ações:
+
+1.  Função Inexistente/Incorreta:
+       Verificar se a função FINA470 realmente existe e está implementada no RPO.
+       Verificar se o nome da função está correto ( FINA470 ).
+2.  AppMap Desatualizado:
+       Atualizar o AppMap do ambiente WTTZNG\_PRD\_PREPRODUCAO / WTT2N6\_PRD para incluir a função FINA470.
+       Verificar se o AppServer está carregando o AppMap correto.
+3.  Problemas de Liberação/Versão:
+       Garantir que a versão do RPO (12.1.2310) e os binários do Protheus (7.00.210324P) sejam compatíveis com a função FINA470.
+       Verificar se há alguma liberação pendente que inclua a função.
+4.  Contexto de Execução Incorreto:
+       Analisar o código de APLIB090.PRW e APLIB260.PRW para entender o fluxo de execução e como a função FINA470 está sendo chamada.
+       Verificar se o contexto (empresa, filial) em que a função está sendo executada é o correto.
+5.  Dicionário de Dados:
+       Verificar se o dicionário de dados está atualizado e consistente com a função FINA470.
+
+Observações:
+
+   O erro ocorre em um ambiente de pré-produção (WTTZNG\_PRD\_PREPRODUCAO) e produção (WTT2N6\_PRD).
+   A análise do código de APLIB090.PRW (linha 735) e APLIB260.PRW (linha 931) pode fornecer mais detalhes sobre o contexto da chamada da função.
+   A lista extensa de arquivos .dtc na variável pública CARQTAB pode ser relevante para identificar possíveis problemas de configuração ou arquivos desatualizados.
+   Analise Public 6: CACESSO, pois pode indicar problemas com o usuário ou acesso.
+   É recomendável analisar o console log completo do Protheus (caminho especificado no log) para obter informações adicionais sobre o erro e o ambiente.
+
+Espero que este resumo detalhado ajude na análise técnica!
+"
+5713;2025-02-10 08:58:31;Instalação da nova impressora ou manutenção ; Bom Dia!     Srs,        Gentileza verificar a possibilidade de instalação da nova impressora ou programar manutenção na lexmark    <strong>Lexmark MX611dhe IP: 10.29.0.200, </strong>        A mesma vem apresentando constante travamento ...;Campo Novo do Parecis;Mato Grosso;Brasil;62991006055;;wallace.pereira@luftagro.com.br;Infraestrutura;Hardware;Outros (i);6;low;Administrativo Operacional;Agro;
+5720;2025-02-10 12:45:16;Exclusão de titulo criado errado ; Boa tarde,      Poderia por gentileza excluir PA criada no contas a pagar, pois esqueci de adicionar o numero do nosso banco qual criar a PA e está dando erro para mim excluir.   Empresa: FARMA   Titulo: 637647646   Emissão 07/02/2025 e vencimento: 07/02/2025  val...;Itapevi;São Paulo;Brasil;(11) 97996-0401;7157;thaina.ramos@luftlogistics.com;Protheus;Módulo Estoque;Falha;16;mediun;Financeiro;HealthCare;anexo 1 - descrição detalhada: 
+5750;2025-02-11 13:02:05;Acesso a pasta; Acesso a pasta para inserir informações ;;;;(11) 47723-848_;3848;ana.araujo;Infraestrutura;Perfil de acesso;Liberação de pasta;8;low;Recursos Humanos;Corporativo;
+5753;2025-02-11 16:27:08;Configuração Rede VPN Corporativa - Thiago Marinho Teixeira dos Santos; Boa tarde!     O colaborador Thiago perdeu o acesso a rede corporativa e necessita da configuração para que o TI Solutions possa realizar a configuração do App SOPHOS Connect.     Poderia verificar? ;;;;(11) 95911-7755;;caio.quaresma;Infraestrutura;Rede e Internet;Configuração (i);12;medium;Recursos Humanos;Corporativo;
+5754;2025-02-11 16:29:35;INSTALAÇÃO DE CERTIFICADO DIGITAL; Boa tarde,     preciso que instale o certificado digital na Máquina do Christiano do escritório santa Rita ;Ibipora;Paraná;Brasil;4331789958;;marcia@transcamila.com.br;Infraestrutura;Sistema Operacional ;Instalar/Remover Programas;8;medium;Administrativo Operacional;TransCamila;
