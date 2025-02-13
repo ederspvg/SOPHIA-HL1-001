@@ -2,3 +2,5 @@ ambiente.env
 manuais/
 ambiente/
 *.env
+api/
+api/gmail/

@@ -5,53 +5,59 @@ from email.mime.base import MIMEBase
 from email import encoders
 import os
 from dotenv import load_dotenv
+
 load_dotenv(dotenv_path='ambiente.env')
 
+EMAIL_REMETENTE_GMAIL = os.getenv('EMAIL_REMETENTE') # Seu email Gmail (remetente)
+SENHA_REMETENTE_GMAIL = os.getenv('SENHA_EMAIL_REMETENTE') # Senha do seu email Gmail ou App Password
+
 #---------------------------------------------------------------------------------------------------------------
-# Função para envio de email
+# Função para envio de email usando Gmail SMTP (sem OAuth - APENAS PARA TESTES!)
 #
-def enviar_email(destinatario, assunto, corpo, arquivos_anexos=None):
-    """Envia um email com o conteúdo especificado para o destinatário,
-    com a opção de anexar um ou mais arquivos.
-    """
+def enviar_email_gmail_smtp(destinatario, assunto, corpo, arquivos_anexos=None):
+    """Envia um email usando o Gmail SMTP (sem OAuth - INSEGURO! APENAS PARA TESTES)."""
 
-    remetente   = os.getenv('EMAIL_REMETENTE')
-    senha       = os.getenv('SENHA_EMAIL_REMETENTE')
-
-    if not remetente or not senha:
-        raise ValueError("As variáveis de ambiente EMAIL_REMETENTE e SENHA_EMAIL_REMETENTE não foram definidas.")
+    if not EMAIL_REMETENTE_GMAIL or not SENHA_REMETENTE_GMAIL:
+        print('Erro: Email remetente Gmail e/ou senha não configurados nas variáveis de ambiente.')
+        return False
 
     mensagem = MIMEMultipart()
-    mensagem["From"] = remetente
-    mensagem["To"] = destinatario
-    mensagem["Subject"] = assunto
-
-    mensagem.attach(MIMEText(corpo, "html"))
+    mensagem['From'] = EMAIL_REMETENTE_GMAIL
+    mensagem['To'] = destinatario
+    mensagem['Subject'] = assunto
+    mensagem.attach(MIMEText(corpo, 'html'))
 
     if arquivos_anexos:
         for arquivo in arquivos_anexos:
-            parte = MIMEBase("application", "octet-stream")
-            parte.set_payload(open(arquivo, "rb").read())
+            parte = MIMEBase('application', 'octet-stream')
+            parte.set_payload(open(arquivo, 'rb').read())
             encoders.encode_base64(parte)
-            parte.add_header("Content-Disposition", f"attachment; filename= {os.path.basename(arquivo)}")
+            parte.add_header('Content-Disposition', f'attachment; filename= {os.path.basename(arquivo)}')
             mensagem.attach(parte)
 
     try:
-        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as servidor:
-            servidor.login(remetente, senha)
-            servidor.sendmail(remetente, destinatario, mensagem.as_string())
+        with smtplib.SMTP('smtp.gmail.com', 587) as servidor_smtp: # Conexão com servidor Gmail SMTP
+            servidor_smtp.starttls() # Inicia a encriptação TLS
+            servidor_smtp.login(EMAIL_REMETENTE_GMAIL, SENHA_REMETENTE_GMAIL) # Login com email e senha
+            texto = mensagem.as_string()
+            servidor_smtp.sendmail(EMAIL_REMETENTE_GMAIL, destinatario, texto) # Envia o email
         return True
     except Exception as e:
-        print(f"Erro ao enviar email: {e}")
+        print(f'Erro ao enviar email via Gmail SMTP: {e}')
         return False
-    
 # 
 # FIM
 #---------------------------------------------------------------------------------------------------------------
 
-arquivos = ['arquivo_temporario.pdf']
-enviar_email('eder.silva@luft.com.br', 'Teste', 'Test', arquivos)
-print(" \n ")
+teste = False
+if teste:
+    arquivos = ['arquivo_temporario.pdf']
+    destino     = 'eder.silva@luft.com.br'
+    assunto     = 'Categorização de Chamados'
+    corpo       = 'Relatório de Categorização de Chamados'
+    
+    enviar_email_gmail_smtp(destino, assunto, corpo, arquivos)
+    print(" \n ")
     
 # # Exemplo de uso (em outro script.py)
 # from enviar_email import enviar_email

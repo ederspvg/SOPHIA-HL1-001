@@ -1,909 +1,595 @@
 Lista de Tickets por Ordem de Atendimento (Prioridade Estratégica):
 
-1. Ticket 5581
-2. Ticket 5680
-3. Ticket 5775
-4. Ticket 5778
-5. Ticket 5781
-6. Ticket 5782
-7. Ticket 5776
-8. Ticket 5784
-9. Ticket 5785
-10. Ticket 5761
-11. Ticket 5753
-12. Ticket 5783
-13. Ticket 5768
-14. Ticket 5720
-15. Ticket 5713
-16. Ticket 5779
-17. Ticket 5780
-18. Ticket 5769
-19. Ticket 5770
-20. Ticket 5771
-21. Ticket 5646
-22. Ticket 5648
-23. Ticket 5649
+1. **Ticket 5581**: Urgente - Bloqueio de acesso ao Protheus impede o trabalho do usuário. SLA curto (4 horas).
+2. **Ticket 5680**: Erro de Sistema Protheus com Error Log anexado - Possível impacto em processos. SLA médio (20 horas).
+3. **Ticket 5795**: Emissão de NF Recusada - Impacto direto no faturamento e entrega. SLA médio (24 horas).
+4. **Ticket 5800**: Cálculo de Base NF - Continuação do processo de faturamento, dependente do Ticket 5795. SLA médio (24 horas), mesmo SLA do Ticket anterior.
+5. **Ticket 5799**: Cálculo de Base (arquivo binário) - Similar ao Ticket 5800, mas com possível problema no anexo. SLA médio (24 horas).
+6. **Ticket 5713**: Impressora com problema/instalação - Impacto menor, mas afeta a operação. SLA baixo (6 horas), porém já tem alguns dias de abertura.
+7. **Ticket 5646**: Dúvida Livro ISS - Dúvida de usuário, SLA mais longo (30 horas).
+8. **Ticket 5648**: Dúvida Pedido de Compras - Dúvida de usuário, SLA mais longo (30 horas).
+9. **Ticket 5649**: Dúvida Contrato Fixo - Dúvida de usuário, SLA mais longo (30 horas).
+10. **Ticket 5801**: Nobreak para novo colaborador - Solicitação de hardware, impacto menor imediato. SLA baixo (6 horas), prioridade mais baixa entre os tickets.
 
+---
 
- RELATÓRIO DE ANÁLISE DE TICKETS
+# RELATÓRIO DE ANÁLISE DE TICKETS
 
- TICKET
+---
+
+## TICKET
+
 5581
 
- CATEGORIZACAO
+## CATEGORIZACAO
+
 Ticket Categorizado Corretamente
 
- TIPO_REQ
+## TIPO_REQ
+
 Erro de Sistema
 
- DIFICULDADE
-8 - CLASSE B2
-Justificativa: O erro de conexão com o Protheus pode ter diversas causas, desde problemas de rede local do usuário, problemas no servidor, até instabilidade na conexão cloud. Requer investigação para identificar a causa raiz e solucionar o problema de acesso do usuário. A análise do log de erro anexado é crucial.
+## DIFICULDADE
 
- ORIENTACAO_H
-1. Verificar a conexão de internet do usuário e se há alguma instabilidade na rede local.
-2. Analisar o log de erro anexado para identificar a causa específica do problema de conexão (Erro ERRDD32).
-3. Verificar o status dos servidores Protheus (WebApp e Application Server) no ambiente `wtt2n6-prd-protheus.totvscloud com br`.
-4. Testar o acesso ao Protheus com outro usuário para verificar se o problema é específico do usuário Eder.
-5. Caso o problema seja no servidor, verificar logs do servidor e reiniciar os serviços se necessário.
-6. Se o problema persistir, pode ser necessário acionar o suporte da TOTVS Cloud para verificar a infraestrutura.
+5 - CLASSE B1
 
- RESPOSTA_INI
+**Justificativa:** Desbloqueio de login geralmente é um processo relativamente simples e rápido no Protheus, envolvendo a verificação do status do usuário, possível reset de senha ou liberação por algum administrador. Estimo que um analista experiente deva resolver em torno de 1 hora, mas considerando o tempo de resposta e testes, aloco 5 (Classe B1). A urgência é alta devido ao bloqueio de acesso do usuário.
+
+## ORIENTACAO_H
+
+1.  Verificar no Protheus (Configurador) o status do usuário "eder.spvgoncalves@gmail.com".
+2.  Analisar o log de erro anexado, que indica problema de conexão entre o SmartClient e o Application Server. Verificar se o servidor Protheus está online e acessível.
+3.  Verificar se houve alguma alteração recente em senhas ou configurações de acesso do usuário.
+4.  Caso o usuário esteja bloqueado, realizar o desbloqueio no Configurador. Se necessário, resetar a senha.
+5.  Orientar o usuário a testar o acesso novamente e verificar se o problema persiste.
+6.  Caso o problema persista, investigar questões de rede ou configuração do SmartClient do usuário.
+7.  Verificar se outros usuários estão com o mesmo problema para identificar se é uma falha geral ou específica do usuário.
+
+## RESPOSTA_INI
+
 Prezado(a) Eder,
 
-Seu ticket de ID 5581 foi recebido e está sendo analisado pela nossa equipe de TI. Identificamos uma dificuldade de acesso ao Protheus e estamos investigando a causa. Em breve, um analista entrará em contato com você para dar andamento à solução.
+Seu ticket referente ao desbloqueio de login no Protheus (ID 5581) foi recebido e está sendo analisado pela nossa equipe de TI.
 
- Sugestão de Dados adicionais a serem solicitados
-- Print de tela completo da mensagem de erro ao tentar acessar o Protheus.
-- Informar se outros usuários do mesmo local estão com o mesmo problema.
-- Confirmar se houve alguma alteração recente na rede local ou no computador do usuário.
+Em breve um de nossos analistas entrará em contato para dar andamento à sua solicitação.
 
- SLA_SUGERIDO
-SLA atual de 4 horas (low) parece adequado devido à urgência de restabelecer o acesso do usuário ao sistema.
+Agradecemos a sua compreensão.
 
- VENCIMENTO_SLA_ATUAL
+### Sugestão de Dados adicionais a serem solicitados
+
+*   Solicitar ao usuário um print screen da tela de erro completa, caso possível, para complementar o anexo já enviado.
+*   Perguntar se o usuário consegue acessar outros sistemas ou sites da empresa para descartar problemas de rede local.
+*   Confirmar com o usuário se ele já tentou reiniciar o computador e o SmartClient.
+
+## SLA_SUGERIDO
+
+O SLA atual de 4 horas (Low) é adequado, considerando que o bloqueio de acesso impede o usuário de trabalhar. Em casos de bloqueio de sistema, um SLA curto é crucial para garantir a produtividade do usuário.
+
+## VENCIMENTO_SLA_ATUAL
+
 2025-01-30 20:22:43
 
+---
 
- TICKET
+## TICKET
+
 5680
 
- CATEGORIZACAO
+## CATEGORIZACAO
+
 Ticket Categorizado Corretamente
 
- TIPO_REQ
+## TIPO_REQ
+
 Erro de Sistema
 
- DIFICULDADE
-13 - CLASSE A1
-Justificativa: O erro `InterFunctionCall - Função não encontrada FINA470` indica um problema mais profundo no ambiente Protheus, possivelmente relacionado à configuração do AppMap, RPO desatualizado ou falta de permissões. A análise do log detalhado já fornecido facilita o diagnóstico, mas a correção pode envolver configurações complexas ou até mesmo a necessidade de atualização do RPO.
+## DIFICULDADE
 
- ORIENTACAO_H
-1. Confirmar se a função `FINA470` realmente existe no RPO utilizado no ambiente `WTT2N6_PRD_PREPRODUCAO` e `WTT2N6_PRD`. Utilizar o dicionário de dados ou ferramenta de análise de RPO para verificar.
-2. Verificar o AppMap dos ambientes `WTT2N6_PRD_PREPRODUCAO` e `WTT2N6_PRD` para garantir que a função `FINA470` está corretamente mapeada e acessível.
-3. Comparar o AppMap dos ambientes com um ambiente similar que esteja funcionando corretamente.
-4. Verificar se há alguma customização recente ou ponto de entrada que possa estar interferindo na chamada da função `FINA470`.
-5. Se a função existir e o AppMap estiver correto, verificar permissões de acesso do usuário à função e aos programas `APLIB090.PRW` e `APLIB260.PRW`.
-6. Se necessário, consultar a base de conhecimento TOTVS ou abrir chamado de suporte TOTVS para o erro específico `InterFunctionCall - Função não encontrada FINA470` no programa `APLIB090.PRW`.
+8 - CLASSE B2
 
- RESPOSTA_INI
-Prezado(a) Eder,
+**Justificativa:** Erros de sistema no Protheus, especialmente com logs detalhados como este, podem ser complexos de diagnosticar e resolver. A mensagem "InterFunctionCall: cannot find function FINA470 in AppMap" sugere um problema de configuração do ambiente ou falta de alguma rotina no RPO. Requer análise do AppMap, RPO, possíveis customizações e testes no ambiente de produção. Estimo que a resolução pode levar em torno de 8 horas (Classe B2) entre análise, testes e implantação da correção.
 
-Seu ticket de ID 5680 foi recebido e está sendo analisado pela nossa equipe de TI. Identificamos um erro de sistema no Protheus relacionado à função `FINA470`. Já estamos investigando o log de erro detalhado que você anexou e em breve um analista entrará em contato para dar andamento à solução.
+## ORIENTACAO_H
 
- Sugestão de Dados adicionais a serem solicitados
-- Informar qual rotina do Protheus estava sendo utilizada quando o erro ocorreu.
-- Confirmar se outros usuários estão enfrentando o mesmo erro ao executar a mesma rotina.
-- Detalhar se houve alguma alteração recente no sistema Protheus ou no ambiente.
+1.  Analisar detalhadamente o Error Log fornecido no ticket.
+2.  Verificar se a função "FINA470" realmente existe no RPO do ambiente WTT2N6\_PRD. Utilizar o "UPD - Utilitário de Pesquisa e Download de Objetos" para verificar a existência da função no RPO.
+3.  Verificar o AppMap do ambiente WTT2N6\_PRD para garantir que a função "FINA470" está corretamente mapeada. Comparar com AppMap de ambientes similares (Homologação/Qualidade).
+4.  Investigar se houve alguma atualização recente de RPO ou AppMap no ambiente de produção que possa ter causado a falta da função.
+5.  Verificar se a função "FINA470" é uma função padrão TOTVS ou se é uma customização. Se for customização, verificar se o pacote da customização foi corretamente instalado e mapeado no AppMap.
+6.  Analisar o código fonte de `APLIB090.PRW` e `APLIB260.PRW` nas linhas indicadas (735 e 931) para entender o contexto em que a função "FINA470" está sendo chamada.
+7.  Verificar se há alguma nota técnica TOTVS relacionada ao erro "InterFunctionCall: cannot find function" e à função "FINA470".
+8.  Testar a execução da rotina que chama a função "FINA470" em um ambiente de homologação/qualidade para tentar reproduzir o erro e validar a correção.
+9.  Caso necessário, atualizar o RPO ou o AppMap do ambiente de produção com a versão correta contendo a função "FINA470".
 
- SLA_SUGERIDO
-SLA atual de 20 horas (high) parece adequado para a complexidade inicial do problema, mas pode ser revisado para um SLA maior (ex: Classe A1 - 13 horas) se a investigação inicial indicar uma solução mais rápida.
+## RESPOSTA_INI
 
- VENCIMENTO_SLA_ATUAL
+Prezado(a) Pablo,
+
+Seu ticket referente ao erro de sistema no Protheus (ID 5680) foi recebido e está sendo analisado pela nossa equipe de TI.
+
+Identificamos a mensagem de erro e já estamos investigando as possíveis causas, com base no Error Log que você nos forneceu.
+
+Em breve um de nossos analistas entrará em contato com mais informações.
+
+Agradecemos a sua colaboração.
+
+### Sugestão de Dados adicionais a serem solicitados
+
+*   Confirmar com o usuário em qual rotina ou processo do Protheus o erro ocorreu para direcionar os testes e a análise.
+*   Perguntar se o erro ocorre de forma consistente ou se é intermitente.
+*   Solicitar informações sobre as últimas ações realizadas pelo usuário antes do erro ocorrer.
+
+## SLA_SUGERIDO
+
+O SLA atual de 20 horas (High) parece razoável para um erro de sistema que requer investigação aprofundada.  É importante manter este SLA ou até mesmo aumentá-lo para garantir tempo suficiente para uma análise e solução completa, evitando soluções paliativas.
+
+## VENCIMENTO_SLA_ATUAL
+
 2025-02-07 12:48:01
 
+---
 
- TICKET
-5775
+## TICKET
 
- CATEGORIZACAO
-Ticket Categorizado de forma ERRADA
-A categoria correta seria "Fiscal", o serviço "NF-e" está correto, mas a tarefa deveria ser "Manifestação de Destinatário - Recusa".
+5795
 
- TIPO_REQ
-Solicitação de Usuário
+## CATEGORIZACAO
 
- DIFICULDADE
-8 - CLASSE B2
-Justificativa: Emitir uma manifestação de recusa de NF-e no sistema fiscal (Protheus ou outro sistema utilizado para emissão de MD-e) requer conhecimento fiscal e operacional. É necessário analisar a NF-e, verificar o motivo da recusa (valor contábil errado) e executar o processo correto de manifestação para evitar problemas fiscais e contábeis. O SLA atual (high) parece adequado devido ao impacto fiscal e à necessidade de resolver a pendência com o cliente rapidamente.
-
- ORIENTACAO_H
-1. Corrigir a categorização do ticket para Categoria "Fiscal", Serviço "NF-e", Tarefa "Manifestação de Destinatário - Recusa".
-2. Acessar o sistema responsável pela Manifestação de Destinatário de NF-e (verificar se é Protheus ou sistema externo).
-3. Localizar a NF-e de número 188515 emitida por TRES TENTOS AGROINDUSTRIAL S/A (CNPJ 94.813.102/0058-05). Chave de acesso: 5125 0294 8131 0200 5805 5500 1000 0130 9614 2085 6943.
-4. Emitir a Manifestação de Destinatário do tipo "Recusa" para a NF-e 188515, justificando o motivo como "Valor contábil errado".
-5. Verificar se há algum prazo fiscal para emissão da Manifestação de Recusa para evitar problemas com o SEFAZ.
-6. Informar a Regiane sobre a emissão da Manifestação de Recusa e orientar sobre os próximos passos (correção da NF-e pelo cliente).
-
- RESPOSTA_INI
-Prezada(a) Regiane,
-
-Seu ticket de ID 5775 foi recebido e está sendo analisado pela nossa equipe de TI. Solicitamos a emissão da Manifestação de Recusa para a NF-e 188515 devido a um valor contábil incorreto. Nossa equipe já está atuando para realizar a manifestação no sistema fiscal e em breve um analista entrará em contato para confirmar a conclusão e orientar sobre os próximos passos.
-
- Sugestão de Dados adicionais a serem solicitados
-- Confirmar se o cliente já foi notificado sobre a necessidade de correção da NF-e.
-- Verificar se há alguma instrução específica do departamento fiscal sobre como proceder nesses casos.
-
- SLA_SUGERIDO
-SLA atual de 24 horas (high) parece adequado, mas considerando o impacto fiscal, pode-se considerar um SLA menor (ex: Classe B2 - 8 horas) para garantir a tempestividade da manifestação.
-
- VENCIMENTO_SLA_ATUAL
-2025-02-13 11:49:00
-
-
- TICKET
-5778
-
- CATEGORIZACAO
 Ticket Categorizado Corretamente
 
- TIPO_REQ
-Solicitação de Usuário
+## TIPO_REQ
 
- DIFICULDADE
-8 - CLASSE B2
-Justificativa: Alteração de e-mail para um colaborador envolve processos de segurança e configuração em diversos sistemas (e-mail corporativo, sistemas internos, acessos, etc.).  Requer formulário de alteração, aprovações (se necessário) e execução das alterações nos sistemas. SLA de 8 horas (medium) parece adequado, mas considerando que é para um novo colaborador, pode ser importante agilizar o processo para garantir que ele tenha acesso aos recursos necessários o mais rápido possível.
+Falha de Processo
 
- ORIENTACAO_H
-1. Encaminhar para Valmer o formulário padrão de "Alteração de E-mail" para que seja preenchido para o colaborador Rodrigo Augusto Silverio.
-2. Coletar as informações necessárias no formulário: Nome completo do colaborador, login de rede (Rodrigo), e-mail atual (isadora.pedroso@luftagro.com.br), novo e-mail (a ser criado para Rodrigo), justificativa da alteração.
-3. Verificar se há necessidade de aprovação do gestor da área para alteração de e-mail (dependendo da política interna).
-4. Após o formulário preenchido e aprovado (se necessário), executar a alteração do e-mail nos sistemas relevantes: Active Directory (se aplicável), Exchange/plataforma de e-mail, sistemas internos que utilizam o e-mail como identificador.
-5. Garantir que o e-mail antigo (isadora.pedroso@luftagro.com.br) seja devidamente desativado ou redirecionado, se necessário.
-6. Informar Valmer e o colaborador Rodrigo sobre a conclusão da alteração e fornecer o novo e-mail e orientações de acesso.
+## DIFICULDADE
 
- RESPOSTA_INI
-Prezado(a) Valmer,
-
-Seu ticket de ID 5778 foi recebido e está sendo analisado pela nossa equipe de TI. Solicitamos a substituição do e-mail para o colaborador Rodrigo Augusto Silverio. Já estamos providenciando o formulário de alteração de e-mail e em breve um analista entrará em contato para dar andamento à solicitação.
-
- Sugestão de Dados adicionais a serem solicitados
-- Confirmar o nome completo e correto do colaborador Rodrigo Augusto Silverio para evitar erros na criação do novo e-mail.
-- Verificar se há um e-mail padrão a ser seguido para novos colaboradores (ex: nome.sobrenome@luftagro.com.br).
-- Confirmar se o e-mail `isadora.pedroso@luftagro.com.br` deve ser desativado ou se haverá alguma outra tratativa para ele.
-
- SLA_SUGERIDO
-SLA atual de 8 horas (high) parece razoável, mas para um novo colaborador, considerar um SLA um pouco menor (ex: Classe B1 - 5 horas) seria mais adequado para garantir a produtividade inicial.
-
- VENCIMENTO_SLA_ATUAL
-2025-02-13 23:09:47
-
-
- TICKET
-5781
-
- TICKET
-5781
-
- CATEGORIZACAO
-Ticket Categorizado Corretamente
-
- TIPO_REQ
-Solicitação de Usuário
-
- DIFICULDADE
-21 - CLASSE A2
-Justificativa: Cálculo de "Conta e Ordem" no contexto fiscal (ICMS) é complexo e envolve conhecimento tributário específico, análise da legislação, parametrização correta no sistema fiscal (Silt/Wiser ou Protheus Fiscal) e atenção aos detalhes da NF-e.  O risco de erro no cálculo pode gerar passivos fiscais e contábeis significativos. Duas solicitações similares (Tickets 5781 e 5782) para notas fiscais diferentes aumentam a carga de trabalho e a necessidade de precisão. SLA atual (high) de 24 horas é justificável pela complexidade e impacto fiscal, mas dada a data da solicitação (12/02) e o vencimento do SLA (13/02), é crucial priorizar e iniciar o atendimento o mais rápido possível.
-
- ORIENTACAO_H
-1. Reunir informações completas sobre a operação de "Conta e Ordem" e a legislação tributária aplicável (MT e SP, se aplicável pela NF-e).
-2. Analisar as NF-es 9834 (Ticket 5781) e 9835 (Ticket 5782) da GENICA, prestando atenção aos CFOPs, CSTs, NCMs, valores, e dados adicionais.
-3. Verificar se a Transportes Luft é realmente a transportadora designada para ambas as notas.
-4. Acessar o sistema Silt/Wiser (ou Protheus Fiscal, se utilizado para Conta e Ordem) e parametrizar o cálculo do ICMS para as notas fiscais 9834 e 9835, considerando as regras de "Conta e Ordem".
-5. Realizar o cálculo do ICMS "Conta e Ordem" para ambas as notas, garantindo a correta aplicação da legislação e parametrização no sistema.
-6. Validar os cálculos com o departamento fiscal para garantir a precisão e conformidade.
-7. Fornecer os resultados dos cálculos para Ane Floriano e orientar sobre os próximos passos.
-
- RESPOSTA_INI
-Prezada(o) Ane,
-
-Seu ticket de ID 5781 (e similar 5782) foi recebido e está sendo analisado pela nossa equipe de TI. Solicitamos o cálculo de "Conta e Ordem" para as NF-es 9834 e 9835 da GENICA. Devido à complexidade do cálculo fiscal, nossa equipe especializada já está atuando para realizar a análise e o cálculo correto. Em breve, um analista entrará em contato para apresentar os resultados e orientar sobre os próximos passos.
-
- Sugestão de Dados adicionais a serem solicitados
-- Confirmar se há alguma instrução específica do departamento fiscal sobre o tratamento tributário da operação de "Conta e Ordem" para este cliente/produto.
-- Verificar se há algum regime tributário especial ou benefício fiscal aplicável à operação.
-- Solicitar contato do departamento fiscal da Genica para esclarecer dúvidas, se necessário.
-
- SLA_SUGERIDO
-SLA atual de 24 horas (high) é justificado pela complexidade do cálculo fiscal e o risco de erros. No entanto, dada a natureza fiscal e potencial impacto financeiro,  manter o SLA atual e priorizar a execução é fundamental.
-
- VENCIMENTO_SLA_ATUAL
-2025-02-13 16:43:29
-
-
- TICKET
-5782
-
- CATEGORIZACAO
-Ticket Categorizado Corretamente
-
- TIPO_REQ
-Solicitação de Usuário
-
- DIFICULDADE
-21 - CLASSE A2
-Justificativa: (Mesma justificativa do Ticket 5781). Cálculo de "Conta e Ordem" no contexto fiscal (ICMS) é complexo e envolve conhecimento tributário específico, análise da legislação, parametrização correta no sistema fiscal (Silt/Wiser ou Protheus Fiscal) e atenção aos detalhes da NF-e.  O risco de erro no cálculo pode gerar passivos fiscais e contábeis significativos. Duas solicitações similares (Tickets 5781 e 5782) para notas fiscais diferentes aumentam a carga de trabalho e a necessidade de precisão. SLA atual (high) de 24 horas é justificável pela complexidade e impacto fiscal, mas dada a data da solicitação (12/02) e o vencimento do SLA (13/02), é crucial priorizar e iniciar o atendimento o mais rápido possível.
-
- ORIENTACAO_H
-1. (Mesmas orientações do Ticket 5781). Reunir informações completas sobre a operação de "Conta e Ordem" e a legislação tributária aplicável (MT e SP, se aplicável pela NF-e).
-2. Analisar as NF-es 9834 (Ticket 5781) e 9835 (Ticket 5782) da GENICA, prestando atenção aos CFOPs, CSTs, NCMs, valores, e dados adicionais.
-3. Verificar se a Transportes Luft é realmente a transportadora designada para ambas as notas.
-4. Acessar o sistema Silt/Wiser (ou Protheus Fiscal, se utilizado para Conta e Ordem) e parametrizar o cálculo do ICMS para as notas fiscais 9834 e 9835, considerando as regras de "Conta e Ordem".
-5. Realizar o cálculo do ICMS "Conta e Ordem" para ambas as notas, garantindo a correta aplicação da legislação e parametrização no sistema.
-6. Validar os cálculos com o departamento fiscal para garantir a precisão e conformidade.
-7. Fornecer os resultados dos cálculos para Ane Floriano e orientar sobre os próximos passos.
-
- RESPOSTA_INI
-Prezada(o) Ane,
-
-Seu ticket de ID 5782 (similar ao 5781) foi recebido e está sendo analisado pela nossa equipe de TI. Solicitamos o cálculo de "Conta e Ordem" para a NF-e 9835 da GENICA. Em conjunto com o ticket anterior (5781), nossa equipe especializada já está atuando para realizar a análise e o cálculo correto para ambas as notas. Em breve, um analista entrará em contato para apresentar os resultados e orientar sobre os próximos passos.
-
- Sugestão de Dados adicionais a serem solicitados
-- (Mesmas sugestões do Ticket 5781). Confirmar se há alguma instrução específica do departamento fiscal sobre o tratamento tributário da operação de "Conta e Ordem" para este cliente/produto.
-- Verificar se há algum regime tributário especial ou benefício fiscal aplicável à operação.
-- Solicitar contato do departamento fiscal da Genica para esclarecer dúvidas, se necessário.
-
- SLA_SUGERIDO
-SLA atual de 24 horas (high) é justificado pela complexidade do cálculo fiscal e o risco de erros.  Manter o SLA atual e priorizar a execução, em conjunto com o Ticket 5781, é fundamental.
-
- VENCIMENTO_SLA_ATUAL
-2025-02-13 16:44:15
-
-
- TICKET
-5776
-
- CATEGORIZACAO
-Ticket Categorizado Corretamente
-
- TIPO_REQ
-Solicitação de Usuário
-
- DIFICULDADE
 5 - CLASSE B1
-Justificativa: Liberação de trava de chave de acesso no Protheus, especialmente no módulo de Compras, geralmente é um procedimento rápido. Pode envolver verificar logs de acesso, identificar a causa da trava (tentativas de senha erradas, etc.) e executar a liberação no sistema de segurança do Protheus. SLA de 8 horas (medium) é um pouco elevado para este tipo de solicitação, mas considerando que é para um ambiente "FARMA 15", que pode ter regras de segurança mais rigorosas, a dificuldade sobe um pouco.
 
- ORIENTACAO_H
-1. Verificar no Protheus (ambiente FARMA 15) qual usuário está com a chave de acesso travada. Confirmar se é realmente a "maria.teodosio".
-2. Investigar os logs de acesso do Protheus para identificar a causa da trava da chave de acesso (ex: tentativas de senha incorretas).
-3. Acessar a rotina de liberação de usuários travados no Protheus (módulo Configurador ou Segurança, dependendo da versão do Protheus).
-4. Liberar a chave de acesso do usuário "maria.teodosio".
-5. Testar o acesso do usuário para confirmar que a liberação foi bem-sucedida.
-6. Informar Maria Teodosio sobre a liberação da chave e orientar sobre a senha de acesso (caso tenha sido problema de senha incorreta).
+**Justificativa:** A emissão de NF recusada indica um problema no processo de emissão fiscal. A análise envolve verificar o motivo da recusa (que não foi explicitado no ticket, mas deve estar nos anexos - NFEs), corrigir o problema (que pode ser desde um erro de digitação a uma falha de parametrização fiscal) e reemitir as notas. Estimo um tempo de resolução em torno de 5 horas (Classe B1) considerando análise das NFEs, correção e reemissão. A prioridade é alta pois impacta o faturamento.
 
- RESPOSTA_INI
-Prezada(a) Eliane,
+## ORIENTACAO_H
 
-Seu ticket de ID 5776 foi recebido e está sendo analisado pela nossa equipe de TI. Solicitamos a liberação da trava de chave de acesso para o ambiente FARMA 15. Nossa equipe já está atuando para realizar a liberação e em breve um analista entrará em contato para confirmar a conclusão.
+1.  Analisar os anexos (NF-e 20843 e 20844) para identificar o motivo da recusa das notas fiscais pela SEFAZ CD/GO. O motivo da recusa deve constar no XML das NF-e ou no retorno da SEFAZ.
+2.  Verificar se o problema está relacionado a algum erro de preenchimento de campos, parametrização fiscal incorreta no Protheus, ou alguma regra específica da SEFAZ de Goiás.
+3.  Conferir os dados cadastrais do cliente "ELINEAGRO PRODUTOS AGROPECUARIOS SA" no Protheus (endereço, Inscrição Estadual, CNPJ, etc.).
+4.  Revisar as configurações fiscais dos produtos "ULTIMATO SC - BB 20 LT" e "2,4-D AMINA CCAB 806 SL (IMP) - BB 20 LT" no Protheus (NCM, CST, CFOP, etc.).
+5.  Se o erro for identificável e corrigível no Protheus, realizar as correções necessárias e tentar reemitir as notas fiscais (20843 e 20844).
+6.  Caso o erro persista, ou se for um erro mais complexo (ex: rejeição por regra de validação da SEFAZ), pesquisar na documentação da SEFAZ GO ou em sites especializados sobre o motivo da recusa específica.
+7.  Se necessário, entrar em contato com a SEFAZ GO para obter mais informações sobre a recusa.
+8.  Após identificar e corrigir o problema, reemitir as notas fiscais e acompanhar o processamento para garantir a aprovação.
+9.  Informar o usuário Vinicius sobre a resolução e o envio das notas fiscais corrigidas.
 
- Sugestão de Dados adicionais a serem solicitados
-- Confirmar o login Protheus exato do usuário que está com a chave travada (se for diferente de "maria.teodosio").
-- Perguntar ao usuário se ele se lembra da senha e se tentou acessos recentes com senhas incorretas.
+## RESPOSTA_INI
 
- SLA_SUGERIDO
-SLA atual de 8 horas (medium) pode ser considerado um pouco alto para este tipo de solicitação. Um SLA de Classe C (3 horas) ou Classe D (2 horas) seria mais adequado para liberação de trava de acesso.
+Prezado(a) Vinicius,
 
- VENCIMENTO_SLA_ATUAL
-2025-02-12 21:57:58
+Seu ticket referente à emissão de notas fiscais recusadas (ID 5795) foi recebido e está sendo analisado pela nossa equipe de TI.
 
+Já identificamos as notas fiscais 20844 e 20843 e estamos investigando o motivo da recusa junto à SEFAZ CD/GO e nas configurações do Protheus.
 
- TICKET
-5784
+Em breve um de nossos analistas entrará em contato com a solução.
 
- CATEGORIZACAO
+Agradecemos a sua paciência.
+
+### Sugestão de Dados adicionais a serem solicitados
+
+*   Caso o motivo da recusa não esteja claro nos anexos, solicitar ao usuário o XML completo das notas fiscais recusadas, ou o retorno detalhado da SEFAZ com o código e a descrição da rejeição.
+*   Perguntar ao usuário se houve alguma alteração recente na legislação fiscal ou nas configurações fiscais da empresa que possa ter impactado a emissão das notas.
+
+## SLA_SUGERIDO
+
+O SLA atual de 24 horas (Low) pode ser mantido, mas considerando o impacto no processo de faturamento, seria ideal que este tipo de ticket tivesse um SLA um pouco menor, talvez 12-16 horas (Classe C/B1), para agilizar a resolução de problemas fiscais que impactam diretamente a operação da empresa.
+
+## VENCIMENTO_SLA_ATUAL
+
+2025-02-14 13:47:44
+
+---
+
+## TICKET
+
+5800
+
+## CATEGORIZACAO
+
 Ticket Categorizado Corretamente
 
- TIPO_REQ
+## TIPO_REQ
+
 Solicitação de Usuário
 
- DIFICULDADE
+## DIFICULDADE
+
 3 - CLASSE C
-Justificativa: Instalação de impressora para um novo colaborador é uma tarefa padrão de infraestrutura. Envolve conectar a impressora, instalar drivers, configurar na máquina do usuário e testar a impressão. O tempo de 3 horas para a Classe C parece razoável para essa atividade, considerando que pode haver configuração de rede e testes adicionais.
 
- ORIENTACAO_H
-1. Identificar a impressora a ser instalada para a colaboradora Ana Julia Alkimim Piedade (nova ou existente, modelo, IP/Nome de rede).
-2. Verificar se a impressora está fisicamente disponível e conectada à rede.
-3. Acessar a máquina da colaboradora Ana Julia (login ana.piedade).
-4. Instalar os drivers da impressora na máquina da colaboradora.
-5. Configurar a impressora como padrão, se necessário.
-6. Realizar testes de impressão para garantir o funcionamento correto (página de teste, impressão de documento).
-7. Informar Maria Teodosio sobre a conclusão da instalação da impressora.
+**Justificativa:** O ticket solicita o cálculo de base de notas fiscais para transmissão de remessa simbólica. É uma solicitação de apoio operacional/fiscal. A dificuldade reside em entender exatamente qual "base" o usuário precisa calcular e quais notas fiscais estão envolvidas (NF 9426/9427). Estimo que um analista, após entender a solicitação, possa realizar o cálculo e orientar o usuário em 3 horas (Classe C).
 
- RESPOSTA_INI
-Prezada(o) Maria Teodosio,
+## ORIENTACAO_H
 
-Seu ticket de ID 5784 foi recebido e está sendo analisado pela nossa equipe de TI. Solicitamos a instalação de uma impressora para a nova colaboradora Ana Julia Alkimim Piedade. Nossa equipe já está programando a instalação e em breve um analista entrará em contato para confirmar a conclusão.
+1.  Entrar em contato com o usuário Vinicius para entender qual "base de cálculo" ele precisa para as notas fiscais 9426 e 9427.  Especificamente, perguntar qual informação ele precisa extrair das notas para a remessa simbólica.
+2.  Verificar as notas fiscais 9426 e 9427 no Protheus para entender o contexto da operação e os dados relevantes para o cálculo solicitado.
+3.  Auxiliar o usuário a identificar e calcular a base desejada. Pode ser base de cálculo de ICMS, IPI, PIS/COFINS, ou algum outro valor específico para a remessa simbólica.
+4.  Orientar o usuário sobre como obter essa base de cálculo diretamente no Protheus, caso seja uma informação padrão do sistema.
+5.  Se o cálculo for mais complexo ou envolver regras específicas, auxiliar o usuário a realizar o cálculo manualmente ou através de alguma funcionalidade do Protheus.
+6.  Confirmar com o usuário se o cálculo atende à necessidade para a transmissão da remessa simbólica.
 
- Sugestão de Dados adicionais a serem solicitados
-- Confirmar o modelo da impressora a ser instalada ou se há alguma impressora específica designada para a colaboradora.
-- Verificar se há alguma política de impressoras padrão por setor/local para seguir na instalação.
+## RESPOSTA_INI
 
- SLA_SUGERIDO
-SLA atual de 8 horas (medium) parece um pouco alto para instalação de impressora. Um SLA de Classe C (3 horas) seria mais adequado para esta tarefa.
+Prezado(a) Vinicius,
 
- VENCIMENTO_SLA_ATUAL
-2025-02-13 02:51:22
+Seu ticket referente ao cálculo de base para notas fiscais (ID 5800) foi recebido e está sendo analisado pela nossa equipe de TI.
 
+Para prosseguirmos com a sua solicitação, precisamos entender qual tipo de base de cálculo você necessita para as notas fiscais 9426 e 9427 e para qual finalidade (transmissão de remessa simbólica).
 
- TICKET
-5785
+Em breve um de nossos analistas entrará em contato para coletar mais detalhes e auxiliar no cálculo.
 
- CATEGORIZACAO
+Agradecemos a sua colaboração.
+
+### Sugestão de Dados adicionais a serem solicitados
+
+*   **Solicitar ao usuário detalhes sobre qual "base de cálculo" ele precisa.**  Perguntar se é a base de cálculo de ICMS, IPI, PIS/COFINS, ou outra base específica.
+*   **Perguntar para qual finalidade ele precisa dessa base de cálculo, além da "remessa simbólica".** Isso pode ajudar a entender o contexto e a necessidade do usuário.
+*   **Confirmar se as notas fiscais 9426 e 9427 são de venda e se referem à operação de remessa simbólica.**
+
+## SLA_SUGERIDO
+
+O SLA atual de 24 horas (high) parece adequado para uma solicitação de cálculo de base fiscal. Não é urgente como um erro de sistema, mas é importante para o andamento do processo fiscal da empresa.
+
+## VENCIMENTO_SLA_ATUAL
+
+2025-02-14 15:29:57
+
+---
+
+## TICKET
+
+5799
+
+## CATEGORIZACAO
+
 Ticket Categorizado Corretamente
 
- TIPO_REQ
+## TIPO_REQ
+
 Solicitação de Usuário
 
- DIFICULDADE
-3 - CLASSE C
-Justificativa: Instalar o Protheus em uma nova máquina para um novo colaborador é uma tarefa padrão.  Envolve acessar a máquina (ana.piedade), executar o instalador do Protheus Smart Client, configurar o ambiente de conexão (servidor, porta) e realizar testes básicos de acesso. O tempo de 3 horas para a Classe C parece razoável para essa atividade, considerando configuração e testes.
+## DIFICULDADE
 
- ORIENTACAO_H
-1. Acessar a máquina da colaboradora Ana Julia Alkimim Piedade (login ana.piedade).
-2. Localizar o instalador do Protheus Smart Client (na rede ou repositório de software).
-3. Executar o instalador do Protheus e seguir os passos de instalação padrão.
-4. Configurar o ambiente de conexão do Protheus Smart Client (servidor Protheus, porta, etc.).
-5. Realizar testes de acesso ao Protheus com o login da colaboradora (se já criado) ou com um login de teste para verificar a instalação.
-6. Informar Maria Teodosio sobre a conclusão da instalação do Protheus.
-
- RESPOSTA_INI
-Prezada(o) Maria Teodosio,
-
-Seu ticket de ID 5785 foi recebido e está sendo analisado pela nossa equipe de TI. Solicitamos a instalação do Protheus na máquina da nova colaboradora Ana Julia Alkimim Piedade. Nossa equipe já está programando a instalação e em breve um analista entrará em contato para confirmar a conclusão.
-
- Sugestão de Dados adicionais a serem solicitados
-- Confirmar qual ambiente Protheus deve ser instalado (Produção, Homologação, etc.).
-- Verificar se já existe o usuário Protheus para a colaboradora Ana Julia ou se a criação do usuário é um ticket separado (Tickets 5769, 5770, 5771 podem estar relacionados).
-
- SLA_SUGERIDO
-SLA atual de 8 horas (medium) parece um pouco alto para instalação do Protheus. Um SLA de Classe C (3 horas) seria mais adequado para esta tarefa.
-
- VENCIMENTO_SLA_ATUAL
-2025-02-13 02:54:07
-
-
- TICKET
-5761
-
- CATEGORIZACAO
-Ticket Categorizado Corretamente
-
- TIPO_REQ
-Erro de Sistema
-
- DIFICULDADE
 5 - CLASSE B1
-Justificativa: Problemas ao abrir relatórios do Protheus Web, com arquivos abrindo como .xml, indicam um problema de configuração do navegador, do Protheus Web ou do próprio relatório.  Investigação e correção da configuração podem demandar tempo, mas geralmente não são de alta complexidade. SLA de 12 horas (medium) parece razoável para diagnosticar e corrigir problemas de abertura de relatórios web.
 
- ORIENTACAO_H
-1. Verificar qual navegador o usuário Tatiane está utilizando para acessar o Protheus Web (Chrome, Edge, Firefox, etc.).
-2. Instruir o usuário a limpar o cache e cookies do navegador e tentar novamente abrir os relatórios.
-3. Verificar se há alguma configuração específica do navegador necessária para abrir relatórios do Protheus Web (ex: plugins, configurações de segurança).
-4. Testar abrir os relatórios em outro navegador para verificar se o problema é específico do navegador utilizado por Tatiane.
-5. Verificar se o problema ocorre com todos os relatórios ou apenas com alguns específicos. Se for com relatórios específicos, investigar a configuração desses relatórios no Protheus.
-6. Verificar se há alguma atualização pendente do Protheus Web ou do Smart Client que possa corrigir o problema.
-7. Se o problema persistir, pode ser necessário verificar configurações do servidor Protheus Web.
+**Justificativa:** Similar ao Ticket 5800, mas com um problema adicional: o anexo parece ilegível (dados binários/corrompidos).  A dificuldade aumenta um pouco pois pode ser necessário pedir novamente o anexo ao usuário e entender qual informação ele precisa extrair das notas fiscais. Estimo 5 horas (Classe B1) para resolver, considerando a necessidade de lidar com o anexo problemático e entender a demanda do usuário.
 
- RESPOSTA_INI
-Prezada(o) Tatiane,
+## ORIENTACAO_H
 
-Seu ticket de ID 5761 foi recebido e está sendo analisado pela nossa equipe de TI. Identificamos uma dificuldade ao abrir relatórios do Protheus Web, com arquivos abrindo em formato .xml. Nossa equipe já está investigando a causa e em breve um analista entrará em contato para orientá-la e solucionar o problema.
+1.  Informar o usuário Danilo que o anexo enviado no ticket (referente às notas fiscais para cálculo de base) parece ilegível ou corrompido.
+2.  Solicitar ao usuário que reenvie o anexo das notas fiscais, garantindo que o arquivo esteja correto e em um formato legível (PDF ou XML da NF-e).
+3.  Após receber o anexo correto, analisar as notas fiscais para entender o contexto da operação e os dados relevantes para o cálculo solicitado.
+4.  Entrar em contato com o usuário Danilo para entender qual "base de cálculo" ele precisa. Especificamente, perguntar qual informação ele precisa extrair das notas fiscais.
+5.  Auxiliar o usuário a identificar e calcular a base desejada. Pode ser base de cálculo de ICMS, IPI, PIS/COFINS, ou algum outro valor específico.
+6.  Orientar o usuário sobre como obter essa base de cálculo diretamente no Protheus, caso seja uma informação padrão do sistema.
+7.  Se o cálculo for mais complexo ou envolver regras específicas, auxiliar o usuário a realizar o cálculo manualmente ou através de alguma funcionalidade do Protheus.
+8.  Confirmar com o usuário se o cálculo atende à necessidade.
 
- Sugestão de Dados adicionais a serem solicitados
-- Informar qual navegador e versão está sendo utilizada para acessar o Protheus Web.
-- Enviar um print de tela do erro ou da forma como o arquivo .xml é aberto.
-- Confirmar se o problema ocorre com todos os relatórios ou apenas com alguns específicos.
+## RESPOSTA_INI
 
- SLA_SUGERIDO
-SLA atual de 12 horas (medium) parece adequado para diagnosticar e resolver problemas de abertura de relatórios web.
+Prezado(a) Danilo,
 
- VENCIMENTO_SLA_ATUAL
-2025-02-13 21:44:12
+Seu ticket referente ao cálculo de base para notas fiscais (ID 5799) foi recebido e está sendo analisado pela nossa equipe de TI.
 
+Identificamos um problema com o anexo enviado no ticket. O arquivo parece estar ilegível ou corrompido, o que impede a análise das notas fiscais.
 
- TICKET
-5753
+Por gentileza, poderia reenviar o anexo das notas fiscais em um formato legível (PDF ou XML da NF-e)?
 
- CATEGORIZACAO
-Ticket Categorizado Corretamente
+Assim que recebermos o anexo correto, daremos andamento à sua solicitação.
 
- TIPO_REQ
-Solicitação de Usuário
+Agradecemos a sua colaboração.
 
- DIFICULDADE
-5 - CLASSE B1
-Justificativa: Configuração de VPN corporativa para um colaborador que perdeu o acesso envolve verificar o perfil de acesso do usuário, reinstalar/reconfigurar o cliente VPN (Sophos Connect) e realizar testes de conexão.  O SLA de 12 horas (medium) parece razoável, considerando que pode envolver interação com o TI Solutions para a configuração do Sophos Connect.
+### Sugestão de Dados adicionais a serem solicitados
 
- ORIENTACAO_H
-1. Verificar o perfil de acesso do colaborador Thiago Marinho Teixeira dos Santos para confirmar se o acesso VPN está habilitado e configurado corretamente.
-2. Instruir o TI Solutions a realizar a configuração do Sophos Connect na máquina do colaborador Thiago.
-3. Fornecer ao TI Solutions as informações necessárias para a configuração do Sophos Connect (servidor VPN, usuário/senha VPN, etc.).
-4. Orientar o TI Solutions a testar a conexão VPN após a configuração e verificar o acesso à rede corporativa.
-5. Caso o TI Solutions necessite de suporte adicional, acionar a equipe de infraestrutura de rede.
-6. Informar Caio Quaresma sobre a conclusão da configuração do VPN e orientar o colaborador Thiago a testar o acesso.
+*   **Solicitar o reenvio do anexo das notas fiscais em formato PDF ou XML da NF-e.**
+*   **Reforçar a pergunta sobre qual "base de cálculo" ele precisa.**  Especificar os tipos de base (ICMS, IPI, etc.) para direcionar a resposta do usuário.
+*   **Perguntar se há alguma urgência no cálculo da base e para qual finalidade específica.**
 
- RESPOSTA_INI
-Prezado(a) Caio,
+## SLA_SUGERIDO
 
-Seu ticket de ID 5753 foi recebido e está sendo analisado pela nossa equipe de TI. Solicitamos a configuração da Rede VPN Corporativa para o colaborador Thiago Marinho Teixeira dos Santos. Nossa equipe já está acionando o TI Solutions para realizar a configuração do Sophos Connect e em breve um analista entrará em contato para confirmar a conclusão.
+O SLA atual de 24 horas (low) é aceitável, similar ao Ticket 5800. A resolução depende do reenvio do anexo pelo usuário.
 
- Sugestão de Dados adicionais a serem solicitados
-- Confirmar se o colaborador Thiago possui as credenciais de acesso VPN (usuário e senha).
-- Verificar se houve alguma alteração recente no perfil de acesso do colaborador que possa ter causado a perda do acesso VPN.
+## VENCIMENTO_SLA_ATUAL
 
- SLA_SUGERIDO
-SLA atual de 12 horas (medium) parece adequado para a configuração de VPN, considerando a necessidade de interação com o TI Solutions.
+2025-02-14 15:27:32
 
- VENCIMENTO_SLA_ATUAL
-2025-02-12 04:27:08
+---
 
+## TICKET
 
- TICKET
-5783
-
- CATEGORIZACAO
-Ticket Categorizado Corretamente
-
- TIPO_REQ
-Solicitação de Usuário
-
- DIFICULDADE
-3 - CLASSE C
-Justificativa: Liberar acesso à rede para um novo colaborador envolve verificar o perfil de acesso, adicionar o usuário aos grupos de rede corretos (compartilhamento S:\controladoria), e testar o acesso. O tempo de 3 horas para a Classe C parece razoável, considerando que pode envolver configurações no Active Directory ou sistema de gestão de usuários.
-
- ORIENTACAO_H
-1. Verificar o perfil de acesso da nova colaboradora Ana Julia Alkimim Piedade (login ana.piedade).
-2. Adicionar o usuário "ana.piedade" ao grupo de rede correto para acesso ao compartilhamento "S:\controladoria".
-3. Verificar se o compartilhamento "S:\controladoria" existe e está configurado corretamente.
-4. Testar o acesso da colaboradora "ana.piedade" ao compartilhamento "S:\controladoria".
-5. Informar Maria Teodosio sobre a liberação do acesso à rede.
-
- RESPOSTA_INI
-Prezada(o) Maria Teodosio,
-
-Seu ticket de ID 5783 foi recebido e está sendo analisado pela nossa equipe de TI. Solicitamos a liberação de acesso à rede para a nova colaboradora Ana Julia Alkimim Piedade, especificamente ao compartilhamento S:\controladoria. Nossa equipe já está providenciando a liberação e em breve um analista entrará em contato para confirmar a conclusão.
-
- Sugestão de Dados adicionais a serem solicitados
-- Confirmar se o caminho de rede "S:\controladoria" está correto e se é este o compartilhamento desejado para a colaboradora.
-- Verificar se há alguma política de acesso a compartilhamentos de rede para novos colaboradores do setor da controladoria.
-
- SLA_SUGERIDO
-SLA atual de 12 horas (medium) parece um pouco alto para liberação de acesso à rede. Um SLA de Classe C (3 horas) seria mais adequado para esta tarefa.
-
- VENCIMENTO_SLA_ATUAL
-2025-02-13 23:49:05
-
-
- TICKET
-5768
-
- CATEGORIZACAO
-Ticket Categorizado Corretamente
-
- TIPO_REQ
-Solicitação de Usuário
-
- DIFICULDADE
-5 - CLASSE B1
-Justificativa: Instalação de CPU (desktop) para um novo colaborador envolve a preparação da máquina (configuração, instalação de sistema operacional, etc.), conexão de periféricos, testes e organização do espaço de trabalho. O SLA de 16 horas (medium) parece razoável, considerando o tempo para todas as etapas e possíveis imprevistos na preparação da máquina.
-
- ORIENTACAO_H
-1. Identificar se há uma CPU (desktop) disponível para instalação para o novo colaborador do setor da Torre de Controle.
-2. Preparar a CPU para instalação (formatação/reconfiguração se necessário, instalação de sistema operacional padrão, instalação de softwares básicos - Office, etc.).
-3. Levar a CPU até o setor da Torre de Controle e realizar a instalação física (conexão de monitor, teclado, mouse, rede, energia).
-4. Configurar a CPU na rede corporativa (domínio, IP, etc.).
-5. Realizar testes de funcionamento da CPU e periféricos.
-6. Organizar o espaço de trabalho do novo colaborador, se necessário.
-7. Informar Marcos Ferreira sobre a conclusão da instalação da CPU.
-
- RESPOSTA_INI
-Prezado(a) Marcos,
-
-Seu ticket de ID 5768 foi recebido e está sendo analisado pela nossa equipe de TI. Solicitamos a instalação de uma CPU para um novo colaborador no setor da Torre de Controle. Nossa equipe já está providenciando a CPU e a instalação e em breve um analista entrará em contato para confirmar a conclusão.
-
- Sugestão de Dados adicionais a serem solicitados
-- Confirmar se há alguma especificação técnica para a CPU a ser instalada (ex: modelo, configuração mínima).
-- Verificar se há algum software específico a ser instalado na CPU além dos padrões (Office, Protheus, etc.).
-
- SLA_SUGERIDO
-SLA atual de 16 horas (medium) parece adequado para a instalação completa de uma CPU, considerando preparação, instalação física e configuração.
-
- VENCIMENTO_SLA_ATUAL
-2025-02-13 02:36:36
-
-
- TICKET
-5720
-
- CATEGORIZACAO
-Ticket Categorizado de forma ERRADA
-A categoria correta seria "Financeiro", o serviço correto seria "Contas a Pagar", e a tarefa poderia ser "Exclusão de Título".
-
- TIPO_REQ
-Erro de Usuário / Falha de Processo
-(Erro de usuário ao criar o título, mas processo de exclusão que precisa ser atendido pelo TI).
-
- DIFICULDADE
-3 - CLASSE C
-Justificativa: Exclusão de título no Contas a Pagar do Protheus, criado erroneamente, é um procedimento relativamente simples, desde que o título não tenha movimentações (baixas, etc.).  Requer acesso ao módulo Contas a Pagar, localização do título e execução da exclusão. SLA de 16 horas (medium) parece alto para esta tarefa, mas considerando que envolve ambiente financeiro, pode haver necessidade de validações adicionais.
-
- ORIENTACAO_H
-1. Corrigir a categorização do ticket para Categoria "Financeiro", Serviço "Contas a Pagar", Tarefa "Exclusão de Título".
-2. Acessar o Protheus no ambiente "FARMA".
-3. Navegar até o módulo Contas a Pagar.
-4. Localizar o título 637647646, com emissão e vencimento em 07/02/2025, da empresa FARMA.
-5. Verificar se o título pode ser excluído (se não possui movimentações, baixas, etc.).
-6. Executar a exclusão do título, confirmando com o usuário Thaina Ramos, se necessário, antes de excluir definitivamente.
-7. Informar Thaina Ramos sobre a exclusão do título e orientar sobre a correta criação do título no futuro (com o número do banco).
-
- RESPOSTA_INI
-Prezada(o) Thaina,
-
-Seu ticket de ID 5720 foi recebido e está sendo analisado pela nossa equipe de TI. Solicitamos a exclusão do título 637647646 criado erroneamente no Contas a Pagar da empresa FARMA. Nossa equipe já está verificando a possibilidade de exclusão e em breve um analista entrará em contato para confirmar a conclusão.
-
- Sugestão de Dados adicionais a serem solicitados
-- Confirmar se o título realmente não possui nenhuma movimentação (baixa, etc.) antes de proceder com a exclusão.
-- Perguntar ao usuário qual o número do banco correto para que ele possa recriar o título corretamente após a exclusão.
-
- SLA_SUGERIDO
-SLA atual de 16 horas (medium) parece alto para exclusão de título. Um SLA de Classe C (3 horas) seria mais adequado para esta tarefa.
-
- VENCIMENTO_SLA_ATUAL
-2025-02-11 04:45:16
-
-
- TICKET
 5713
 
- CATEGORIZACAO
+## CATEGORIZACAO
+
 Ticket Categorizado Corretamente
 
- TIPO_REQ
+## TIPO_REQ
+
 Solicitação de Usuário
 
- DIFICULDADE
-2 - CLASSE D
-Justificativa: Solicitação de verificação para instalação de nova impressora ou manutenção da impressora Lexmark MX611dhe (IP 10.29.0.200) com travamento.  A dificuldade é baixa se for apenas manutenção (troca de toner, limpeza, etc.) ou instalação simples de nova impressora. Pode aumentar um pouco se a manutenção da Lexmark exigir técnico especializado ou se a instalação da nova impressora envolver configuração de rede complexa.  SLA de 6 horas (low) parece adequado para a avaliação inicial e agendamento da manutenção/instalação.
+## DIFICULDADE
 
- ORIENTACAO_H
-1. Verificar se já existe uma solicitação de nova impressora para o setor do usuário Wallace Pereira (Agro Campo Novo do Parecis). Se sim, priorizar a instalação da nova impressora.
-2. Se não houver nova impressora, ou se a prioridade for manter a Lexmark MX611dhe em funcionamento, agendar manutenção para a impressora Lexmark.
-3. Para manutenção da Lexmark:
-    - Tentar contato remoto com a impressora (acessar interface web pelo IP 10.29.0.200) para verificar logs de erro e status da impressora.
-    - Realizar procedimentos básicos de manutenção remota (reinicialização, limpeza de queue de impressão).
-    - Se o problema persistir, agendar visita técnica local ou enviar técnico de TI para Campo Novo do Parecis para manutenção física da impressora (verificar travamentos, peças, etc.).
-4. Para instalação de nova impressora (se aplicável):
-    - Definir modelo da nova impressora e local de instalação.
-    - Realizar a instalação física e configuração da nova impressora, conforme Tickets 5784 e 5785 (instalação impressora e drivers).
-5. Informar Wallace Pereira sobre o andamento da solicitação (agendamento da manutenção ou instalação da nova impressora).
+3 - CLASSE C
 
- RESPOSTA_INI
+**Justificativa:** A solicitação é para instalação de uma nova impressora ou manutenção da impressora existente (Lexmark).  É uma tarefa de infraestrutura relativamente comum. A dificuldade pode variar dependendo da complexidade da instalação/manutenção e da disponibilidade de recursos. Estimo 3 horas (Classe C) para diagnosticar e resolver, seja instalando uma nova impressora ou realizando a manutenção da existente.
+
+## ORIENTACAO_H
+
+1.  Entrar em contato com o usuário Wallace para confirmar se a prioridade é a instalação de uma nova impressora ou a manutenção da Lexmark MX611dhe.
+2.  Se a prioridade for a manutenção da Lexmark, realizar os seguintes passos:
+    *   Acessar remotamente a impressora através do IP 10.29.0.200 para verificar o status e logs de erro.
+    *   Verificar se há algum problema físico na impressora (papel preso, toner/cilindro com defeito, etc.).
+    *   Tentar reiniciar a impressora remotamente ou fisicamente.
+    *   Se o travamento persistir, agendar uma visita técnica ao local (Campo Novo do Parecis) para realizar a manutenção presencial.
+    *   Verificar se há peças de reposição disponíveis para a Lexmark MX611dhe caso seja necessário substituir algum componente.
+3.  Se a prioridade for a instalação de uma nova impressora, verificar:
+    *   Se há uma nova impressora disponível para instalação e qual modelo.
+    *   Qual o local exato da instalação (sala/setor) para verificar a disponibilidade de pontos de rede e energia.
+    *   Agendar a instalação da nova impressora no local, configurando a rede e drivers necessários.
+    *   Após a instalação da nova impressora, verificar se a Lexmark MX611dhe pode ser retirada para manutenção em laboratório ou se será descartada.
+4.  Informar o usuário Wallace sobre o andamento da solicitação e o agendamento da manutenção ou instalação.
+
+## RESPOSTA_INI
+
 Prezado(a) Wallace,
 
-Seu ticket de ID 5713 foi recebido e está sendo analisado pela nossa equipe de TI. Solicitamos a verificação para instalação de nova impressora ou manutenção da impressora Lexmark MX611dhe. Nossa equipe já está avaliando a melhor solução e em breve um analista entrará em contato para informar sobre o agendamento da manutenção ou instalação.
+Seu ticket referente à instalação de nova impressora ou manutenção da Lexmark (ID 5713) foi recebido e está sendo analisado pela nossa equipe de Infraestrutura.
 
- Sugestão de Dados adicionais a serem solicitados
-- Confirmar se há preferência pela instalação de uma nova impressora ou pela manutenção da Lexmark existente.
-- Detalhar o tipo de travamento que a impressora Lexmark está apresentando (mensagem de erro, físico, etc.).
+Para darmos andamento à sua solicitação, por gentileza, confirme se a prioridade é a instalação de uma nova impressora ou a manutenção da Lexmark MX611dhe (IP: 10.29.0.200).
 
- SLA_SUGERIDO
-SLA atual de 6 horas (low) parece adequado para a avaliação inicial e agendamento da manutenção/instalação da impressora.
+Em breve um de nossos analistas entrará em contato para agendar a manutenção ou instalação.
 
- VENCIMENTO_SLA_ATUAL
+Agradecemos a sua compreensão.
+
+### Sugestão de Dados adicionais a serem solicitados
+
+*   **Confirmar com o usuário se a prioridade é manutenção ou instalação de nova impressora.**
+*   **Perguntar se há alguma nova impressora já disponível para instalação e qual o modelo.**
+*   **Solicitar mais detalhes sobre o "travamento constante" da Lexmark.**  Se possível, pedir fotos ou vídeos do travamento para auxiliar no diagnóstico.
+
+## SLA_SUGERIDO
+
+O SLA atual de 6 horas (low) parece adequado para uma solicitação de hardware como impressora. Não é um problema crítico que impede o trabalho, mas afeta a produtividade do usuário.
+
+## VENCIMENTO_SLA_ATUAL
+
 2025-02-10 14:58:31
 
+---
 
- TICKET
-5779
+## TICKET
 
- CATEGORIZACAO
-Ticket Categorizado Corretamente
-
- TIPO_REQ
-Solicitação de Usuário
-
- DIFICULDADE
-1 - CLASSE E
-Justificativa: Substituição de toner de impressora é uma tarefa muito simples e rápida.  Basta localizar o toner de reposição e realizar a troca na impressora final 67. SLA de 6 horas (low) é adequado, mas a execução da tarefa geralmente leva poucos minutos.
-
- ORIENTACAO_H
-1. Identificar a impressora final 67 (localização física).
-2. Verificar o modelo de toner compatível com a impressora final 67.
-3. Localizar o toner de reposição no estoque de suprimentos de impressão.
-4. Realizar a substituição do toner na impressora final 67.
-5. Testar a impressão para confirmar que o problema de toner foi resolvido.
-6. Informar Cassiano Ladeira sobre a substituição do toner.
-
- RESPOSTA_INI
-Prezado(a) Cassiano,
-
-Seu ticket de ID 5779 foi recebido e está sendo analisado pela nossa equipe de TI. Solicitamos a substituição do toner da impressora final 67. Nossa equipe já está providenciando o toner e a substituição e em breve um analista entrará em contato para confirmar a conclusão.
-
- Sugestão de Dados adicionais a serem solicitados
-- Confirmar a localização exata da impressora final 67 para facilitar a identificação.
-
- SLA_SUGERIDO
-SLA atual de 6 horas (low) é razoável, mas para substituição de toner, um SLA ainda menor (ex: Classe D - 2 horas) poderia ser considerado.
-
- VENCIMENTO_SLA_ATUAL
-2025-02-12 22:00:42
-
-
- TICKET
-5780
-
- CATEGORIZACAO
-Ticket Categorizado Corretamente
-
- TIPO_REQ
-Solicitação de Usuário
-
- DIFICULDADE
-2 - CLASSE D
-Justificativa: Restabelecer o acesso a um grupo de e-mail (atendimento.inpev@luftagro.com.br) geralmente é um procedimento simples. Envolve verificar o perfil de acesso do usuário Ingrid Santos, adicionar o usuário ao grupo de e-mail e testar o acesso. SLA de 6 horas (low) parece adequado, mas a execução da tarefa geralmente é rápida.
-
- ORIENTACAO_H
-1. Verificar o perfil de acesso da usuária Ingrid Santos.
-2. Adicionar a usuária Ingrid Santos ao grupo de e-mail `atendimento.inpev@luftagro.com.br`.
-3. Verificar se o grupo de e-mail `atendimento.inpev@luftagro.com.br` existe e está configurado corretamente no sistema de e-mail (Exchange ou similar).
-4. Instruir a usuária Ingrid Santos a testar o acesso ao grupo de e-mail (enviar/receber e-mails).
-5. Informar Ingrid Santos sobre a liberação do acesso ao e-mail.
-
- RESPOSTA_INI
-Prezada(o) Ingrid,
-
-Seu ticket de ID 5780 foi recebido e está sendo analisado pela nossa equipe de TI. Solicitamos a liberação de acesso ao grupo de e-mail `atendimento.inpev@luftagro.com.br`. Nossa equipe já está providenciando a liberação e em breve um analista entrará em contato para confirmar a conclusão.
-
- Sugestão de Dados adicionais a serem solicitados
-- Confirmar se a usuária Ingrid Santos já tinha acesso ao grupo de e-mail antes e se o acesso foi perdido recentemente, ou se é um novo acesso.
-
- SLA_SUGERIDO
-SLA atual de 6 horas (low) é razoável, mas para liberação de acesso a grupo de e-mail, um SLA um pouco menor (ex: Classe D - 2 horas) poderia ser considerado.
-
- VENCIMENTO_SLA_ATUAL
-2025-02-12 22:11:40
-
-
- TICKET
-5769
-
- CATEGORIZACAO
-Ticket Categorizado Corretamente
-
- TIPO_REQ
-Solicitação de Usuário
-
- DIFICULDADE
-5 - CLASSE B1
-Justificativa: Criação de usuário Protheus com perfil de acesso similar ao da Patricia Magalhães e exclusão do usuário Patricia após a criação. Envolve seguir o processo de criação de usuário, copiar o perfil de acessos da Patricia, criar o novo usuário, testar o acesso e desativar o usuário Patricia. SLA de 24 horas (low) parece adequado para o processo completo, incluindo aprovações (se necessário para criação de usuários Protheus).
-
- ORIENTACAO_H
-1. Verificar se o formulário de "Criação de Perfil de Acesso Protheus" foi preenchido corretamente pela Natalia Reis (Compras HealthCare). Se não, solicitar o preenchimento do formulário com as informações necessárias (gestor responsável, módulos a serem acessados, atividades, login de referência - patricia.magalhaes).
-2. Caso o formulário não tenha sido preenchido, enviar o formulário para Natalia Reis e aguardar o preenchimento e aprovações necessárias (Gestor da Área, Controller, Gestor de TI).
-3. Se o formulário já estiver preenchido e aprovado, proceder com a criação do usuário Protheus:
-    - Criar um novo usuário Protheus para o colaborador (nome não informado no ticket, Natalia Reis precisa informar o nome do novo colaborador).
-    - Copiar o perfil de acesso do usuário `patricia.magalhaes` para o novo usuário.
-    - Liberar acesso para emissão de solicitação de compras, conforme solicitado.
-    - Informar que o aprovador será Angelica (confirmar com Natalia Reis se é Angelica quem deve ser o aprovador).
-4. Após a criação e teste do novo usuário, desativar/excluir o usuário `patricia.magalhaes`.
-5. Informar Natalia Reis sobre a criação do novo usuário e a exclusão do usuário Patricia.
-
- RESPOSTA_INI
-Prezada(o) Natalia,
-
-Seu ticket de ID 5769 foi recebido e está sendo analisado pela nossa equipe de TI. Solicitamos a criação de um novo usuário Protheus com perfil similar ao da Patricia Magalhães e a exclusão do usuário Patricia. Nossa equipe já está verificando as informações e o processo de criação do usuário e em breve um analista entrará em contato para dar andamento à solicitação.
-
- Sugestão de Dados adicionais a serem solicitados
-- Solicitar o nome completo do novo colaborador para criação do usuário Protheus.
-- Confirmar se o formulário de "Criação de Perfil de Acesso Protheus" foi preenchido e possui as aprovações necessárias.
-- Verificar se a aprovação "Angelica" mencionada no ticket é para o fluxo de aprovação de solicitações de compras no Protheus.
-
- SLA_SUGERIDO
-SLA atual de 24 horas (low) parece adequado para criação de usuário Protheus, considerando o processo de aprovações e configurações de perfil de acesso.
-
- VENCIMENTO_SLA_ATUAL
-2025-02-13 10:50:01
-
-
- TICKET
-5770
-
- CATEGORIZACAO
-Ticket Categorizado Corretamente
-
- TIPO_REQ
-Solicitação de Usuário
-
- DIFICULDADE
-3 - CLASSE C
-Justificativa: Criação de usuário Protheus "Solicitante" para novo colaborador do setor de Compras Solutions. Processo padrão de criação de usuário Protheus, seguindo o fluxo de aprovações e configuração de perfil "Solicitante". SLA de 24 horas (low) parece adequado.
-
- ORIENTACAO_H
-1. Verificar se o formulário de "Criação de Perfil de Acesso Protheus" foi preenchido corretamente pelo solicitante (aprendiz.compras@luftsolutions.com.br) para o novo colaborador (nome não informado no ticket). Se não, solicitar o preenchimento do formulário com as informações necessárias (gestor responsável, módulos a serem acessados, atividades, perfil desejado - "Solicitante").
-2. Caso o formulário não tenha sido preenchido, enviar o formulário para o solicitante e aguardar o preenchimento e aprovações necessárias (Gestor da Área, Controller, Gestor de TI).
-3. Se o formulário já estiver preenchido e aprovado, proceder com a criação do usuário Protheus:
-    - Criar um novo usuário Protheus para o colaborador (nome a ser informado pelo solicitante).
-    - Configurar o perfil de acesso como "Solicitante" (perfil padrão para usuários que apenas solicitam compras).
-    - Testar o acesso do novo usuário ao Protheus com o perfil "Solicitante".
-4. Informar o solicitante (aprendiz.compras@luftsolutions.com.br) sobre a criação do novo usuário e fornecer as credenciais de acesso.
-
- RESPOSTA_INI
-Prezado(a) Solicitante,
-
-Seu ticket de ID 5770 foi recebido e está sendo analisado pela nossa equipe de TI. Solicitamos a criação de acesso "Solicitante" no Protheus para um novo colaborador do setor de Compras Solutions. Nossa equipe já está verificando as informações e o processo de criação do usuário e em breve um analista entrará em contato para dar andamento à solicitação.
-
- Sugestão de Dados adicionais a serem solicitados
-- Solicitar o nome completo do novo colaborador para criação do usuário Protheus.
-- Confirmar se o formulário de "Criação de Perfil de Acesso Protheus" foi preenchido e possui as aprovações necessárias.
-
- SLA_SUGERIDO
-SLA atual de 24 horas (low) parece adequado para criação de usuário Protheus, considerando o processo de aprovações e configurações de perfil de acesso.
-
- VENCIMENTO_SLA_ATUAL
-2025-02-13 11:04:44
-
-
- TICKET
-5771
-
- CATEGORIZACAO
-Ticket Categorizado Corretamente
-
- TIPO_REQ
-Solicitação de Usuário
-
- DIFICULDADE
-3 - CLASSE C
-Justificativa: (Mesma justificativa do Ticket 5770). Criação de usuário Protheus "Solicitante" para novo colaborador do setor de Compras Solutions. Processo padrão de criação de usuário Protheus, seguindo o fluxo de aprovações e configuração de perfil "Solicitante". SLA de 24 horas (low) parece adequado.  Provavelmente um ticket duplicado do 5770, a verificar.
-
- ORIENTACAO_H
-1. Verificar se este ticket (5771) é duplicado do Ticket 5770. Ambos foram abertos pelo mesmo solicitante (aprendiz.compras@luftsolutions.com.br) no mesmo dia e com a mesma descrição.
-2. Se for duplicado, cancelar o Ticket 5771 e prosseguir com o atendimento apenas do Ticket 5770. Informar o solicitante sobre a duplicidade e o cancelamento do ticket duplicado.
-3. Se não for duplicado (e forem solicitações diferentes, para colaboradores diferentes), seguir as mesmas orientações do Ticket 5770 para criação do usuário Protheus "Solicitante".
-4. Orientação para Ticket 5770 (caso 5771 seja duplicado): (Mesmas orientações do Ticket 5770). Verificar o formulário de "Criação de Perfil de Acesso Protheus", criar o usuário, configurar perfil "Solicitante", testar acesso e informar o solicitante.
-
- RESPOSTA_INI
-Prezado(a) Solicitante,
-
-Seu ticket de ID 5771 foi recebido e está sendo analisado pela nossa equipe de TI. Verificamos que existe um ticket similar (ID 5770) aberto para a mesma solicitação. Nossa equipe está avaliando se os tickets são duplicados e em breve um analista entrará em contato para informar sobre o andamento e a tratativa.
-
- Sugestão de Dados adicionais a serem solicitados
-- Comparar os detalhes dos Tickets 5770 e 5771 para confirmar se são para o mesmo colaborador ou colaboradores diferentes.
-- Se forem para o mesmo colaborador, confirmar com o solicitante se houve abertura duplicada por engano.
-
- SLA_SUGERIDO
-SLA atual de 24 horas (low) parece adequado para criação de usuário Protheus. Caso seja ticket duplicado, o SLA do ticket principal (5770) deve ser mantido.
-
- VENCIMENTO_SLA_ATUAL
-2025-02-13 11:07:36
-
-
- TICKET
 5646
 
- CATEGORIZACAO
+## CATEGORIZACAO
+
 Ticket Categorizado Corretamente
 
- TIPO_REQ
+## TIPO_REQ
+
 Dúvida de Usuário
 
- DIFICULDADE
+## DIFICULDADE
+
 2 - CLASSE D
-Justificativa: Dúvida sobre como imprimir o livro de ISS no Protheus. Fornecer um passo a passo ou direcionar para a documentação/treinamento adequado geralmente resolve a dúvida rapidamente. SLA de 30 horas (low) parece adequado para dúvidas de usuários.
 
- ORIENTACAO_H
-1. Identificar o módulo do Protheus responsável pela geração do Livro de ISS (Livros Fiscais).
-2. Localizar a rotina de impressão/geração do Livro de ISS (modelo 51).
-3. Elaborar um passo a passo detalhado de como gerar o Livro de ISS no Protheus, incluindo:
-    - Menu/caminho de acesso à rotina.
-    - Parâmetros de configuração necessários (período, empresa, etc.).
-    - Formato de saída do livro (impressão, arquivo digital).
-    - Informações adicionais relevantes (legislação, layout do livro, etc.).
-4. Alternativamente, direcionar o usuário para a documentação do Protheus ou para algum treinamento/vídeo tutorial sobre a geração do Livro de ISS.
-5. Enviar o passo a passo ou a documentação para o usuário Eder Silva e verificar se a dúvida foi sanada.
+**Justificativa:**  O usuário tem uma dúvida sobre como imprimir o livro de ISS no Protheus. É uma dúvida pontual de utilização do sistema. A dificuldade é baixa, pois envolve fornecer um passo a passo ou indicar a documentação correta. Estimo 2 horas (Classe D) para responder à dúvida, buscando a informação e preparando um guia para o usuário.
 
- RESPOSTA_INI
+## ORIENTACAO_H
+
+1.  Confirmar com o usuário Eder Silva qual versão do Protheus ele está utilizando, pois o caminho para impressão de livros fiscais pode variar entre versões.
+2.  Verificar no módulo Livros Fiscais do Protheus (SIGAFIS) as rotinas relacionadas à impressão do Livro de ISS (Modelo 51). Geralmente, a rotina é algo como "RELF510 - Livro ISS Modelo 51" ou similar.
+3.  Montar um passo a passo para o usuário, detalhando:
+    *   O caminho de acesso à rotina no menu do Protheus (ex: Livros Fiscais > Relatórios > Livro ISS Modelo 51).
+    *   Os parâmetros obrigatórios para a geração do livro (período, município, etc.).
+    *   Se há algum filtro específico a ser utilizado.
+    *   Orientar o usuário a verificar a legislação municipal para confirmar se o Modelo 51 é o correto para o município dele.
+4.  Se possível, enviar um print screen da tela de parâmetros da rotina do Protheus para facilitar a identificação dos campos.
+5.  Orientar o usuário a consultar a documentação do Protheus (Manuais, Help Online) para mais detalhes sobre a rotina de impressão do Livro de ISS.
+6.  Disponibilizar links para a documentação TOTVS sobre o módulo Livros Fiscais e a rotina específica de impressão do Livro de ISS.
+
+## RESPOSTA_INI
+
 Prezado(a) Eder,
 
-Seu ticket de ID 5646 foi recebido e está sendo analisado pela nossa equipe de TI. Solicitamos um passo a passo para imprimir o Livro de ISS (modelo 51) no Protheus. Nossa equipe já está preparando o passo a passo detalhado e em breve um analista entrará em contato para fornecer as orientações.
+Seu ticket referente à dúvida sobre como imprimir o livro de ISS (ID 5646) foi recebido e está sendo analisado pela nossa equipe de Protheus.
 
- Sugestão de Dados adicionais a serem solicitados
-- Confirmar qual versão do Protheus o usuário está utilizando, pois o caminho e as rotinas podem variar entre versões.
-- Verificar se o usuário já consultou a documentação do Protheus ou algum treinamento sobre o tema.
+Estamos preparando um passo a passo detalhado para auxiliar você na geração do Livro de ISS (Modelo 51) no Protheus.
 
- SLA_SUGERIDO
-SLA atual de 30 horas (low) parece adequado para dúvidas de usuários.
+Em breve um de nossos analistas entrará em contato com as instruções.
 
- VENCIMENTO_SLA_ATUAL
+Agradecemos a sua paciência.
+
+### Sugestão de Dados adicionais a serem solicitados
+
+*   **Confirmar a versão do Protheus que o usuário está utilizando.**
+*   **Perguntar se o usuário já tentou utilizar alguma rotina específica no Protheus para gerar o livro de ISS e se encontrou alguma dificuldade.**
+*   **Solicitar o município para o qual o Livro de ISS será gerado, para confirmar se o Modelo 51 é o correto.**
+
+## SLA_SUGERIDO
+
+O SLA atual de 30 horas (low) é adequado para uma dúvida de usuário. Não é uma solicitação urgente e permite tempo suficiente para preparar uma resposta completa e útil.
+
+## VENCIMENTO_SLA_ATUAL
+
 2025-02-07 23:20:01
 
+---
 
- TICKET
+## TICKET
+
 5648
 
- CATEGORIZACAO
+## CATEGORIZACAO
+
 Ticket Categorizado Corretamente
 
- TIPO_REQ
+## TIPO_REQ
+
 Dúvida de Usuário
 
- DIFICULDADE
+## DIFICULDADE
+
 2 - CLASSE D
-Justificativa: Dúvida sobre como incluir um Pedido de Compras no Protheus. Fornecer um passo a passo ou direcionar para a documentação/treinamento adequado geralmente resolve a dúvida rapidamente. SLA de 30 horas (low) parece adequado para dúvidas de usuários.
 
- ORIENTACAO_H
-1. Identificar o módulo do Protheus responsável pela inclusão de Pedidos de Compras (Compras).
-2. Localizar a rotina de inclusão de Pedidos de Compras.
-3. Elaborar um passo a passo detalhado de como incluir um Pedido de Compras no Protheus, incluindo:
-    - Menu/caminho de acesso à rotina.
-    - Campos obrigatórios e informações necessárias para inclusão do pedido (fornecedor, itens, quantidades, preços, condições de pagamento, etc.).
-    - Fluxo de aprovação do pedido (se houver).
-    - Informações adicionais relevantes (campos opcionais, regras de validação, etc.).
-4. Alternativamente, direcionar o usuário para a documentação do Protheus ou para algum treinamento/vídeo tutorial sobre a inclusão de Pedidos de Compras.
-5. Enviar o passo a passo ou a documentação para o usuário Eder Silva e verificar se a dúvida foi sanada.
+**Justificativa:**  O usuário tem dúvida sobre como incluir um Pedido de Compras no Protheus. É uma dúvida básica de operação do sistema. Similar ao ticket 5646, a dificuldade é baixa, envolvendo fornecer um passo a passo ou indicar a documentação. Estimo 2 horas (Classe D) para responder, buscando a informação e preparando um guia para o usuário.
 
- RESPOSTA_INI
+## ORIENTACAO_H
+
+1.  Confirmar com o usuário Eder Silva qual versão do Protheus ele está utilizando e qual módulo de Compras ele está acessando (SIGACOM ou SIGAPCP - caso utilize PCP Compras).
+2.  Verificar no módulo Compras do Protheus (SIGACOM ou SIGAPCP) as rotinas relacionadas à inclusão de Pedidos de Compras. Geralmente, a rotina é algo como "MATA410 - Pedido de Compras" ou "MATA415 - Pedido de Compras (PCP)" ou similar.
+3.  Montar um passo a passo para o usuário, detalhando:
+    *   O caminho de acesso à rotina no menu do Protheus (ex: Compras > Atualizações > Pedidos > Pedido de Compras).
+    *   Os campos obrigatórios para inclusão do pedido (fornecedor, produto, quantidade, preço, etc.).
+    *   Orientar sobre como utilizar as funcionalidades da rotina (pesquisa de fornecedor, pesquisa de produto, preenchimento de informações adicionais, etc.).
+    *   Explicar sobre os diferentes tipos de Pedido de Compras (Normal, Entrega Futura, etc.) se aplicável.
+4.  Se possível, enviar prints de tela da rotina de Pedido de Compras no Protheus para ilustrar o passo a passo.
+5.  Orientar o usuário a consultar a documentação do Protheus (Manuais, Help Online) para mais detalhes sobre a rotina de Pedido de Compras.
+6.  Disponibilizar links para a documentação TOTVS sobre o módulo Compras e a rotina específica de inclusão de Pedidos de Compras.
+
+## RESPOSTA_INI
+
 Prezado(a) Eder,
 
-Seu ticket de ID 5648 foi recebido e está sendo analisado pela nossa equipe de TI. Solicitamos um passo a passo para incluir um Pedido de Compras no Protheus. Nossa equipe já está preparando o passo a passo detalhado e em breve um analista entrará em contato para fornecer as orientações.
+Seu ticket referente à dúvida sobre como incluir um Pedido de Compras no Protheus (ID 5648) foi recebido e está sendo analisado pela nossa equipe de Protheus.
 
- Sugestão de Dados adicionais a serem solicitados
-- Confirmar qual versão do Protheus o usuário está utilizando, pois o caminho e as rotinas podem variar entre versões.
-- Verificar se o usuário já consultou a documentação do Protheus ou algum treinamento sobre o tema.
+Estamos preparando um passo a passo detalhado para auxiliar você na inclusão de Pedidos de Compras no Protheus.
 
- SLA_SUGERIDO
-SLA atual de 30 horas (low) parece adequado para dúvidas de usuários.
+Em breve um de nossos analistas entrará em contato com as instruções.
 
- VENCIMENTO_SLA_ATUAL
-2025-02-08 23:43:14
+Agradecemos a sua paciência.
 
+### Sugestão de Dados adicionais a serem solicitados
 
- TICKET
+*   **Confirmar a versão do Protheus que o usuário está utilizando.**
+*   **Perguntar se o usuário já tentou acessar a rotina de Pedido de Compras e em qual tela ou campo ele está encontrando dificuldades.**
+*   **Confirmar qual módulo de Compras ele utiliza (SIGACOM ou SIGAPCP).**
+
+## SLA_SUGERIDO
+
+O SLA atual de 30 horas (low) é adequado para uma dúvida de usuário sobre Pedido de Compras.
+
+## VENCIMENTO_SLA_ATUAL
+
+2025-02-07 23:43:14
+
+---
+
+## TICKET
+
 5649
 
- CATEGORIZACAO
+## CATEGORIZACAO
+
 Ticket Categorizado Corretamente
 
- TIPO_REQ
+## TIPO_REQ
+
 Dúvida de Usuário
 
- DIFICULDADE
-2 - CLASSE D
-Justificativa: Dúvida sobre como cadastrar Contrato de Parceria do tipo Fixo no Protheus para lançamento de AEs de serviço. Fornecer um passo a passo ou direcionar para a documentação/treinamento adequado geralmente resolve a dúvida rapidamente. SLA de 30 horas (low) parece adequado para dúvidas de usuários.
+## DIFICULDADE
 
- ORIENTACAO_H
-1. Identificar o módulo do Protheus responsável pelo cadastro de Contratos de Parceria (Compras ou Contratos).
-2. Localizar a rotina de cadastro de Contratos de Parceria do tipo "Fixo".
-3. Elaborar um passo a passo detalhado de como cadastrar um Contrato de Parceria Fixo no Protheus, incluindo:
-    - Menu/caminho de acesso à rotina.
-    - Campos obrigatórios e informações necessárias para cadastro do contrato (tipo de contrato, fornecedor, período de vigência, condições, etc.).
-    - Configurações específicas para contratos do tipo "Fixo" (recorrentes, valor fixo, etc.).
-    - Como vincular o contrato às Autorizações de Entrega (AEs) de serviço de manutenção predial.
-    - Informações adicionais relevantes (campos opcionais, regras de validação, etc.).
-4. Alternativamente, direcionar o usuário para a documentação do Protheus ou para algum treinamento/vídeo tutorial sobre o cadastro de Contratos de Parceria.
-5. Enviar o passo a passo ou a documentação para o usuário Eder Silva e verificar se a dúvida foi sanada.
+3 - CLASSE C
 
- RESPOSTA_INI
+**Justificativa:**  O usuário tem dúvida específica sobre Contrato de Parceria do tipo "Fixo" no módulo de Compras para lançamento de Autorizações de Entrega (AEs) de serviço. É uma dúvida mais específica do módulo de Compras e Contratos. A dificuldade é um pouco maior que as dúvidas básicas (Tickets 5646 e 5648), pois envolve o conceito de Contrato Fixo e sua utilização para serviços. Estimo 3 horas (Classe C) para responder, buscando a informação e preparando um guia focado em Contrato Fixo para serviços.
+
+## ORIENTACAO_H
+
+1.  Confirmar com o usuário Eder Silva qual versão do Protheus ele está utilizando e qual módulo de Compras ele está acessando (SIGACOM ou SIGAPCP).
+2.  Verificar no módulo Compras do Protheus (SIGACOM ou SIGAPCP) as rotinas relacionadas a Contratos de Parceria, especialmente do tipo "Fixo". Geralmente a rotina é algo como "MATA680 - Contrato de Parceria" ou similar.
+3.  Montar um passo a passo focado em Contratos de Parceria do tipo "Fixo" para serviços:
+    *   O caminho de acesso à rotina no menu do Protheus (ex: Compras > Atualizações > Contratos > Contrato de Parceria).
+    *   Explicar a diferença entre os tipos de Contrato de Parceria (Aberto, Fixo, etc.) e porque o "Fixo" é adequado para serviços com valores predefinidos.
+    *   Detalhar os campos específicos para cadastro de Contrato Fixo para serviços (tipo de contrato, período de vigência, fornecedor, serviço, valor total do contrato, forma de medição/liberação das AEs, etc.).
+    *   Orientar sobre como vincular o Contrato Fixo às Autorizações de Entrega (AEs) de serviço, no momento do lançamento das AEs.
+4.  Se possível, enviar prints de tela da rotina de Contrato de Parceria (tipo Fixo) no Protheus, com foco nos campos relevantes para serviços.
+5.  Orientar o usuário a consultar a documentação do Protheus (Manuais, Help Online) para mais detalhes sobre Contratos de Parceria e Contratos Fixos.
+6.  Disponibilizar links para a documentação TOTVS sobre o módulo Compras e a rotina de Contrato de Parceria, com ênfase em Contratos Fixos para serviços.
+
+## RESPOSTA_INI
+
 Prezado(a) Eder,
 
-Seu ticket de ID 5649 foi recebido e está sendo analisado pela nossa equipe de TI. Solicitamos ajuda para cadastrar um Contrato de Parceria do tipo Fixo no Protheus. Nossa equipe já está preparando um guia ou passo a passo detalhado e em breve um analista entrará em contato para fornecer as orientações.
+Seu ticket referente à dúvida sobre Contrato de Parceria Fixo no Protheus (ID 5649) foi recebido e está sendo analisado pela nossa equipe de Protheus.
 
- Sugestão de Dados adicionais a serem solicitados
-- Confirmar qual versão do Protheus o usuário está utilizando, pois o caminho e as rotinas podem variar entre versões.
-- Verificar se o usuário já consultou a documentação do Protheus ou algum treinamento sobre o tema.
+Estamos preparando um passo a passo específico sobre como cadastrar Contratos de Parceria do tipo "Fixo" para lançamento de Autorizações de Entrega (AEs) de serviços no Protheus.
 
- SLA_SUGERIDO
-SLA atual de 30 horas (low) parece adequado para dúvidas de usuários.
+Em breve um de nossos analistas entrará em contato com as instruções.
 
- VENCIMENTO_SLA_ATUAL
-2025-02-09 00:11:57
+Agradecemos a sua paciência.
+
+### Sugestão de Dados adicionais a serem solicitados
+
+*   **Confirmar a versão do Protheus que o usuário está utilizando.**
+*   **Perguntar se o usuário já tem alguma experiência com Contratos de Parceria no Protheus (outros tipos).**
+*   **Confirmar se o serviço de manutenção predial já está cadastrado corretamente no Protheus (cadastro de serviços).**
+
+## SLA_SUGERIDO
+
+O SLA atual de 30 horas (low) é adequado para uma dúvida de usuário sobre Contrato de Parceria.
+
+## VENCIMENTO_SLA_ATUAL
+
+2025-02-08 00:11:57
+
+---
+
+## TICKET
+
+5801
+
+## CATEGORIZACAO
+
+Ticket Categorizado Corretamente
+
+## TIPO_REQ
+
+Solicitação de Usuário
+
+## DIFICULDADE
+
+2 - CLASSE D
+
+**Justificativa:** Solicitação de um nobreak para um novo colaborador. É uma solicitação de hardware simples, envolvendo a verificação da disponibilidade de nobreaks, instalação e configuração básica.  Estimo 2 horas (Classe D) para atender à solicitação, considerando a busca por um nobreak disponível, instalação e testes básicos.
+
+## ORIENTACAO_H
+
+1.  Verificar a disponibilidade de nobreaks em estoque ou em almoxarifado da TI.
+2.  Caso haja nobreak disponível, separar um nobreak adequado para PC (verificar potência e conectores).
+3.  Agendar a entrega e instalação do nobreak no local de trabalho do novo colaborador (Barueri, setor Medicina e Segurança do Trabalho).
+4.  Realizar a instalação do nobreak, conectando o PC e o monitor do colaborador.
+5.  Testar o nobreak simulando uma queda de energia para garantir que o PC não desligue e que o nobreak esteja funcionando corretamente.
+6.  Orientar o usuário Humberto sobre o uso básico do nobreak e cuidados (ex: não conectar impressoras ou outros periféricos de alta potência, tempo de autonomia da bateria, etc.).
+7.  Caso não haja nobreak disponível em estoque, verificar a necessidade de aquisição de um novo nobreak. Abrir um processo de compra se necessário, com aprovação do gestor da área.
+8.  Informar o usuário Humberto sobre o andamento da solicitação, seja o agendamento da instalação do nobreak disponível ou o prazo para aquisição de um novo nobreak.
+
+## RESPOSTA_INI
+
+Prezado(a) Humberto,
+
+Seu ticket referente à solicitação de nobreak para novo colaborador (ID 5801) foi recebido e está sendo analisado pela nossa equipe de Infraestrutura.
+
+Estamos verificando a disponibilidade de nobreaks em nosso estoque para atender à sua solicitação o mais breve possível.
+
+Em breve um de nossos analistas entrará em contato com a confirmação da entrega e instalação.
+
+Agradecemos a sua compreensão.
+
+### Sugestão de Dados adicionais a serem solicitados
+
+*   **Confirmar com o usuário o nome do novo colaborador e o local exato de trabalho (sala/mesa) para facilitar a entrega e instalação do nobreak.**
+*   **Perguntar se há alguma especificação técnica para o nobreak (ex: potência mínima, tipo de tomada).**
+*   **Verificar se o novo colaborador já possui um computador e monitor instalados e funcionando.**
+
+## SLA_SUGERIDO
+
+O SLA atual de 6 horas (low) é adequado para uma solicitação de hardware como nobreak. Não é um problema crítico, mas importante para garantir a infraestrutura do novo colaborador.
+
+## VENCIMENTO_SLA_ATUAL
+
+2025-02-13 21:54:30

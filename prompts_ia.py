@@ -235,7 +235,7 @@ def biblioteca_de_prompts(_perfil):
                 
                 Faça uma lista com todos os Tickets, ordenando do primeiro ao último na ordem de atendimento que for mais estratégica (considerando complexidade e SLA).
 				
-				Em seguida, escreva um RELATÓRIO formatado com MarkDown, abordando cada ticket na ordem de prioridade que você irá definir. Para cada Ticket, escreva os tópicos abaixo:
+				Em seguida, escreva um RELATÓRIO formatado com MarkDown (com quebras de linhas, marcas de título e subtítulo, palavras destacas, etc), abordando cada ticket na ordem de prioridade que você irá definir. Para cada Ticket, escreva os tópicos abaixo:
                 
                 Passo 1 - Escreva o título TICKET e abaixo escreva em texto normal o ID do ticket.
                 
@@ -275,7 +275,8 @@ def biblioteca_de_prompts(_perfil):
                 
                 Passo 8 - Escreva o Título VENCIMENTO_SLA_ATUAL e abaixo escreva em texto normal apenas a data de vencimento do SLA atual.               
                 
-                É muito importante que você formate sua resposta com MarkDown.
+                É muito importante que você formate sua resposta com MarkDown (com quebras de linhas, marcas de título e subtítulo, palavras destacas, etc).
+                Não escreva Passo 1 e Passo 2 e etc antes de cada título. Separe cada tícket analisado por uma linha.
             """
     elif _perfil == ANALISTA_GENERALISTA_3_:
         _instrucao = f"""
@@ -292,7 +293,7 @@ def biblioteca_de_prompts(_perfil):
 				
                 Após analisar o ticket e pesquisar sobre soluções na internet e no seu próprio conhecimento sobre o assunto, faça o seguinte:
 				
-				Em seguida, escreva um RELATÓRIO formatado com MarkDown e divida o relatório nos tópicos abaixo:
+				Em seguida, escreva um RELATÓRIO formatado com MarkDown (com quebras de linhas, marcas de título e subtítulo, palavras destacas, etc) e divida o relatório nos tópicos abaixo:
                 
                 Passo 1 - Escreva o título TICKET e abaixo escreva em texto normal o ID do ticket.
                 
@@ -348,8 +349,8 @@ def biblioteca_de_prompts(_perfil):
                 
                 Passo 10 - Escreva o Título VENCIMENTO_SLA_ATUAL e abaixo escreva em texto normal apenas a data de vencimento do SLA atual.               
                 
-                É muito importante que você formate sua resposta com MarkDown.
-
+                É muito importante que você formate sua resposta com MarkDown (com quebras de linhas, marcas de título e subtítulo, palavras destacas, etc).
+                Não escreva Passo 1 e Passo 2 e etc antes de cada título.
             """
     elif _perfil == SINTETIZADOR_:
         _instrucao = f"""

@@ -11,6 +11,8 @@ import ia_gemini as brain
 #import ia_gemini_2 as brain_2
 import prompts_ia as Persona
 import utilitarios as Canivete
+import send_email as Correio
+import markdownify
 
 #---------------------------------------------------------------------------------------------------------------
 #---------------------------------------------------------------------------------------------------------------
@@ -842,7 +844,7 @@ def analise_profunda_ticket_nao_categorizados(STATUS_, TICKET_START, TICKET_END)
         question    = f"""
                         Peço que você analise as informações detalhadas do ticket e a descrição dos anexos (casa haja alguma descrição)
                         e me retorne um relatório detalhado sobre o ticket.
-                        Por favor, responda formatando o texto com MarkDown.
+                        Por favor, responda formatando o texto com MarkDown (com quebras de linhas, marcas de título e subtítulo, palavras destacas, etc).
                         Analise com calma e leve o tempo que precisar para responder.
                         """
         
@@ -1274,7 +1276,7 @@ def listar_chamados_nao_categorizados(STATUS_, TICKET_START, TICKET_END):
                         Peço que você analise a lista de tickets não categorizados do departamento de TI (em formato CSV) que 
                         envio abaixo, e me retorne um relatório sobre cada ticket, ordenando a resposta conforme a 
                         prioridade que achar melhor para cada caso.
-                        Por favor, responda formatando o texto com MarkDown.
+                        Por favor, responda formatando o texto com MarkDown (com quebras de linhas, marcas de título e subtítulo, palavras destacas, etc).
                         Analise com calma e leve o tempo que precisar para responder.
                         """
     _contexto_completo   += contexto_dados
@@ -1307,7 +1309,13 @@ def listar_chamados_nao_categorizados(STATUS_, TICKET_START, TICKET_END):
 testar = False # True
 
 if testar:
+    
+    resposta_da_ia = analise_profunda_ticket_nao_categorizados('Open', '5649', '5649')
+    print(" \n sem markdownify \n " + resposta_da_ia)
+    resposta_da_ia = markdownify.markdownify(resposta_da_ia)
+    print(" \n com markdownify \n " + resposta_da_ia)
     print(analise_profunda_ticket_nao_categorizados('Open', '5649', '5649'))
+    
     listar_chamados_nao_categorizados('Open', '0000', '9999')
     
     consulta_chamados_nao_categorizados('Open', '5680', '5680')

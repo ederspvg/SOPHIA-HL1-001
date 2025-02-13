@@ -3,9 +3,40 @@ import csv
 import base64
 import io
 import easyocr
+import re
 from transformers import pipeline
 from PIL import Image
 from PIL.ExifTags import TAGS
+
+#---------------------------------------------------------------------------------------------------------------
+# Função que Converte MarkDown para HTML
+#
+
+def converter_texto_para_html(texto_markdown):
+    """Converte texto no formato 'markdown' para HTML, suportando títulos, negrito inline e parágrafos."""
+    linhas = texto_markdown.splitlines()
+    html_output = "<html><body>\n"
+
+    for linha in linhas:
+        linha = linha.strip()
+
+        if linha.startswith("##"):
+            titulo = linha[2:].strip()
+            # Formatar títulos (h2)
+            html_output += f"<h2>{titulo}</h2>\n"
+        elif linha: # Linha não vazia (pode conter texto normal ou negrito inline)
+            # Processar negrito inline **texto** usando regex antes de envolver em <p>
+            linha_com_negrito_html = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', linha)
+            # Envolver o resto da linha (já com negrito formatado) em parágrafo (p)
+            html_output += f"<p>{linha_com_negrito_html}</p>\n"
+
+    html_output += "</body></html>"
+    return html_output
+
+#
+# FIM Converte MarkDown para HTML
+#---------------------------------------------------------------------------------------------------------------
+
 
 #---------------------------------------------------------------------------------------------------------------
 # Função para extrair texto de uma imagem usando EasyOCR

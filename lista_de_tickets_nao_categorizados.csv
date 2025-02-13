@@ -3,341 +3,234 @@ ID do Ticket;Data;Assunto;Descrição;Cidade;UF;País;Fone;Ramal;Email;Categoria
 5646;2025-02-05 17:20:01;Como faço para imprimir o livro de ISS?; Olá.  Não estou conseguindo gerar o livro de ISS (modelo 51) no Protheus.  Poderia me fornecer um passo a passo?       ;Barueri;São Paulo;Brasil;1147723843;3843;eder.silva@luft.com.br;Protheus;Módulo Livros Fiscais;(S) - Dúvida;30;low;TI Sistemas;Corporativo;Eder da S.P.V. Gonçalves;
 5648;2025-02-05 17:43:14;Como faço para incluir um Pedido de Compras no Protheus?; Olá. Não estou conseguindo incluir um Pedido de Compras no Protheus. Poderia me fornecer um passo a passo de como devo proceder?       ;Barueri;São Paulo;Brasil;1147723843;3843;eder.silva@luft.com.br;Protheus;Módulo Compras;(S) - Dúvida;30;low;TI Sistemas;Corporativo;Eder da S.P.V. Gonçalves;
 5649;2025-02-05 18:11:57;Contrato Fixo; Olá.  Estou tentando lançar um Contrato de Parceria no Protheus, do tipo Fixo, para lançar as AEs de Serviço de manutenção predial.  Mas não lembro como faz para cadastrar o Contrato de Parceria do tipo Fixo.  Pode me ajudar?    ;Barueri;São Paulo;Brasil;1147723843;3843;eder.silva@luft.com.br;Protheus;Módulo Compras;(S) - Dúvida;30;low;TI Sistemas;Corporativo;Eder da S.P.V. Gonçalves;
-5680;2025-02-06 16:48:01;Erro de sistema;" <span style=""color: rgb(135, 134, 138)"">Estou com erro no microsiga, mas não sei como resolver</span> ";Osasco;São Paulo;Brasil;11047723843;3843;eder.spvgoncalves@gmail.com;Protheus;Módulo Faturamento;(S) Cadastros;20;high;TI Sistemas;Corporativo;EDER;"O log de erro detalha uma falha ao encontrar a função `FINA470` no AppMap durante a execução do programa `APLIB090.PRW`, linha 735, em 22/11/2024, às 17:02:34.
+5680;2025-02-06 16:48:01;Erro de sistema;" <span style=""color: rgb(135, 134, 138)"">Estou com erro no microsiga, mas não sei como resolver</span> ";Osasco;São Paulo;Brasil;11047723843;3843;eder.spvgoncalves@gmail.com;Protheus;Módulo Faturamento;(S) Cadastros;20;high;TI Sistemas;Corporativo;EDER;"Análise do Error Log:
 
-Informações Chave:
+   Erro Principal: ""InterFunctionCall: cannot find function FINA470 in AppMap""
+   Indica que a função ""FINA470"" não foi encontrada no AppMap durante a execução do programa.
+   O erro ocorreu em `APLIB090.PRW` linha 735, chamado por `MDIEXECUTE(APLIB260.PRW)` linha 931.
+   Ambiente:
+       TOTVS build: 7.00.210324P-20240219
+       Ambiente: WTT2N6\_PRD (Produção)
+       Banco de Dados: ORACLE
+       Framework Version: 20241125
+       RPO Release: 12.1.2310
+   Usuário: pablo.facioli (código 002201)
+   Data/Hora: 04/02/2025 17:17:39 e 17:19:21
+   Thread ID: NSJ14UCS348562 e NSJ14UCS3A8562
+   Servidor: 192.168.104.209 (porta 11107)
+   Filial: 0101 (LUFT)
+   Alias Ativo: SM0 (índice ativo 1, chave M0\_CODIGO+M0\_CODFIL)
+   Diversas variáveis públicas e configurações do ambiente TOTVS também foram listadas.
 
-   Erro: InterFunctionCall - Função não encontrada `FINA470`.
-   Programa: `APLIB090.PRW` (linha 735).
-   Data/Hora: 22/11/2024 17:02:34.
-   Ambiente: `WTT2N6_PRD_PREPRODUCAO` e `WTT2N6_PRD`.
-   Build: 7.00.210324P-20240219.
+Possíveis causas:
 
-Causas Possíveis:
+   A função FINA470 não existe no RPO do ambiente WTT2N6\_PRD.
+   O AppMap do ambiente não está atualizado ou não contém a função FINA470.
+   Problema de permissões impedindo o acesso à função.
+   Corrupção no RPO.
+   A função é customizada e não foi corretamente instalada/mapeada."
+5713;2025-02-10 08:58:31;Instalação da nova impressora ou manutenção ; Bom Dia!     Srs,        Gentileza verificar a possibilidade de instalação da nova impressora ou programar manutenção na lexmark    <strong>Lexmark MX611dhe IP: 10.29.0.200, </strong>        A mesma vem apresentando constante travamento ...;Campo Novo do Parecis;Mato Grosso;Brasil;62991006055;;wallace.pereira@luftagro.com.br;Infraestrutura;Hardware;Outros (i);6;low;Administrativo Operacional;Agro;Wallace Pereira Santos;
+5795;2025-02-13 13:47:44; EMISSAO DE NOTA FISCAL RECUSADA CD/GO.; Boa Tarde,     Favor poderia emitir uma nova nota fiscal para nota 20844/20843 que foi recusada, segue anexo &gt     Cliente: Lineagro.       ;Aparecida de Goiania;Goiás;Brasil;6236251630;;vinicius.silveira@luftagro.com.br;Armazém Geral;NF-e;(F) Emissão;24;low;Administrativo Operacional;Agro;Vinicius Genesio Silveira;"O arquivo contém duas Notas Fiscais Eletrônicas (NF-e) da LUFT LOGISTICS LTDA para ELINEAGRO PRODUTOS AGROPECUARIOS SA, ambas datadas de 10/02/2025, referentes ao retorno de mercadorias depositadas em armazém geral.
 
-   A função `FINA470` pode não estar definida ou acessível no AppMap do ambiente especificado.
-   Pode haver um problema de configuração do AppMap.
-   A função pode ter sido renomeada ou removida.
-   Pode haver uma inconsistência entre a versão do sistema e o RPO.
+NF-e Nº 20843:
 
-Ações Sugeridas:
+   Produto: ULTIMATO SC - BB 20 LT (90 unidades).
+   Valor Total: R$ 1.730,77.
+   Observações: Retorno referente à(s) NF(s) de entrada(s) 671. Suspensão do IPI conforme legislação. Produto classificado como substância perigosa para o meio ambiente (ONU 3082).
 
-1.  Verificar se a função `FINA470` existe e está corretamente definida no AppMap do ambiente `WTT2N6_PRD_PREPRODUCAO` e `WTT2N6_PRD`.
-2.  Verificar a configuração do AppMap para garantir que ele esteja atualizado e correto.
-3.  Verificar se há atualizações pendentes para o sistema ou para o RPO que possam corrigir o problema.
-4.  Verificar se o usuário tem permissão para executar a função `FINA470`.
-5.  Analisar o código dos programas `APLIB090.PRW` e `APLIB260.PRW` para entender como a função `FINA470` é chamada e se há algum problema na lógica.
+NF-e Nº 20844:
+
+   Produto: 2,4-D AMINA CCAB 806 SL (IMP) - BB 20 LT (270 unidades).
+   Valor Total: R$ 4.317,30.
+   Observações: Retorno referente à(s) NF(s) de entrada(s) 728. Suspensão do IPI conforme legislação. Produto classificado como pesticida tóxico (ONU 3348). Retorno referente a nota fiscal de venda 13965
+
+Ambas as notas fiscais indicam não incidência de ICMS e suspensão do IPI, conforme legislação específica.anexo 3 - descrição detalhada: anexo 4 - descrição detalhada: "
+5799;2025-02-13 15:27:32;CALCULO DE BASE ; Boa tarde!     Por gentileza realizar base de calculo de notas fiscais em anexo.    ;Aparecida de Goiania;Goiás;Brasil;55623625162;;danilo.ribeiro@luftagro.com.br;Armazém Geral;NFS-e;(F) Emissão;24;low;Administrativo Operacional;Agro;Danilo  Ribeiro da Silva;"O texto parece ser uma sequência de dados binários ou texto codificado, possivelmente um log de sistema ou dados corrompidos.
+
+Possíveis causas:
+
+   Erro de codificação: O arquivo pode ter sido codificado incorretamente, resultando em caracteres ilegíveis.
+   Corrupção de dados: O arquivo pode ter sido danificado durante a transferência ou armazenamento.
+   Formato desconhecido: O arquivo pode estar em um formato proprietário ou desconhecido que requer um software específico para ser interpretado.
+
+Ações recomendadas:
+
+1.  Verificar a origem do arquivo para determinar o formato original e a codificação esperada.
+2.  Tentar abrir o arquivo com diferentes editores de texto ou visualizadores binários para ver se é possível identificar algum padrão ou estrutura.
+3.  Se o formato for conhecido, procurar por ferramentas ou bibliotecas que possam decodificar ou interpretar o arquivo.
+
+	
+ 				   
+  
+	 
+ 	
+
+
+
+	
+
+
+	
+
+  !"" 
+			  
+ 
+
+	 !!#   $ 
+ !""#!$
+%&# 
+'#$($($%$)!$*$!$""
+	+!$,-./-01002,03-/450/, 1  
+ !%#!6""$($ 
+#$' $""""#7 $ 
+8 
+,9 ,
+ 
+	 
+: ,,5,; 
+,
+,<,
+	 
+
+
+ 
+			  
+===..>.?.< 
+	>	> 
+> 
+($(+(! $('#$&"" %#)!$(@$+ ""# 
+2A((% 
+-%%$""		 
+-/08,-4B,,,8 	..		 
+81.,1-.-B4<888,;0 C< .	> ,-/;/8-004;00,1,;<8;<;8;/,/B1,1 
+ 
+
+	9	 C< 
+	 
+<D   
+		 
+	 
+<9 
+<>	 	E	<
+ 
+	?	 
+(@$?,,1**
+// 
+!$$(?$' 25,300581BB58 >$!$""
+? ,,B-,05,1 8;1.;/B.05,48 ,;<8;<;8;/ 
+:<9 	 
+$'""4-.418888 
+ 
+
+ 	?	  	F	 
+,,5,; ,8.144*88 8*88 ,8.144*88 
+	 
+-.5;/*-8 ,B<8-<;8;/ 88, 88- ,-<8/<;8;/ -.5;5*B8 88; ,-<8B< ;8;/ -.5;/*-8 G
+ 	
+  G
+ G
+  	
+ 	
+  
+
+?
+ 
+
+?
+  
+""#$ $ 
+""#$ $ -.5;/*-8 
+-.5;5*B8 
+ 
+?
+  
+""#$ $ -.5;/*-8 
+E	
+ 
+E	
+ 
+8*88 	
+ 
+8*88 E	
+		 
+8*88 	
+		 
+8*88  
+,8.144*88 
+ 
+8*88 ? 
+8*88  
+8*88 H	 
+8*88 		 
+8*88 D	  
+,8.144*88 
+<
+ 
+>	 
+?		  
+
+ H	? 9  
+14.510.B8;<88-,B0 C 
+ 
+""I'C$(%$$J' K' % 
+	9	 
++$ ($(?$$  		 
+,8B105501 ? 
+F	 	 
+ 
+  9F	 
+/ 
+ 8 ,,B*/88 ,88*888 
+					 
+	 				  	    !  !	! "" ! !!# 	 
+  	 "" 
+ 
+   $ %$ %$ $ $ $ $ $    :	;8E	E	 
+	&'()(
+*+
+!,-.(""/ -0.(/1&(/12(
++
+1-%3'341(2530,'5'6.7'1,%.8%( 
+
+*%%1917-31'(,2%	:$
+,2	%8!$
+$%$.7'%$8;!$
+	:%
+			 
+	
+L
+
+ 	 
+%#($+""&MN##+<<OOO.&M. %.& %''$+ #$(%?		#$ $"",,/15P 
+C14.510.B8;<88111B 
+	,8-,1--11 
+(""$*#$F!$($88/?$""+$8;* '<.C$(%$$' ' %. 
+4B.01B-;,.+$ ($(?$$<?. 
+Q'+'$&""($(( ""N%#(	
+($%$R %$""Q "
+5800;2025-02-13 15:29:57;CALCULO DE BASE CD/GO.; Boa Tarde a todos,     Favor verificar calculo de base dessas notas ficais de venda para seguir com a transmissao da remessa simbolica &gt     NF 9426/9427.       ;Aparecida de Goiania;Goiás;Brasil;6236251630;;vinicius.silveira@luftagro.com.br;Armazém Geral;NF-e;(F) Validação;24;high;Administrativo Operacional;Agro;Vinicius Genesio Silveira;"Resumo da NFe nº 000009427, Série 2:
+
+   Emitente: GENICA INOVACAO BIOTECNOLOGICA S/A (CNPJ: 23.255.514/0001-93)
+   Destinatário: SAO MARTINHO SA (CNPJ: 51.466.860/0062-78)
+   Data de Emissão/Entrada: 30/12/2024
+   Valor Total da Nota: R$ 90.068,95
+   Natureza da Operação: Venda de Mercadoria/Produção
+
+Produtos:
+
+   FIXARON AZOS 200DS: 7.600 DS, R$ 20.140,00, Lote: 24K0206A, Validade: NOV/2025
+   INCEPTOR: 126 L, R$ 32.010,30, Lote: CWB010163524, Validade: MAR/2025
+   DULIA 5 LT: 335 L, R$ 37.918,65, Lote: 0612.00 05-24-3500, Validade: DEZ/2025
+
+Informações Adicionais:
+
+   Mercadorias remetidas do armazém geral Transportes Luft LTDA (CNPJ: 87.689.402/0088-84).
+   Pedidos: ARMZUBVC, Pedido Sistema: 008165.
+   Contratos MAE: 4715, 6531, 4607.
 
 Observações:
 
-   O ambiente é de pré-produção e produção (`WTT2N6_PRD_PREPRODUCAO` e `WTT2N6_PRD`).
-   O DBAccess está utilizando o Oracle.
-   O RPO Release é 12.1.2310.
-
-Próximos passos:
-
-O analista deve investigar a causa da ausência da função `FINA470` no AppMap e corrigir a configuração ou o código do sistema para resolver o problema."
-5713;2025-02-10 08:58:31;Instalação da nova impressora ou manutenção ; Bom Dia!     Srs,        Gentileza verificar a possibilidade de instalação da nova impressora ou programar manutenção na lexmark    <strong>Lexmark MX611dhe IP: 10.29.0.200, </strong>        A mesma vem apresentando constante travamento ...;Campo Novo do Parecis;Mato Grosso;Brasil;62991006055;;wallace.pereira@luftagro.com.br;Infraestrutura;Hardware;Outros (i);6;low;Administrativo Operacional;Agro;Wallace Pereira Santos;
-5720;2025-02-10 12:45:16;Exclusão de titulo criado errado ; Boa tarde,      Poderia por gentileza excluir PA criada no contas a pagar, pois esqueci de adicionar o numero do nosso banco qual criar a PA e está dando erro para mim excluir.   Empresa: FARMA   Titulo: 637647646   Emissão 07/02/2025 e vencimento: 07/02/2025  val...;Itapevi;São Paulo;Brasil;(11) 97996-0401;7157;thaina.ramos@luftlogistics.com;Protheus;Módulo Estoque;Falha;16;mediun;Financeiro;HealthCare;Thaina Godencio Ramos;anexo 1 - descrição detalhada: 
-5753;2025-02-11 16:27:08;Configuração Rede VPN Corporativa - Thiago Marinho Teixeira dos Santos; Boa tarde!     O colaborador Thiago perdeu o acesso a rede corporativa e necessita da configuração para que o TI Solutions possa realizar a configuração do App SOPHOS Connect.     Poderia verificar? ;;;;(11) 95911-7755;;caio.quaresma;Infraestrutura;Rede e Internet;Configuração (i);12;medium;Recursos Humanos;Corporativo;Caio Henrique Quaresma da Silva;
-5761;2025-02-12 09:44:12;Problemas para abrir os relatórios do Protheus Web; Bom dia.     Estou com dificuldade em abrir os relatórios do Protheus Web.     Os arquivos abrem como .xml     Podem me ajudar? ;Barueri;São Paulo;Brasil;1147723869;3869;tatiane.souza@luft.com.br;Infraestrutura;Sistema Operacional ;Configuração (i);12;medium;Compras;Corporativo;TATIANE SOUZA;
-5768;2025-02-12 10:36:36;CPU-COLABORADOR NOVO; Bom dia a todos!      Por gentileza, realizar a instalção de uma CPU para o colaborador que iniciará na proxima semana.       O mesmo ficará no setor da Torre de controle.           ;;;;;4243;marcos.ferreira@luftagro.com.br;Infraestrutura;Hardware;Desktop/Notebook;16;medium;Administrativo Operacional;Agro;MARCOS VINICIUS BENTO FERREIRA;
-5769;2025-02-12 10:50:01;Criação de Usuário para Sistema Protheus - RH;" <span style=""color: red"">Liberar acesso para emissão de solicitação de compras de acordo com o acesso do usuário patricia.magalhaes. Aprovador Angelica.</span>  <span style=""color: red"">Após a criação do login por favor excluir o login da Patricia pois a mesma não faz parte do quadro de fu...";Itapevi;São Paulo;Brasil;(11) 97117-5720;;natalia.reis@luftlogistics.com;Protheus;Protheus: Acesso;Protheus: Criar perfil de acesso;24;low;Compras;HealthCare;Natalia Silva dos Reis;
-5770;2025-02-12 11:04:44; Criar Acesso - Solicitante; Bom dia!     Por gentileza realizar criação de acesso para o colaborador:&nbsp ;Cajamar;São Paulo;Brasil;(11) 4772-8505;;aprendiz.compras@luftsolutions.com.br;Protheus;Protheus: Acesso;Protheus: Criar perfil de acesso;24;low;Compras;Solutions;Marilia Oliveira Sena;
-5771;2025-02-12 11:07:36;Criar Acesso - Solicitante; Bom dia!     Por gentileza realizar criação de acesso para o colaborador:&nbsp ;Cajamar;São Paulo;Brasil;(11) 4772-8505;;aprendiz.compras@luftsolutions.com.br;Protheus;Protheus: Acesso;Protheus: Criar perfil de acesso;24;low;Compras;Solutions;Marilia Oliveira Sena;
-5775;2025-02-12 11:49:00;RECUSA NF N° 188515; Bom dia!     Gentileza emitir manifestação de recusa da nf 188515 pois o cliente emitiu com o valor contabil errado.          ;Querencia;Mato Grosso;Brasil;(66) 99647-4909;;regiane.camargo@luftagro.com.br;Armazém Geral;NF-e;(F) Cancelamento;24;high;Administrativo Operacional;Agro;Regiane Gomes Viana Camargo;"RECEBEMOS DE TRES TENTOS AGROINDUSTRIAL S/A OS PRODUTOS CONSTANTES NA NOTA FISCAL INDICADOS ABAIXO.
-Data de RecebimentoNF-e
-Nº.
-SÉRIE13096 
-1
-Natureza da Operação
-Inscrição Estadual Insc. Estadual Subst. Tributário CNPJChave de acesso da NF-eIdentificação do Emitente
-REMESSAS SIMBOLICAS DE MERCADORIAS DEPOSITADAS EM DEPOSITO F
-94.813.102/0058-055125 0294 8131 0200 5805 5500 1000 0130 9614 2085 6943
-0013914750-0
-DESTINATÁRIO/REMETENTE
-Nome / Razão Social Cnpj/Cpf Data de Emissão
-Endereço
-Munícipio Fone / Fax UF Inscrição EstadualBairro / Distrito CEP Data de Saída
-Hora de SaídaTRANSPORTES LUFT LTDA 87.689.402/0100-05 10/02/2025
-ROD RODOVIA BR 242, SN, ZONA RURAL 78.643-000 10/02/2025
-QUERENCIA 1147723862 MT   13786521-0 16:38:15Documento Auxiliar da
-Nota Fiscal Eletrônica
-  0 - Entrada
-  1 - Saída
-1
- N°
- SÉRIE
-13096 
-1
-Página 1 de 1DANFE
-Protocolo de Autorização de UsoConsulta de autenticidade no portal nacional da NF-e
-www.nfe.fazenda.gov.br/portal ou no site da Sefaz Autorizadora.
-151250011630925 10/02/2025 15:38:17
-          -
-TRES TENTOS AGROINDUSTRIAL S/A
-Cep78.896-250 Telefone 5533723700
-Base de Cálculo do ICMS
-Valor do Frete Valor do seguroValor do ICMS
-DescontoBase de Cálculo do ICMS Subst. Valor do ICMS de subst. Valor total dos produtos
-Outras Despesas Acessórias Valor do IPI Valor total da Nota
-TRANSPORTADOR / VOLUMES TRANSPORTADOS
-Nome / Razão Social
-Endereço
-Quantidade Espécie MarcaCódigo ANTT Placa do veículo CNPJ/CPF UF
-UF Inscrição Estadual
-Peso Bruto Peso Líquido0,00 0,00 0,00 0,00 360.000,00
-0,00 0,00 0,00 0,00 0,00 360.000,00
-    .   .   -
- 
-7.200,00 Diversas 0 8.640,000 7.200,0001CÁLCULO DO IMPOSTO
-Munícipio
-Numeração
-Frete por Conta
-0 - Remetente (CIF)
-1 - Destinatário (FOB)
-2 - Terceiros
-3 - Próp por Conta do Remetente
-4 - Próp por conta do Destinatário
-9 - Sem Frete
-SORRISO MT
-AV IDEMAR RIEDI 13574 - VERDES CAMPOS
-Cód. Item Descrição do item
-NCM/SH CST CFOP UN QTDE V. UNIT V. TOTAL BC ICMS V. ICMS V. IPI AL ICMS AL IPIDADOS DO PRODUTO / SERVIÇO
-0026116 3808.92.99 041 5934 LT 7.200,0000 50,0000 360.000,00 0,00 0,00 0,00 0,00 0,00 TEBURAZ 1X20 L
- 3.960,00 LT Lote: 0011-25-24300 Fabricação: 17/01/2025 Validade: 17/01/2028 Peso Líquido: 0,000
-3.240,00 LT Lote: 0012-25-24300 Fabricação: 17/01/2025 Validade: 17/01/2028 Peso Líquido: 0,000
-ONU 3082 SUBSTANCIA QUE APRESENTA RISCO PARA O MEIO AMBIENTE, LIQUIDA, N.E ( AZOXISTROBINA 12,0% + TEBUCONAZOL 20,0%) Classe 9 SubClasse SUBSTANCIAS E ARTIGOS
-PERIGOSOS DIVERSOS GE III Reg.MAPA: 20420 --DECLARAMOS QUE PRODUTOS ESTAO DEVIDAMENTE ACONDICIONADOS P/SUPORTAR RISCOS NORMAIS DE CARREGAMENTO,
-DESCARREGAMENTO, TRANSBORDO E TRANSPORTE CF. REG. VIGOR
-DADOS ADICIONAIS
-NAO INCIDENCIA CFE LIVRO I ARTIGO 11, INCISO XI - ARMAZEM GERALPIS:
-0,00 COFINS: 0,00 ATENCAO: AS EMBALAGENS VAZIAS DE AGROTOXICOS
-DEVEM SER DEVOLVIDAS TRIPLICE LAVADAS, CFE. BULA ESPECIFICA, NO
-MAXIMO EM UM ANO NA EMPRESA ASSOCIAC AO DE REVENDAS DE
-PRODUTOS AGROPECUARIOS DE SORRISO (CEARPA), EST E, 1781 - LOTE
-60-A, AREA DE EXPANSAO URBANA , FONE (66) 3544 9347, CFE LEI FED ERAL
-NR. 9974 DE 06/06/2000, INFORME-SE SOBRE O RECEBIMENTO ITINERANTE
-DA SUA REGIAO. REF NF 188515 OURO FINO DECLARO QUE OS PRODUTOS
-PERIGOSOS ESTAO ADEQUADAMENTE CLASSIFICADOS, EMBALADOS,
-IDENTIFICADOS, E ESTIVADOS PARA SUPORTAR OS RISCOS DAS
-OPERACOES DE TRANSPORTE E QUE ATENDEM AS EXIGENCIAS DA
-REGULAMENTACAO Valor aproximado dos tributos: R$ 0,00 COND.PGTO: 0-
-Empresa: CND: 0054677632 Validade: 17/03/2025 Autenticidade:
-TLB9AUK29UMLB2MU Parceiro: CND: 0054546007 Autenticidade:
-TUB22UK2M9B292LL Validade: 09/03/2025
-Reservado ao Fisco Informações Complementares"
-5776;2025-02-12 13:57:58;Liberação de trava de chave de acesso farma 15; Eliane, boa tarde,     Por favor, poderia fazer a liberação da trava da chave de acesso na FARMA 15?     Grato,    ;;;;(11) 47748-700_;8840;maria.teodosio;Protheus;Módulo Compras;Outros;8;mediun;Provisão;Corporativo;Sidneia;
-5778;2025-02-12 15:09:47;SUBSTITUIR EMAIL INICIO COLABORADOR RODRIGO; Boa tarde,     Favor encaminhar formulario para alteração de email para o colaborar Rodrigo Augusto Silverio, substituir o email isadora.pedroso@luftagro.com.br&nbsp        Obrigado ;Ibipora;Paraná;Brasil;43984527052;;valmer.semprebom@luftagro.com.br;Infraestrutura;Perfil de acesso;E-mail;8;high;Administrativo Operacional;Agro;Valmer Cesar Barbosa Semprebom;
-5779;2025-02-12 16:00:42;Substituiçao de tonner da impressora final 67; Boa tarde , solictio a troca de tonner da impressora final 67 ;Barueri;São Paulo;Brasil;11976435928;4249;cassiano.ladeira@luftagro.com.br;Infraestrutura;Impressora;Suprimentos;6;low;Administrativo Operacional;Agro;Cassiano Ladeira;
-5780;2025-02-12 16:11:40;estou sem acesso ao e-mail de atendimento ;" <span style=""color: rgb(135, 134, 138)"">estou sem acesso ao  grupo de e-mail do Inpev ( </span><span style=""color: rgb(34, 34, 34)"">&ltatendimento.inpev@luftagro.com.br&gt)</span> ";;;;;4219;ingrid.santos;Infraestrutura;Perfil de acesso;Outros (i);6;low;Administrativo Operacional;Agro;ingrid amaral dos santos;
-5781;2025-02-12 16:43:29;CALCULO CONTA E ORDEM GENICA ; Solicito calculo de conta e ordem das NF 9834, a nota será transportada pela luft. ;Sorriso;Mato Grosso;Brasil;(66) 99215-8106;;ane.floriano@luftagro.com.br;Armazém Geral;Silt / Wiser;(F) Cálculo ICMS NF Conta e Ordem;24;high;Administrativo Operacional;Agro;Ane Gabriele Floriano;"RECEBEMOS DE GENICA INOVACAO BIOTECNOLOGICA S/A EP-81986-7 OS PRODUTOS CONSTANTES DA NOTA FISCAL INDICADA AO LADO
-DATA DE RECEBIMENTO IDENTIFICAÇÃO E ASSINATURA DO RECEBEDORNF-e
-N. 000009834
-SÉRIE 2
-Identificação do emitente
-GENICA INOVACAO BIOTECNO
-LOGICA S/A EP-81986-7
-Rua Antonio Degaspari, 1514
-Complemento: PARTE A
-Uninorte 2 Cep:13413-652
-PIRACICABA/SP
-Fone: 1941029924DANFE
-DOCUMENTO AUXILIAR DA
-NOTA FISCAL ELETRÔNICA
-0-ENTRADA
-1-SAÍDA1
-N. 000009834
-SÉRIE 2
-FOLHA 01/01
-3525 0223 2555 1400 0193 5500 2000 0098 3412 2995 0665CHAVE DE ACESSO DA NF-E
-Consulta de autenticidade no portal nacional da NF-e
-www.nfe.fazenda.gov.br/portal ou no site da SEFAZ Autorizada
-NATUREZA DA OPERAÇÃO
-REMESSA BONIFICACAOPROTOCOLO DE AUTORIZAÇÃO DE USO
-135250394544705 12/02/2025 08:24:46-03:00
-INSCRIÇÃO ESTADUAL
-535584918117INSC.ESTADUAL DO SUBST.TRIB.
-CNPJ/CPF
-23.255.514/0001-93
-DESTINATARIO/REMETENTE
-NOME/RAZÃO SOCIAL
-EDMAR JOSE SIA E OUTROSCNPJ/CPF
-614.055.586-87
-ENDEREÇO
-RODOVIA MT480 KM 72, SN, GLEBA SUCURUINA IIIBAIRRO/DISTRITO
-ZONA RURALCEP
-78400-000
-MUNICIPIO
-DIAMANTINOFONE/FAX
-65999872029UF
-MTINSCRIÇÃO ESTADUAL
-132289563DATA DE EMISSÃO
-12/02/2025     
-DATA ENTRADA/SAÍDA
-12/02/2025     
-HORA ENTRADA/SAÍDA
-08:22:00
-FATURA
-CALCULO DO IMPOSTO
-BASE DE CALCULO DO ICMS
-                0,00VALOR DO ICMS
-                0,00BASE DE CALCULO DO ICMS SUBSTITUIÇÃO
-                0,00VALOR DO ICMS SUBSTITUIÇÃO
-                0,00VALOR TOTAL DOS PRODUTOS
-           72.948,60
-VALOR DO FRETE
-                0,00VALOR DO SEGURO
-                0,00DESCONTO
-                0,00OUTRAS DESPESAS ACESSÓRIAS
-                0,00VALOR DO IPI
-                0,00VALOR TOTAL DA NOTA
-           72.948,60
-TRANSPORTADOR/VOLUMES TRANSPORTADOS
-RAZÃO SOCIAL
-FRETE POR CONTA
-0-REMETENTECÓDIGO ANTT
-PLACA DO VEÍCULO
-UF
-CNPJ/CPF
-ENDEREÇO
-MUNICIPIO
-UF
-INSCRIÇÃO ESTADUAL
-QUANTIDADE
-ESPECIE
-MARCA
-NUMERAÇÃO
-PESO BRUTO
-PESO LIQUIDO
-CALCULO DO ISSQN
-INSCRIÇÃO MUNICIPAL
-63700100VALOR TOTAL DOS SERVIÇOS
-BASE DE CÁLCULO DO ISSQN
-VALOR DO ISSQN
-DADOS ADICIONAIS
-INFORMAÇÕES COMPLEMENTARES
-MERCADORIAS REMETIDAS DIRETAMENTE DO ARMAZEM GERAL: TRANSPORTES LUFT LTDA,
-CNPJ: 87.689.402/0090-07, IE: 13.636.223-0, RODOVIA BR 163 KM 744; N° 2461,
-CEP: 78890-000, AREA DE EXPANSAO URBANA, SORRISO- MTReducao da base do ICMS
-conforme RICMS-SP/2000, Anexo II, Artigo 77, Inciso II. PIS e COFINS aliquota
-zero conforme Lei 10.925/2004, Artigo 1, Inciso I. IPI conforme Decreto nº
-11.158, de 29.07.2022 - Rep. Parcial DOU - Edicao Extra de 31.07.2022.
-Protocolo: 135250394544705
-Pedidos: SO6945.Pedido Sistema: 008495. Ag. Com.: THIAGO FERREIRA SIA.
-Bonificacao AGDsRESERVADO AO FISCO
-DADOS DO PRODUTO / SERVIÇO
-COD. PROD DESCRIÇÃO DO PROD./SERV. NCM/SH CST CFOP UN QUANT. V.UNITARIO V.TOTAL BC.ICMS V.ICMS V.IPI A.ICMS A.IPI
-07677 RALLY ORG 1LT 31059090 041 6910 L 90,00000 810,54000 72.948,60 0,00 0,00 0,00 0.00% 0.00%
- Reg. MA: SP 003315-4.000007        
-           Nat. Fisica:             
-                     Lote: 1211.0001 
- -24-1700 Validade: NOV/2025 
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - "
-5782;2025-02-12 16:44:15;CALCULO CONTA E ORDEM GENICA;" <span style=""color: rgb(135, 134, 138)"">Solicito calculo de conta e ordem das NF 9835, a nota será transportada pela luft.</span> ";Sorriso;Mato Grosso;Brasil;(66) 99215-8106;;ane.floriano@luftagro.com.br;Armazém Geral;Silt / Wiser;(F) Cálculo ICMS NF Conta e Ordem;24;high;Administrativo Operacional;Agro;Ane Gabriele Floriano;"RECEBEMOS DE GENICA INOVACAO BIOTECNOLOGICA S/A EP-81986-7 OS PRODUTOS CONSTANTES DA NOTA FISCAL INDICADA AO LADO
-DATA DE RECEBIMENTO IDENTIFICAÇÃO E ASSINATURA DO RECEBEDORNF-e
-N. 000009835
-SÉRIE 2
-Identificação do emitente
-GENICA INOVACAO BIOTECNO
-LOGICA S/A EP-81986-7
-Rua Antonio Degaspari, 1514
-Complemento: PARTE A
-Uninorte 2 Cep:13413-652
-PIRACICABA/SP
-Fone: 1941029924DANFE
-DOCUMENTO AUXILIAR DA
-NOTA FISCAL ELETRÔNICA
-0-ENTRADA
-1-SAÍDA1
-N. 000009835
-SÉRIE 2
-FOLHA 01/01
-3525 0223 2555 1400 0193 5500 2000 0098 3516 7519 3655CHAVE DE ACESSO DA NF-E
-Consulta de autenticidade no portal nacional da NF-e
-www.nfe.fazenda.gov.br/portal ou no site da SEFAZ Autorizada
-NATUREZA DA OPERAÇÃO
-REMESSA BONIFICACAOPROTOCOLO DE AUTORIZAÇÃO DE USO
-135250394544713 12/02/2025 08:24:46-03:00
-INSCRIÇÃO ESTADUAL
-535584918117INSC.ESTADUAL DO SUBST.TRIB.
-CNPJ/CPF
-23.255.514/0001-93
-DESTINATARIO/REMETENTE
-NOME/RAZÃO SOCIAL
-SALAZAR JONAS MARQUETTI E OUTRACNPJ/CPF
-589.538.179-00
-ENDEREÇO
-RODOVIA MT 235, KM 170 + 2 KM A ESQUERDA SN BAIRRO/DISTRITO
-ZONA RURALCEP
-78400-000
-MUNICIPIO
-DIAMANTINOFONE/FAX
-65996635010UF
-MTINSCRIÇÃO ESTADUAL
-134501470DATA DE EMISSÃO
-12/02/2025     
-DATA ENTRADA/SAÍDA
-12/02/2025     
-HORA ENTRADA/SAÍDA
-08:23:00
-FATURA
-CALCULO DO IMPOSTO
-BASE DE CALCULO DO ICMS
-                0,00VALOR DO ICMS
-                0,00BASE DE CALCULO DO ICMS SUBSTITUIÇÃO
-                0,00VALOR DO ICMS SUBSTITUIÇÃO
-                0,00VALOR TOTAL DOS PRODUTOS
-          150.000,00
-VALOR DO FRETE
-                0,00VALOR DO SEGURO
-                0,00DESCONTO
-                0,00OUTRAS DESPESAS ACESSÓRIAS
-                0,00VALOR DO IPI
-                0,00VALOR TOTAL DA NOTA
-          150.000,00
-TRANSPORTADOR/VOLUMES TRANSPORTADOS
-RAZÃO SOCIAL
-FRETE POR CONTA
-0-REMETENTECÓDIGO ANTT
-PLACA DO VEÍCULO
-UF
-CNPJ/CPF
-ENDEREÇO
-MUNICIPIO
-UF
-INSCRIÇÃO ESTADUAL
-QUANTIDADE
-13ESPECIE
-CAIXASMARCA
-NUMERAÇÃO
-PESO BRUTO
-175,000PESO LIQUIDO
-150,000
-CALCULO DO ISSQN
-INSCRIÇÃO MUNICIPAL
-63700100VALOR TOTAL DOS SERVIÇOS
-BASE DE CÁLCULO DO ISSQN
-VALOR DO ISSQN
-DADOS ADICIONAIS
-INFORMAÇÕES COMPLEMENTARES
-MERCADORIAS REMETIDAS DIRETAMENTE DO ARMAZEM GERAL: TRANSPORTES LUFT LTDA,
-CNPJ: 87.689.402/0090-07, IE: 13.636.223-0, RODOVIA BR 163 KM 744; N° 2461,
-CEP: 78890-000, AREA DE EXPANSAO URBANA, SORRISO- MTReducao da base do ICMS
-conforme RICMS-SP/2000, Anexo II, Artigo 77, Inciso II. PIS e COFINS aliquota
-zero conforme Lei 10.925/2004, Artigo 1, Inciso I. IPI conforme Decreto nº
-11.158, de 29.07.2022 - Rep. Parcial DOU - Edicao Extra de 31.07.2022.
-Protocolo: 135250394544713
-Pedidos: SO6940.Pedido Sistema: 008396. Ag. Com.: THIAGO FERREIRA SIA.RESERVADO AO FISCO
-DADOS DO PRODUTO / SERVIÇO
-COD. PROD DESCRIÇÃO DO PROD./SERV. NCM/SH CST CFOP UN QUANT. V.UNITARIO V.TOTAL BC.ICMS V.ICMS V.IPI A.ICMS A.IPI
-07677 RALLY ORG 1LT 31059090 041 6910 L 150,00000 1.000,000 150.000,0 0,00 0,00 0,00 0.00% 0.00%
- 00 0 
- Reg. MA: SP 003315-4.000007        
-           Nat. Fisica:             
-                     Lote: 1211.0001 
- -24-1700 Validade: NOV/2025 
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - "
-5783;2025-02-12 17:49:05;liberar acesso a rede;" Boa Tarde     Por gentileza liberar acesso a rede (s) para nova colaboradora <span style=""color: rgb(34, 34, 34)"">ANA JULIA ALKIMIM PIEDADE.</span>  S:\ controladoria   <span style=""color: rgb(34, 34, 34)"">login ana.piedade</span>     <span style=""color: rgb(...";;;;(11) 47748-700_;8840;maria.teodosio;Infraestrutura;Rede e Internet;Configuração (i);12;medium;Provisão;Corporativo;Sidneia;
-5784;2025-02-12 17:51:22;instalação impressora;" Boa Tarde     Por gentileza instalar a impressora para nova colaboradora <span style=""color: rgb(34, 34, 34)"">ANA JULIA ALKIMIM PIEDADE</span>  <span style=""color: rgb(34, 34, 34)"">login ana.piedade</span>    ";;;;(11) 47748-700_;8840;maria.teodosio;Infraestrutura;Impressora;Instalação (i);8;medium;Provisão;Corporativo;Sidneia;
-5785;2025-02-12 17:54:07;instalar Proteeus;" Boa Tarde     Por gentileza instalar o prothes na maquina da nova colaboradora <span style=""color: rgb(34, 34, 34)"">ANA JULIA ALKIMIM PIEDADE</span>  <span style=""color: rgb(34, 34, 34)"">login ana.piedade</span> ";;;;(11) 47748-700_;8840;maria.teodosio;Infraestrutura;Sistema Operacional ;Instalar/Remover Programas;8;medium;Provisão;Corporativo;Sidneia;
+   Há referências a locais para devolução de embalagens vazias (links para inpev.org.br).
+   Há informações sobre densidade e natureza física dos produtos.
+   A fatura nº 001 vence em 29/01/2025, no valor de R$90.068,95"
+5801;2025-02-13 15:54:30;Nobeak para comutador de novo colaborador; Boa tarde!!     Necessitamos de um nobreak para pc de colaborador  com a queda de energia computador desligou ;Barueri;São Paulo;Brasil;;4266;humberto.silva@luftagro.com.br;Infraestrutura;Hardware;Outros (i);6;low;Medicina e Segurança do Trabalho;Agro;Humberto Honório Silva;

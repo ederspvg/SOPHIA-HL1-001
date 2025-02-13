@@ -10,7 +10,7 @@ import utilitarios as Canivete
 # Inicializar analise_aprofundada no st.session_state se não existir
 if 'analise_aprofundada' not in st.session_state:
     st.session_state['analise_aprofundada'] = ''
-    
+
 # Inicializar chamados_nao_categorizados no st.session_state se não existir
 if 'chamados_nao_categorizados' not in st.session_state:
     st.session_state['chamados_nao_categorizados'] = [pd.DataFrame(), '']
@@ -18,7 +18,6 @@ if 'chamados_nao_categorizados' not in st.session_state:
 #------------------------------------------------------------------------------------------------------------------
 # Funções
 #
-# Funções de exemplo (substitua pelas suas funções reais)
 
 def obter_chamados_nao_categorizados():
     # Aqui você deve buscar os chamados não categorizados
@@ -47,8 +46,9 @@ with aba1:
     # Botão Categorizar (dentro da aba 1)
     if st.button("Listar Tickets Não Categorizados", key="botao_listar_nao_categorizados"): # Use uma key única
         # Chama a função que lista os chamados não categorizados
-        # 
-        st.session_state['chamados_nao_categorizados'] = obter_chamados_nao_categorizados()
+        #
+        with st.spinner('Aguarde... Buscando chamados não categorizados...'): # ADICIONADO SPINNER
+            st.session_state['chamados_nao_categorizados'] = obter_chamados_nao_categorizados()
 
         # Exibe os chamados em uma tabela
         st.dataframe(st.session_state['chamados_nao_categorizados'][0])
@@ -58,7 +58,7 @@ with aba1:
         st.session_state['analise_aprofundada'] =  Canivete.limpa_texto(st.session_state['chamados_nao_categorizados'][1], '```markdown', '')
         st.session_state['analise_aprofundada'] =  Canivete.limpa_texto(st.session_state['chamados_nao_categorizados'][1], '```', '')
         st.markdown(f'<div style="word-wrap: break-word;">{st.session_state['chamados_nao_categorizados'][1]}</div>')
-    
+
     # Caixa Email (dentro da aba 1)
     email_1 = st.text_input("Email", key="email_input_aba_1") # Use uma key única
 
@@ -87,7 +87,10 @@ with aba2:
     # Botão Análise Aprofundada (dentro da aba 2)
     if st.button("Análise Aprofundada", key="botao_analise_aprofundada"): # Use uma key única
         # Chama a função que analisa o ticket e retorna o resultado
-        st.session_state['analise_aprofundada'] = Consulta_Banco.analise_profunda_ticket_nao_categorizados('Open', ticket_alvo, ticket_alvo) # SALVA NO st.session_state
+        ticket_alvo_val = st.session_state['ticket_alvo_input'] # Garante que ticket_alvo seja capturado aqui
+        with st.spinner(f'Aguarde... Analisando ticket {ticket_alvo_val}...'): # ADICIONADO SPINNER COM MENSAGEM DINÂMICA
+            st.session_state['analise_aprofundada'] = Consulta_Banco.analise_profunda_ticket_nao_categorizados('Open', ticket_alvo_val, ticket_alvo_val) # SALVA NO st.session_state
+
         st.session_state['analise_aprofundada'] =  Canivete.limpa_texto(st.session_state['analise_aprofundada'], '```markdown', '')
         st.session_state['analise_aprofundada'] =  Canivete.limpa_texto(st.session_state['analise_aprofundada'], '```', '')
         # Exibe a análise aprofundada
