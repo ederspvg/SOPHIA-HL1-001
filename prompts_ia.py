@@ -275,7 +275,7 @@ def biblioteca_de_prompts(_perfil):
                 
                 Passo 8 - Escreva o Título VENCIMENTO_SLA_ATUAL e abaixo escreva em texto normal apenas a data de vencimento do SLA atual.               
                 
-                É muito importante que você formate sua resposta com MarkDown (com quebras de linhas, marcas de título e subtítulo, palavras destacas, etc).
+                É muito importante que você formate o texto da sua resposta com MarkDown.
                 Não escreva Passo 1 e Passo 2 e etc antes de cada título. Separe cada tícket analisado por uma linha.
             """
     elif _perfil == ANALISTA_GENERALISTA_3_:
@@ -349,7 +349,7 @@ def biblioteca_de_prompts(_perfil):
                 
                 Passo 10 - Escreva o Título VENCIMENTO_SLA_ATUAL e abaixo escreva em texto normal apenas a data de vencimento do SLA atual.               
                 
-                É muito importante que você formate sua resposta com MarkDown (com quebras de linhas, marcas de título e subtítulo, palavras destacas, etc).
+                É muito importante que você formate o texto da sua resposta com MarkDown.
                 Não escreva Passo 1 e Passo 2 e etc antes de cada título.
             """
     elif _perfil == SINTETIZADOR_:
