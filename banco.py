@@ -840,6 +840,12 @@ def analise_profunda_ticket_nao_categorizados(STATUS_, TICKET_START, TICKET_END)
         manual_indicado = brain.analisar_com_gemini("", "", question, _instrucao, 10, brain.GLOBAL_MODELO_MEDIO)
         if '\n' in manual_indicado:
             manual_indicado = manual_indicado.replace('\n', '')
+            
+        arquivo_path  = manual_indicado # 'manuais/sigacom.pdf' # "protheus_custom/Lutms097.pdf"
+        if manual_indicado == '#N/A':
+            texto_do_manual = arquivo_path = ''
+        else:
+            texto_do_manual = Canivete.extrair_texto_de_pdf(arquivo_path)
         
         question    = f"""
                         Peço que você analise as informações detalhadas do ticket e a descrição dos anexos (casa haja alguma descrição)
@@ -852,11 +858,11 @@ def analise_profunda_ticket_nao_categorizados(STATUS_, TICKET_START, TICKET_END)
         
         _instrucao = Persona.biblioteca_de_prompts(Persona.ANALISTA_GENERALISTA_3_)
         
-        arquivo_path  = manual_indicado # 'manuais/sigacom.pdf' # "protheus_custom/Lutms097.pdf"
-        if manual_indicado == '#N/A':
-            texto_do_manual = arquivo_path = ''
-        else:
-            texto_do_manual = Canivete.extrair_texto_de_pdf(arquivo_path)
+        # arquivo_path  = manual_indicado # 'manuais/sigacom.pdf' # "protheus_custom/Lutms097.pdf"
+        # if manual_indicado == '#N/A':
+        #     texto_do_manual = arquivo_path = ''
+        # else:
+        #     texto_do_manual = Canivete.extrair_texto_de_pdf(arquivo_path)
         
         question += "\n" + "Manual em Texto: \n" + texto_do_manual
         
@@ -1306,7 +1312,7 @@ def listar_chamados_nao_categorizados(STATUS_, TICKET_START, TICKET_END):
 # Resolved
 # In Progress
 
-testar = False # True
+testar = False #True
 
 if testar:
     
