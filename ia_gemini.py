@@ -1,3 +1,5 @@
+import parametros_globais as OneRing
+
 import os
 import time
 from dotenv import load_dotenv
@@ -13,7 +15,7 @@ import time
 import google_search as buscador
 import prompts_ia as Persona
 
-ambiente_local = False
+ambiente_local = OneRing.TESTE_LOCAL_ # False
 if ambiente_local:
     from dotenv import load_dotenv
     load_dotenv(dotenv_path='ambiente.env')

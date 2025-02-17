@@ -1,3 +1,4 @@
+import parametros_globais as OneRing
 import psycopg2
 
 import base64
@@ -16,7 +17,7 @@ import send_email as Correio
 import markdownify
 
 
-ambiente_local = False
+ambiente_local = OneRing.TESTE_LOCAL_ # False
 
 if ambiente_local:
     from dotenv import load_dotenv

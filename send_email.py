@@ -1,3 +1,5 @@
+import parametros_globais as OneRing
+
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -10,7 +12,7 @@ import os
 
 
 
-ambiente_local = False
+ambiente_local = OneRing.TESTE_LOCAL_ # False
 if ambiente_local:
     from dotenv import load_dotenv
     load_dotenv(dotenv_path='ambiente.env')
