@@ -13,9 +13,17 @@ import time
 import google_search as buscador
 import prompts_ia as Persona
 
+ambiente_local = False
+if ambiente_local:
+    from dotenv import load_dotenv
+    load_dotenv(dotenv_path='ambiente.env')
+    genai.configure(api_key=os.getenv('GEMINI_API_KEY'))
+else:
+    import streamlit as st
+    genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
-load_dotenv(dotenv_path='ambiente.env')
-genai.configure(api_key=os.getenv('GEMINI_API_KEY'))
+
+
 
 
 

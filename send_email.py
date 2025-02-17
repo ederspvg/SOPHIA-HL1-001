@@ -4,12 +4,24 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email import encoders
 import os
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
-load_dotenv(dotenv_path='ambiente.env')
+# load_dotenv(dotenv_path='ambiente.env')
 
-EMAIL_REMETENTE_GMAIL = os.getenv('EMAIL_REMETENTE') # Seu email Gmail (remetente)
-SENHA_REMETENTE_GMAIL = os.getenv('SENHA_EMAIL_REMETENTE') # Senha do seu email Gmail ou App Password
+
+
+ambiente_local = False
+if ambiente_local:
+    from dotenv import load_dotenv
+    load_dotenv(dotenv_path='ambiente.env')
+    EMAIL_REMETENTE_GMAIL = os.getenv('EMAIL_REMETENTE') # Seu email Gmail (remetente)
+    SENHA_REMETENTE_GMAIL = os.getenv('SENHA_EMAIL_REMETENTE') # Senha do seu email Gmail ou App Password
+else:
+    import streamlit as st
+    EMAIL_REMETENTE_GMAIL = st.secrets["EMAIL_REMETENTE"] # Seu email Gmail (remetente)
+    SENHA_REMETENTE_GMAIL = st.secrets["SENHA_EMAIL_REMETENTE"] # Senha do seu email Gmail ou App Password
+    
+    
 
 #---------------------------------------------------------------------------------------------------------------
 # Função para envio de email usando Gmail SMTP (sem OAuth - APENAS PARA TESTES!)

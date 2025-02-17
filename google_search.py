@@ -1,7 +1,16 @@
 import os
-from dotenv import load_dotenv
 from serpapi import GoogleSearch
-load_dotenv(dotenv_path='ambiente.env')
+# from dotenv import load_dotenv
+# load_dotenv(dotenv_path='ambiente.env')
+
+ambiente_local = False
+if ambiente_local:
+    from dotenv import load_dotenv
+    load_dotenv(dotenv_path='ambiente.env')
+    chave_serpapi = os.getenv('SERP_API_KEY')
+else:
+    import streamlit as st
+    chave_serpapi = st.secrets["SERP_API_KEY"]
 
 #---------------------------------------------------------------------------------------------------------------
 # Função que busca na internet e retorna o resultado da busca
@@ -19,7 +28,7 @@ def pesquisar_na_internet(pesquisa_):
     try:
         params = {
             "q": pesquisa_,
-            "api_key": os.getenv('SERP_API_KEY') # "e0bd547936186b770c20324f4df7f54783411b35a88528c39fb9c4fa3202d12e" #  Substitua pela sua chave de API
+            "api_key": chave_serpapi # "e0bd547936186b770c20324f4df7f54783411b35a88528c39fb9c4fa3202d12e" #  Substitua pela sua chave de API
         }
 
         search = GoogleSearch(params)

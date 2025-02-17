@@ -3,234 +3,21 @@ ID do Ticket;Data;Assunto;Descrição;Cidade;UF;País;Fone;Ramal;Email;Categoria
 5646;2025-02-05 17:20:01;Como faço para imprimir o livro de ISS?; Olá.  Não estou conseguindo gerar o livro de ISS (modelo 51) no Protheus.  Poderia me fornecer um passo a passo?       ;Barueri;São Paulo;Brasil;1147723843;3843;eder.silva@luft.com.br;Protheus;Módulo Livros Fiscais;(S) - Dúvida;30;low;TI Sistemas;Corporativo;Eder da S.P.V. Gonçalves;
 5648;2025-02-05 17:43:14;Como faço para incluir um Pedido de Compras no Protheus?; Olá. Não estou conseguindo incluir um Pedido de Compras no Protheus. Poderia me fornecer um passo a passo de como devo proceder?       ;Barueri;São Paulo;Brasil;1147723843;3843;eder.silva@luft.com.br;Protheus;Módulo Compras;(S) - Dúvida;30;low;TI Sistemas;Corporativo;Eder da S.P.V. Gonçalves;
 5649;2025-02-05 18:11:57;Contrato Fixo; Olá.  Estou tentando lançar um Contrato de Parceria no Protheus, do tipo Fixo, para lançar as AEs de Serviço de manutenção predial.  Mas não lembro como faz para cadastrar o Contrato de Parceria do tipo Fixo.  Pode me ajudar?    ;Barueri;São Paulo;Brasil;1147723843;3843;eder.silva@luft.com.br;Protheus;Módulo Compras;(S) - Dúvida;30;low;TI Sistemas;Corporativo;Eder da S.P.V. Gonçalves;
-5680;2025-02-06 16:48:01;Erro de sistema;" <span style=""color: rgb(135, 134, 138)"">Estou com erro no microsiga, mas não sei como resolver</span> ";Osasco;São Paulo;Brasil;11047723843;3843;eder.spvgoncalves@gmail.com;Protheus;Módulo Faturamento;(S) Cadastros;20;high;TI Sistemas;Corporativo;EDER;"Análise do Error Log:
+5680;2025-02-06 16:48:01;Erro de sistema;" <span style=""color: rgb(135, 134, 138)"">Estou com erro no microsiga, mas não sei como resolver</span> ";Osasco;São Paulo;Brasil;11047723843;3843;eder.spvgoncalves@gmail.com;Protheus;Módulo Faturamento;(S) Cadastros;20;high;TI Sistemas;Corporativo;EDER;"O log de erro indica que a função FINA470 não foi encontrada no AppMap durante a execução do programa APLIB090.PRW. Isso ocorreu no ambiente WTT2N6_PRD_PREPRODUCAO (e também em WTT2N6_PRD em outro momento), utilizando o build 7.00.210324P-20240219. O erro foi chamado a partir de MDIEXECUTE(APLIB260.PRW).
 
-   Erro Principal: ""InterFunctionCall: cannot find function FINA470 in AppMap""
-   Indica que a função ""FINA470"" não foi encontrada no AppMap durante a execução do programa.
-   O erro ocorreu em `APLIB090.PRW` linha 735, chamado por `MDIEXECUTE(APLIB260.PRW)` linha 931.
-   Ambiente:
-       TOTVS build: 7.00.210324P-20240219
-       Ambiente: WTT2N6\_PRD (Produção)
-       Banco de Dados: ORACLE
-       Framework Version: 20241125
-       RPO Release: 12.1.2310
-   Usuário: pablo.facioli (código 002201)
-   Data/Hora: 04/02/2025 17:17:39 e 17:19:21
-   Thread ID: NSJ14UCS348562 e NSJ14UCS3A8562
-   Servidor: 192.168.104.209 (porta 11107)
-   Filial: 0101 (LUFT)
-   Alias Ativo: SM0 (índice ativo 1, chave M0\_CODIGO+M0\_CODFIL)
-   Diversas variáveis públicas e configurações do ambiente TOTVS também foram listadas.
+Informações Chave:
 
-Possíveis causas:
+   Erro: InterFunctionCall: cannot find function FINA470 in AppMap
+   Programa: APLIB090.PRW (linha 735)
+   Chamado por: MDIEXECUTE(APLIB260.PRW) linha 931
+   Ambiente: WTT2N6\_PRD\_PREPRODUCAO e WTT2N6\_PRD
+   Build: 7.00.210324P-20240219
+   Data/Hora: 04/02/2025 17:17:39 e 04/02/2025 17:19:21
+   Thread: Vários threads (25124, 3772)
+   DBAcesso: ORACLE
+   RPO Release: 12.1.2310
 
-   A função FINA470 não existe no RPO do ambiente WTT2N6\_PRD.
-   O AppMap do ambiente não está atualizado ou não contém a função FINA470.
-   Problema de permissões impedindo o acesso à função.
-   Corrupção no RPO.
-   A função é customizada e não foi corretamente instalada/mapeada."
-5713;2025-02-10 08:58:31;Instalação da nova impressora ou manutenção ; Bom Dia!     Srs,        Gentileza verificar a possibilidade de instalação da nova impressora ou programar manutenção na lexmark    <strong>Lexmark MX611dhe IP: 10.29.0.200, </strong>        A mesma vem apresentando constante travamento ...;Campo Novo do Parecis;Mato Grosso;Brasil;62991006055;;wallace.pereira@luftagro.com.br;Infraestrutura;Hardware;Outros (i);6;low;Administrativo Operacional;Agro;Wallace Pereira Santos;
-5795;2025-02-13 13:47:44; EMISSAO DE NOTA FISCAL RECUSADA CD/GO.; Boa Tarde,     Favor poderia emitir uma nova nota fiscal para nota 20844/20843 que foi recusada, segue anexo &gt     Cliente: Lineagro.       ;Aparecida de Goiania;Goiás;Brasil;6236251630;;vinicius.silveira@luftagro.com.br;Armazém Geral;NF-e;(F) Emissão;24;low;Administrativo Operacional;Agro;Vinicius Genesio Silveira;"O arquivo contém duas Notas Fiscais Eletrônicas (NF-e) da LUFT LOGISTICS LTDA para ELINEAGRO PRODUTOS AGROPECUARIOS SA, ambas datadas de 10/02/2025, referentes ao retorno de mercadorias depositadas em armazém geral.
-
-NF-e Nº 20843:
-
-   Produto: ULTIMATO SC - BB 20 LT (90 unidades).
-   Valor Total: R$ 1.730,77.
-   Observações: Retorno referente à(s) NF(s) de entrada(s) 671. Suspensão do IPI conforme legislação. Produto classificado como substância perigosa para o meio ambiente (ONU 3082).
-
-NF-e Nº 20844:
-
-   Produto: 2,4-D AMINA CCAB 806 SL (IMP) - BB 20 LT (270 unidades).
-   Valor Total: R$ 4.317,30.
-   Observações: Retorno referente à(s) NF(s) de entrada(s) 728. Suspensão do IPI conforme legislação. Produto classificado como pesticida tóxico (ONU 3348). Retorno referente a nota fiscal de venda 13965
-
-Ambas as notas fiscais indicam não incidência de ICMS e suspensão do IPI, conforme legislação específica.anexo 3 - descrição detalhada: anexo 4 - descrição detalhada: "
-5799;2025-02-13 15:27:32;CALCULO DE BASE ; Boa tarde!     Por gentileza realizar base de calculo de notas fiscais em anexo.    ;Aparecida de Goiania;Goiás;Brasil;55623625162;;danilo.ribeiro@luftagro.com.br;Armazém Geral;NFS-e;(F) Emissão;24;low;Administrativo Operacional;Agro;Danilo  Ribeiro da Silva;"O texto parece ser uma sequência de dados binários ou texto codificado, possivelmente um log de sistema ou dados corrompidos.
-
-Possíveis causas:
-
-   Erro de codificação: O arquivo pode ter sido codificado incorretamente, resultando em caracteres ilegíveis.
-   Corrupção de dados: O arquivo pode ter sido danificado durante a transferência ou armazenamento.
-   Formato desconhecido: O arquivo pode estar em um formato proprietário ou desconhecido que requer um software específico para ser interpretado.
-
-Ações recomendadas:
-
-1.  Verificar a origem do arquivo para determinar o formato original e a codificação esperada.
-2.  Tentar abrir o arquivo com diferentes editores de texto ou visualizadores binários para ver se é possível identificar algum padrão ou estrutura.
-3.  Se o formato for conhecido, procurar por ferramentas ou bibliotecas que possam decodificar ou interpretar o arquivo.
-
-	
- 				   
-  
-	 
- 	
-
-
-
-	
-
-
-	
-
-  !"" 
-			  
- 
-
-	 !!#   $ 
- !""#!$
-%&# 
-'#$($($%$)!$*$!$""
-	+!$,-./-01002,03-/450/, 1  
- !%#!6""$($ 
-#$' $""""#7 $ 
-8 
-,9 ,
- 
-	 
-: ,,5,; 
-,
-,<,
-	 
-
-
- 
-			  
-===..>.?.< 
-	>	> 
-> 
-($(+(! $('#$&"" %#)!$(@$+ ""# 
-2A((% 
--%%$""		 
--/08,-4B,,,8 	..		 
-81.,1-.-B4<888,;0 C< .	> ,-/;/8-004;00,1,;<8;<;8;/,/B1,1 
- 
-
-	9	 C< 
-	 
-<D   
-		 
-	 
-<9 
-<>	 	E	<
- 
-	?	 
-(@$?,,1**
-// 
-!$$(?$' 25,300581BB58 >$!$""
-? ,,B-,05,1 8;1.;/B.05,48 ,;<8;<;8;/ 
-:<9 	 
-$'""4-.418888 
- 
-
- 	?	  	F	 
-,,5,; ,8.144*88 8*88 ,8.144*88 
-	 
--.5;/*-8 ,B<8-<;8;/ 88, 88- ,-<8/<;8;/ -.5;5*B8 88; ,-<8B< ;8;/ -.5;/*-8 G
- 	
-  G
- G
-  	
- 	
-  
-
-?
- 
-
-?
-  
-""#$ $ 
-""#$ $ -.5;/*-8 
--.5;5*B8 
- 
-?
-  
-""#$ $ -.5;/*-8 
-E	
- 
-E	
- 
-8*88 	
- 
-8*88 E	
-		 
-8*88 	
-		 
-8*88  
-,8.144*88 
- 
-8*88 ? 
-8*88  
-8*88 H	 
-8*88 		 
-8*88 D	  
-,8.144*88 
-<
- 
->	 
-?		  
-
- H	? 9  
-14.510.B8;<88-,B0 C 
- 
-""I'C$(%$$J' K' % 
-	9	 
-+$ ($(?$$  		 
-,8B105501 ? 
-F	 	 
- 
-  9F	 
-/ 
- 8 ,,B*/88 ,88*888 
-					 
-	 				  	    !  !	! "" ! !!# 	 
-  	 "" 
- 
-   $ %$ %$ $ $ $ $ $    :	;8E	E	 
-	&'()(
-*+
-!,-.(""/ -0.(/1&(/12(
-+
-1-%3'341(2530,'5'6.7'1,%.8%( 
-
-*%%1917-31'(,2%	:$
-,2	%8!$
-$%$.7'%$8;!$
-	:%
-			 
-	
-L
-
- 	 
-%#($+""&MN##+<<OOO.&M. %.& %''$+ #$(%?		#$ $"",,/15P 
-C14.510.B8;<88111B 
-	,8-,1--11 
-(""$*#$F!$($88/?$""+$8;* '<.C$(%$$' ' %. 
-4B.01B-;,.+$ ($(?$$<?. 
-Q'+'$&""($(( ""N%#(	
-($%$R %$""Q "
-5800;2025-02-13 15:29:57;CALCULO DE BASE CD/GO.; Boa Tarde a todos,     Favor verificar calculo de base dessas notas ficais de venda para seguir com a transmissao da remessa simbolica &gt     NF 9426/9427.       ;Aparecida de Goiania;Goiás;Brasil;6236251630;;vinicius.silveira@luftagro.com.br;Armazém Geral;NF-e;(F) Validação;24;high;Administrativo Operacional;Agro;Vinicius Genesio Silveira;"Resumo da NFe nº 000009427, Série 2:
-
-   Emitente: GENICA INOVACAO BIOTECNOLOGICA S/A (CNPJ: 23.255.514/0001-93)
-   Destinatário: SAO MARTINHO SA (CNPJ: 51.466.860/0062-78)
-   Data de Emissão/Entrada: 30/12/2024
-   Valor Total da Nota: R$ 90.068,95
-   Natureza da Operação: Venda de Mercadoria/Produção
-
-Produtos:
-
-   FIXARON AZOS 200DS: 7.600 DS, R$ 20.140,00, Lote: 24K0206A, Validade: NOV/2025
-   INCEPTOR: 126 L, R$ 32.010,30, Lote: CWB010163524, Validade: MAR/2025
-   DULIA 5 LT: 335 L, R$ 37.918,65, Lote: 0612.00 05-24-3500, Validade: DEZ/2025
-
-Informações Adicionais:
-
-   Mercadorias remetidas do armazém geral Transportes Luft LTDA (CNPJ: 87.689.402/0088-84).
-   Pedidos: ARMZUBVC, Pedido Sistema: 008165.
-   Contratos MAE: 4715, 6531, 4607.
-
-Observações:
-
-   Há referências a locais para devolução de embalagens vazias (links para inpev.org.br).
-   Há informações sobre densidade e natureza física dos produtos.
-   A fatura nº 001 vence em 29/01/2025, no valor de R$90.068,95"
-5801;2025-02-13 15:54:30;Nobeak para comutador de novo colaborador; Boa tarde!!     Necessitamos de um nobreak para pc de colaborador  com a queda de energia computador desligou ;Barueri;São Paulo;Brasil;;4266;humberto.silva@luftagro.com.br;Infraestrutura;Hardware;Outros (i);6;low;Medicina e Segurança do Trabalho;Agro;Humberto Honório Silva;
+A ausência da função no AppMap sugere um problema na configuração do ambiente, ausência da função no RPO ou um erro de compilação. O problema ocorre em um ambiente de produção, portanto, é crítico."
+5830;2025-02-17 08:14:19;Marcações do ciclo 11/01 a 10/02 não aparecem no APP MEU RH; Bom dia,  Eu estava de férias e retornei hoje(17/02) os colaboradores alegam não conseguir estar visualizando as marcações do ciclo 11/01 a 10/02.    ;Ibipora;Paraná;Brasil;4331789958;;rh.corporativo@transcamila.com.br;Protheus;Módulo Ponto Eletrônico;(S) Integração;30;high;Recursos Humanos;TransCamila;Diego Humberto Pimenta;
+5834;2025-02-17 08:52:40;Aprovações de solicitações de ajustes;" Bom dia,  Eu estava de férias e retornei hoje (17/02) identifiquei vários ajustes solicitados pelos colaboradores que aparecem pendentes no sistema, porém quanto tento aprovar não permite pois aparece uma mensagem dizendo que ""A solicitação ainda está em processo de aprovação."" ";Ibipora;Paraná;Brasil;4331789958;;rh.corporativo@transcamila.com.br;Protheus;Módulo Ponto Eletrônico;Apontamentos;120;medium;Recursos Humanos;TransCamila;Diego Humberto Pimenta;anexo 1 - descrição detalhada: TOTVS Distribuiçào Logística (TOTVS) 02.9.0016 Ver: 20.3.2.8 Efetivar Solicitação Portal [02. 0016] TOTVS Ponto Eletrônico TOTVS Distribuição Logística ORACLE Wit2n6_prd diego pimenta 10/02/25 Transcamila Matriz Sair Há filtros aplicados provse Remover SubstAprovador Atender Qutras Ações Filtrar Filial Código Matricula Nome Descricao Status Data Solic_ 01-MATRIZ 00341 031885 LUCILENE APARECIDA BALDREZ MARCACAO DE PONTO Em processo de aprovação 05/02/25 01-MATRIZ 00342 031945 IGOR DAVID MAILAN JUSTIFICATIVA DE HORARIO Em processo de aprovação 05/02/25 05-RONDONOPOLIS 05 00263 031599 DANIELA MENDES DE OLIVEIRA NAS MARCACAO DE PONTO Em processo de aprovação 24/01/25 05-RONDONOPOLIS 05 00264 031599 DANIELA MENDES DE OLIVEIRA NAS MARCACAO DE PONTO Em processo de aprovação 24/01/25 05-RONDONOPOLIS 05 00265 029059 WELLISSON AGUIAR HERCULANO DE MARCACAO DE PONTO Em processo de aprovação 27/01/25 05-RONDONOPOLIS 05 00266 031926 JEFFERSON GONCALVES VIEIRA MARCACAO DE PONTO Em processo de aprovação 27/01/25 05-RONDONOPOLIS 05 00267 031926 JEFFERSON GONCALVES VIEIRA MARCACAO DE PONTO Em processo de aprovação 27/01/25 05-RONDONOPOLIS 05 00268 031716 ANAXIMANDRO MATOS DE SOUZA MARCACAO DE PONTO Em processo de aprovação 27/01/25 05-RONDONOPOLIS 05 00269 031963 ANTONY JUNIOR GONCALVES MARCACAO DE PONTO Em processo de aprovação 27/01/25 05-RONDONOPOLIS 05 00271 031713 VALDEIR DE SOUSA JUSTIFICATIVA DE HORARIO Em processo de aprovação 27/01/25 05-RONDONOPOLIS 05 00272 029017 ELOILTON MARTINS SOUZA MARCACAO DE PONTO Em processo de aprovação 27/01/25 05-RONDONOPOLIS 05 00275 031728 WILLIAM INACIO SANCHINI MARCACAO DE PONTO Em processo de aprovação 28/01/25 05-RONDONOPOLIS 05 00276 031980 FRANCISCO ROBERT NASCIMENTO JUSTIFICATIVA DE HORARIO Em processo de aprovação 28/01/25 05-RONDONOPOLIS 05 00278 031728 WILLIAM INACIO SANCHINI MARCACAO DE PONTO Em processo de aprovação 29/01/25 05-RONDONOPOLIS 05 00279 031955 NILSON MARTINS DA SILVA JUSTIFICATIVA DE HORARIO Em processo de aprovação 29/01/25 05-RONDONOPOLIS 05 00280 031729 GILBERTO PEREIRA DOS SANTOS MARCACAO DE PONTO Em processo de aprovação 29/01/25 05-RONDONOPOLIS 05 00281 031982 GUILHERME DE OLIVEIRA SOUSA JUSTIFICATIVA DE HORARIO Em processo de aprovação 29/01/25 05-RONDONOPOLIS 05 00282 031981 JADSON HUGO JESUS LOPES JUSTIFICATIVA DE HORARIO Em processo de aprovação 29/01/25 05-RONDONOPOLIS 05 00298 031979 REYNEL KAUAM DOMINGUES SERAFIM JUSTIFICATIVA DE HORARIO Em processo de aprovação 30/01/25 05-RONDONOPOLIS 05 00299 031968 PAULO VINICIUS DA SILVA NEGRAO MARCACAO DE PONTO Em processo de aprovação 30/01/25 05-RONDONOPOLIS 05 00300 031983 VENICIUS SOARES BARBOSA JUSTIFICATIVA DE HORARIO Em processo de aprovação 30/01/25 05-RONDONOPOLIS 05 00302 031982 GUILHERME DE OLIVEIRA SOUSA JUSTIFICATIVA DE HORARIO Em processo de aprovação 30/01/25 05-RONDONOPOLIS 05 00303 031980 FRANCISCO ROBERT NASCIMENTO JUSTIFICATIVA DE HORARIO Em processo de aprovação 30/01/25 05-RONDONOPOLIS 05 00304 031981 JADSON HUGO JESUS LOPES JUSTIFICATIVA DE HORARIO Em processo de aprovação 30/01/25 05-RONDONOPOLIS 05 00305 031978 EVAIR APARECIDO DA SILVA PEREI MARCACAO DE PONTO Em processo de aprovação 30/01/25 anexo 2 - descrição detalhada: Efetivar Solicitação Portal [02 0016] TOTVS Ponto Eletrônico TOTVS Distribuição Logistica ORACLE Wtt2n6_prd diego pimenta 10/02/25 Transcamila Matriz Sair Solicitações ao RH - ATENDER Outras Ações Fechar Código  Matricula Nome Tipo* 00341 031885 LUCILENE APARECIDA BALDREZ Descricao Origem Status Data Solic. MARCACAO DE PONTO MEURH Em processo de aprovação 05/02/25 Data Atend Cod. Fluig Empresa Empresa Inic Empresa Apr. Imagem Dt. Demissão Atencao! A solicitacao ainda esta em processo de aprovação! Item Desc Campo Filial Fechar Numero da Matricula 031885 TMP_NOME LUCILENE APARECIDA BALDREZ Data da marcaçao 30/01/2025 Hcrario da marcaçao Mot Modificação Registro INCLUSAO MANUAL TMP_TEXT Esquecimento TMP_DIRECT Entrada 
+5836;2025-02-17 10:06:42;impressora ; Bom dia, tudo bem?     Prezados, por favor poderia configurar a impressora do Corporativo RH de Barueri na minha máquina, pois só tenho acesso a de Cajamar.     Desde já agradeço. ;Cajamar;São Paulo;Brasil;11949465507;;fernanda.jesus@luft.com.br;Infraestrutura;Impressora;Configuração (i);12;medium;Recursos Humanos;Solutions;Fernanda Maria de Jesus;

@@ -4,6 +4,7 @@ import base64
 from PIL import Image
 import io
 import os
+
 from PyPDF2 import PdfReader
 import pandas as pd
 
@@ -14,6 +15,25 @@ import utilitarios as Canivete
 import send_email as Correio
 import markdownify
 
+
+ambiente_local = False
+
+if ambiente_local:
+    from dotenv import load_dotenv
+    load_dotenv(dotenv_path='ambiente.env')
+
+    key_host_banco  = os.getenv('KEY_BANCO_HOST')
+    key_database    = os.getenv('KEY_BANCO_DATABASE')
+    key_user        = os.getenv('KEY_BANCO_USER')
+    key_pass        = os.getenv('KEY_BANCO_PASS')
+else:
+    import streamlit as st
+    key_host_banco  = st.secrets["KEY_BANCO_HOST"]
+    key_database    = st.secrets["KEY_BANCO_DATABASE"]
+    key_user        = st.secrets["KEY_BANCO_USER"] 
+    key_pass        = st.secrets["KEY_BANCO_PASS"] 
+
+
 #---------------------------------------------------------------------------------------------------------------
 #---------------------------------------------------------------------------------------------------------------
 # Função que conecta no banco do Sensr e retorna o resultado de uma query em uma tabela
@@ -21,10 +41,10 @@ import markdownify
 def consulta_sensr(_l_mostra,_query):
     # Configurações de conexão
     conn = psycopg2.connect(
-        host="10.0.200.71",
-        database="sensr",
-        user="luft",
-        password="Luf1.2k24"
+        host=key_host_banco,
+        database=key_database,
+        user=key_user,
+        password=key_pass
     )
     # Crie um cursor
     cur = conn.cursor()
