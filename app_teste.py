@@ -33,7 +33,8 @@ def obter_chamados_nao_categorizados():
 chamados_nao_categorizados = pd.DataFrame()
 
 # Título da aplicação
-st.title("Assistente Virtual Experimental Categorizador de Chamados")
+st.title("Suporte Orientado Por Heurística Inteligente Artificial - Helpdesk Nível 1 - versão 001")
+st.subheader("Assistente Virtual Experimental Categorizador de Chamados")
 
 # Criando as abas que vou usar
 aba1, aba2 = st.tabs(["Listar Tickets Não Categorizados", "Análise Aprofundada de Ticket"])

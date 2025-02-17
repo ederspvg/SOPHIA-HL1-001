@@ -1,424 +1,251 @@
 ```markdown
-## RELATÓRIO DE ANÁLISE DE TICKETS - DEPARTAMENTO DE TI
+## Tickets por Ordem de Prioridade
 
-### Lista de Tickets por Prioridade de Atendimento:
-
-1. Ticket 5680
-2. Ticket 5581
-3. Ticket 5834
-4. Ticket 5830
-5. Ticket 5649
-6. Ticket 5836
-7. Ticket 5646
-8. Ticket 5648
+1. Ticket 5581
+2. Ticket 5680
+3. Ticket 5837
+4. Ticket 5646
+5. Ticket 5648
+6. Ticket 5649
 
 ---
 
-### Análise Detalhada dos Tickets:
+## RELATÓRIO DE ANÁLISE DE TICKETS
 
 ---
 
-## TICKET
-5680
-
-## CATEGORIZACAO
-Ticket Categorizado Corretamente
-
-## TIPO_REQ
-Erro de Sistema
-
-## DIFICULDADE
-13 - CLASSE A1
-
-**Justificativa:** O ticket relata um erro crítico de sistema em ambiente de produção (WTT2N6_PRD e WTT2N6_PRD_PREPRODUCAO) devido à ausência da função `FINA470` no AppMap, impactando o módulo de Faturamento. A investigação e resolução podem demandar análise do RPO, recompilação, configuração do ambiente e possivelmente aplicação de patches ou correções. Dada a criticidade do erro em produção e o nível de investigação técnica necessário, a dificuldade é classificada como A1, estimando-se que a resolução possa levar em torno de 13 horas.
-
-## ORIENTACAO_H
-O analista humano deve priorizar este ticket devido à sua criticidade.
-
-**Passos a serem seguidos:**
-
-1. **Verificar a existência da função FINA470 no RPO:**  Acessar o ambiente de desenvolvimento e o RPO correspondente à versão mencionada (12.1.2310) para verificar se a função `FINA470` realmente existe e se está compilada corretamente.
-2. **Analisar o AppMap do ambiente:** Verificar se o AppMap do ambiente de produção (WTT2N6_PRD e WTT2N6_PRD_PREPRODUCAO) está atualizado e se a função `FINA470` está presente. Pode haver um problema de atualização do AppMap ou alguma configuração incorreta.
-3. **Comparar os ambientes:** Comparar as configurações dos ambientes de produção e pré-produção com o ambiente de desenvolvimento para identificar possíveis diferenças que possam estar causando o problema.
-4. **Verificar logs do Application Server:** Analisar os logs do Application Server dos ambientes afetados para identificar se há mais detalhes sobre o erro ou outras mensagens relevantes que possam auxiliar no diagnóstico.
-5. **Considerar recompilação:** Se a função existir no RPO e o AppMap parecer correto, considerar a recompilação da função e/ou dos programas `APLIB090.PRW` e `APLIB260.PRW` nos ambientes afetados.
-6. **Testar em ambiente de homologação:** Antes de aplicar qualquer correção em produção, testar a solução em um ambiente de homologação para garantir que o problema seja resolvido e não haja outros impactos.
-7. **Monitorar após correção:** Após a correção, monitorar os ambientes de produção e pré-produção para garantir que o erro não ocorra novamente.
-
-## RESPOSTA_INI
-Prezado(a) Usuário(a),
-
-Informamos que seu ticket referente ao erro de sistema no Protheus já está sendo analisado pela nossa equipe técnica. Devido à criticidade do problema, estamos priorizando a sua resolução e em breve um analista entrará em contato com mais informações e próximos passos.
-
-### Sugestão de Dados adicionais a serem solicitados
-- Prints de tela do erro completo, caso haja mais detalhes além do log já fornecido.
-- Informações sobre quando o erro começou a ocorrer e se houve alguma alteração recente no sistema ou ambiente.
-
-## SLA_SUGERIDO
-O SLA atual de 20 horas (high) parece adequado para um erro de sistema desta natureza, mas dada a criticidade em ambiente de produção, sugere-se priorizar a resolução o mais rápido possível dentro desse SLA.
-
-## VENCIMENTO_SLA_ATUAL
-2025-02-07 12:48:01
-
----
-
-## TICKET
+### TICKET
 5581
 
-## CATEGORIZACAO
+### CATEGORIZACAO
 Ticket Categorizado Corretamente
 
-## TIPO_REQ
+### TIPO_REQ
 Erro de Sistema
 
-## DIFICULDADE
-5 - CLASSE B1
+### DIFICULDADE
+2 - CLASSE D
 
-**Justificativa:** O ticket relata um problema de bloqueio de login no Protheus, com uma mensagem de erro de conexão no SmartClient. A dificuldade é classificada como B1, pois envolve verificar o status do usuário no Protheus, analisar logs do servidor, testar a conectividade de rede do usuário e possivelmente reiniciar serviços ou desbloquear o usuário manualmente. A resolução pode levar em torno de 5 horas, considerando a necessidade de diagnóstico e testes de conexão.
+**Justificativa:** O problema parece ser um bloqueio de login ou erro de conexão ao Protheus. Desbloquear um login geralmente é uma tarefa de baixa complexidade, que pode levar cerca de 2 horas para ser totalmente resolvida, incluindo testes e comunicação com o usuário.
 
-## ORIENTACAO_H
-O analista humano deve priorizar este ticket devido ao impacto no acesso do usuário ao sistema.
+### ORIENTACAO_H
+1. **Verificar o status do usuário:** Confirmar se o usuário está realmente bloqueado no Protheus.
+2. **Reset de senha:** Tentar realizar um reset de senha para o usuário.
+3. **Analisar logs do servidor:** Verificar os logs do servidor Protheus (AppServer e WebApp) para identificar a causa do erro de conexão e do bloqueio. O anexo menciona "Erro TOTVS Build 7.00.210324P ERRDD32: Conexão entre TOTVS SmartClient TOTVS Application Server interrompida." - investigar falhas de comunicação de rede ou indisponibilidade do AppServer.
+4. **Infraestrutura:** Validar se não houve alguma instabilidade na infraestrutura de rede ou servidores no momento do erro.
+5. **Comunicação com o usuário:** Manter o usuário informado sobre o andamento da análise e solicitar confirmação após a resolução.
 
-**Passos a serem seguidos:**
+### RESPOSTA_INI
+Prezado(a) usuário(a),
 
-1. **Verificar status do usuário no Protheus:** Acessar o módulo de segurança do Protheus (Configurador) e verificar se o usuário `eder.spvgoncalves` está bloqueado ou inativo. Desbloquear o usuário, se necessário.
-2. **Analisar logs do Application Server:** Verificar os logs do Application Server no período do erro para identificar a causa do bloqueio ou falha de conexão. Procurar por mensagens de erro relacionadas ao usuário ou à conexão.
-3. **Testar a conectividade de rede do usuário:** Solicitar ao usuário que verifique sua conexão de rede e se possível, testar o acesso ao Protheus a partir de outra máquina ou rede para isolar o problema.
-4. **Verificar serviços do Protheus:** Verificar se os serviços do Protheus (Application Server, Banco de Dados) estão em execução e funcionando corretamente. Considerar reiniciar os serviços, se necessário.
-5. **Analisar arquivo de configuração do SmartClient (se possível):** Verificar se o arquivo de configuração do SmartClient do usuário (se acessível) está correto, apontando para o servidor e porta corretos.
+Seu ticket de ID 5581 referente ao desbloqueio do login no Protheus foi recebido e está sendo analisado pela nossa equipe. Em breve, um analista entrará em contato para dar andamento à sua solicitação e buscar a solução o mais rápido possível.
 
-## RESPOSTA_INI
-Prezado(a) Usuário(a),
+#### Sugestão de Dados adicionais a serem solicitados
+- Print de tela da mensagem de erro completa ao tentar acessar o Protheus.
+- Informar se o problema começou a ocorrer recentemente ou se sempre ocorreu.
+- Verificar se outros usuários do mesmo setor estão com o mesmo problema.
 
-Informamos que seu ticket referente ao desbloqueio de login no Protheus já está sendo analisado pela nossa equipe. Estamos verificando as possíveis causas do problema de acesso e em breve um analista entrará em contato para auxiliar na resolução.
+### SLA_SUGERIDO
+O SLA atual de 4 horas é adequado para este tipo de incidente, pois o bloqueio de acesso impede o usuário de trabalhar, impactando suas atividades.
 
-### Sugestão de Dados adicionais a serem solicitados
-- Confirmar o nome de usuário Protheus completo.
-- Print de tela da mensagem de erro completa do SmartClient.
-- Informar se o problema ocorre apenas nesta máquina ou em outras também.
-- Informar se houve alguma alteração recente na senha ou configurações do Protheus.
-
-## SLA_SUGERIDO
-O SLA atual de 4 horas (low) parece razoável para um desbloqueio de login, mas considerando que impede o usuário de trabalhar, manter o SLA atual e priorizar o atendimento dentro deste prazo é importante.
-
-## VENCIMENTO_SLA_ATUAL
-2025-01-30 20:22:43
+### VENCIMENTO_SLA_ATUAL
+2025-01-30 20:22
 
 ---
 
-## TICKET
-5834
+### TICKET
+5680
 
-## CATEGORIZACAO
+### CATEGORIZACAO
 Ticket Categorizado Corretamente
 
-## TIPO_REQ
-Falha de Processo / Erro de Sistema
+### TIPO_REQ
+Erro de Sistema
 
-## DIFICULDADE
+### DIFICULDADE
 8 - CLASSE B2
 
-**Justificativa:** O ticket relata um problema com a aprovação de ajustes de ponto eletrônico, onde as solicitações ficam "Em processo de aprovação" e não podem ser efetivadas. A dificuldade é B2, pois exige investigar o fluxo de aprovação do ponto eletrônico no Protheus, verificar se há algum travamento no workflow, analisar logs de erro do sistema e possivelmente identificar alguma configuração incorreta ou necessidade de intervenção manual para liberar as aprovações. A resolução pode levar em torno de 8 horas, considerando a complexidade do fluxo de aprovação e a necessidade de análise de logs e configurações.
+**Justificativa:** Este ticket descreve um erro de sistema complexo, envolvendo o Protheus, com informações detalhadas de log, indicando um erro de "InterFunctionCall" e falta da função "FINA470". A análise e solução podem demandar aproximadamente 8 horas, considerando a necessidade de investigar o código, AppMap, configurações de ambiente e possível necessidade de correção de código ou configuração.
 
-## ORIENTACAO_H
-O analista humano deve investigar o fluxo de aprovação do ponto eletrônico e identificar o motivo das solicitações estarem travadas.
+### ORIENTACAO_H
+1. **Verificar AppMap:**  Confirmar se a função `FINA470` realmente existe e está corretamente mapeada no AppMap do ambiente `WTT2N6_PRD`.
+2. **Verificar a função FINA470:**  Localizar a função `FINA470` no código fonte do Protheus e verificar se ela está presente na versão utilizada e se não há nenhuma customização que possa estar causando o problema.
+3. **Analisar logs detalhados:** Examinar os logs do AppServer e logs de erros do Oracle para identificar informações adicionais sobre o erro.
+4. **Ambiente de Testes:**  Reproduzir o erro em ambiente de testes para depurar o código `APLIB090.PRW` e `APLIB260.PRW` e entender o fluxo da chamada à função `FINA470`.
+5. **Versão da Biblioteca Remota:** Verificar a compatibilidade da biblioteca remota (HTML-9.1.8 WIN) com a versão do Protheus.
+6. **Ponto de Entrada/Customizações:** Investigar se existem Pontos de Entrada ou customizações que possam estar interferindo na chamada da função `FINA470`.
+7. **Documentação TOTVS:** Pesquisar na documentação da TOTVS e na base de conhecimento por erros semelhantes ou informações sobre a função `FINA470` e os programas envolvidos (`APLIB090.PRW` e `APLIB260.PRW`).
 
-**Passos a serem seguidos:**
+### RESPOSTA_INI
+Prezado(a) usuário(a),
 
-1. **Verificar o status do workflow de aprovação:** Acessar o módulo de Ponto Eletrônico no Protheus e verificar o monitoramento do workflow de aprovação para as solicitações pendentes. Identificar em qual etapa do fluxo as solicitações estão travadas e se há algum erro no workflow.
-2. **Analisar logs do sistema:** Verificar os logs do sistema Protheus (Application Server) para identificar possíveis erros ou mensagens relacionadas ao processo de aprovação do ponto eletrônico no período das solicitações pendentes.
-3. **Verificar configurações do workflow de aprovação:** Revisar as configurações do workflow de aprovação do ponto eletrônico para garantir que não haja nenhuma configuração incorreta que esteja impedindo a aprovação das solicitações. Verificar se os aprovadores estão corretamente definidos e se o fluxo está configurado de forma adequada.
-4. **Verificar se há processos pendentes ou travados:** Verificar se há algum processo pendente ou travado no sistema relacionado às aprovações do ponto eletrônico. Em caso positivo, tentar identificar a causa do travamento e liberar o processo manualmente ou reiniciar o serviço responsável pelo workflow.
-5. **Simular o processo de aprovação:** Simular o processo de aprovação de uma nova solicitação de ajuste para tentar reproduzir o problema e identificar em qual etapa ocorre a falha.
+Seu ticket de ID 5680 referente ao erro de sistema no Protheus foi recebido e está sendo analisado pela nossa equipe técnica. Identificamos que se trata de um erro mais complexo e estamos investigando as causas com prioridade. Em breve, um analista entrará em contato com mais informações e próximos passos.
 
-## RESPOSTA_INI
-Prezado(a) Usuário(a),
+#### Sugestão de Dados adicionais a serem solicitados
+- Informar o processo de negócio específico que estava sendo executado no momento do erro.
+- Detalhar os cadastros ou dados que estavam sendo manipulados no momento do erro, se possível.
+- Confirmar se o erro ocorre sempre ao realizar a mesma operação ou se é intermitente.
 
-Informamos que seu ticket referente à dificuldade em aprovar as solicitações de ajuste de ponto eletrônico já está sendo analisado. Nossa equipe técnica está investigando o fluxo de aprovação para identificar o motivo das pendências e em breve um analista entrará em contato com novidades.
+### SLA_SUGERIDO
+O SLA atual de 20 horas pode ser mantido inicialmente, mas dependendo da complexidade da solução, pode ser necessário reavaliar o prazo. Para erros de sistema que impactam processos críticos, um SLA de 13 horas (Classe A1) poderia ser mais adequado em geral.
 
-### Sugestão de Dados adicionais a serem solicitados
-- Informar se o problema ocorre com todos os tipos de solicitação de ajuste ou apenas com alguns específicos (marcação, justificativa, etc.).
-- Informar se houve alguma alteração recente nas configurações do ponto eletrônico ou workflow de aprovação.
-- Coletar logs detalhados do sistema Protheus no momento da tentativa de aprovação.
-
-## SLA_SUGERIDO
-O SLA atual de 120 horas (medium) parece excessivamente longo para este tipo de problema que impacta diretamente o processo de aprovação e gestão do ponto eletrônico. Sugere-se um SLA menor, como 48 horas (medium-high), para garantir uma resposta e resolução mais ágil para este tipo de incidente.
-
-## VENCIMENTO_SLA_ATUAL
-2025-02-22 08:52:40
+### VENCIMENTO_SLA_ATUAL
+2025-02-07 12:48
 
 ---
 
-## TICKET
-5830
+### TICKET
+5837
 
-## CATEGORIZACAO
+### CATEGORIZACAO
 Ticket Categorizado Corretamente
 
-## TIPO_REQ
-Erro de Sistema / Falha de Processo
-
-## DIFICULDADE
-8 - CLASSE B2
-
-**Justificativa:** O ticket reporta que as marcações de ponto do ciclo anterior (11/01 a 10/02) não estão aparecendo no aplicativo "MEU RH". A dificuldade é B2, pois envolve investigar a integração entre o Protheus e o aplicativo "MEU RH", verificar se houve falha na sincronização dos dados do ponto, analisar logs de integração e possivelmente realizar um reprocessamento ou correção manual dos dados. A resolução pode levar em torno de 8 horas, considerando a necessidade de análise da integração e possível correção de dados.
-
-## ORIENTACAO_H
-O analista humano deve investigar a integração do Protheus com o aplicativo "MEU RH" e verificar a sincronização dos dados do ponto.
-
-**Passos a serem seguidos:**
-
-1. **Verificar o processo de integração/sincronização:** Identificar e monitorar o processo responsável pela sincronização dos dados do ponto eletrônico do Protheus para o aplicativo "MEU RH". Verificar se o processo foi executado corretamente para o ciclo 11/01 a 10/02 e se há logs de erro relacionados à sincronização.
-2. **Verificar dados no Protheus:** Confirmar se as marcações do período 11/01 a 10/02 estão corretamente registradas no módulo de Ponto Eletrônico do Protheus.
-3. **Analisar logs de integração:** Examinar os logs de integração entre o Protheus e o aplicativo "MEU RH" para identificar possíveis erros ou falhas durante a sincronização dos dados.
-4. **Reprocessar a sincronização (se possível):** Se identificado um problema na sincronização, tentar reprocessar a sincronização dos dados do período 11/01 a 10/02 para o aplicativo "MEU RH".
-5. **Verificar configurações de integração:** Revisar as configurações da integração entre o Protheus e o aplicativo "MEU RH" para garantir que estejam corretas e que não haja nenhuma configuração que possa estar impedindo a exibição das marcações no aplicativo.
-6. **Testar com um usuário específico:** Testar o acesso ao aplicativo "MEU RH" com um usuário específico que esteja relatando o problema para verificar se o problema é generalizado ou específico de alguns usuários.
-
-## RESPOSTA_INI
-Prezado(a) Usuário(a),
-
-Informamos que seu ticket sobre a ausência das marcações do ciclo 11/01 a 10/02 no aplicativo "MEU RH" já está sob análise da nossa equipe. Estamos investigando a integração com o aplicativo para entender o que ocorreu e em breve um analista entrará em contato com mais informações.
-
-### Sugestão de Dados adicionais a serem solicitados
-- Informar se o problema ocorre com todos os colaboradores ou apenas com alguns específicos.
-- Solicitar prints de tela do aplicativo "MEU RH" mostrando a ausência das marcações.
-- Informar se as marcações de outros períodos (anteriores ou posteriores) estão sendo exibidas corretamente no aplicativo.
-
-## SLA_SUGERIDO
-O SLA atual de 30 horas (high) parece adequado para este tipo de problema de integração, mas considerando que impacta a visualização das marcações pelos colaboradores, é importante priorizar a investigação e resolução dentro deste prazo.
-
-## VENCIMENTO_SLA_ATUAL
-2025-02-18 14:14:19
-
----
-
-## TICKET
-5649
-
-## CATEGORIZACAO
-Ticket Categorizado Corretamente
-
-## TIPO_REQ
-Dúvida de Usuário
-
-## DIFICULDADE
-3 - CLASSE C
-
-**Justificativa:** O ticket é uma dúvida de usuário sobre como cadastrar um contrato de parceria do tipo fixo no módulo de Compras do Protheus. A dificuldade é C, pois envolve fornecer um passo a passo ou guia para o usuário realizar o cadastro, o que pode ser feito com base em documentação interna ou conhecimento do módulo de Compras. A resolução pode levar em torno de 3 horas, considerando a elaboração do passo a passo e eventuais testes no ambiente de demonstração.
-
-## ORIENTACAO_H
-O analista humano deve fornecer um passo a passo detalhado para o usuário cadastrar um contrato de parceria do tipo fixo no módulo de Compras do Protheus.
-
-**Passos para orientar o usuário (a serem incluídos no passo a passo):**
-
-1. **Acessar o módulo de Compras (Módulo 27) do Protheus.**
-2. **Navegar até o menu "Atualizações > Contratos > Contrato de Parceria".**
-3. **Clicar em "Incluir" para iniciar um novo cadastro.**
-4. **No campo "Tipo de Contrato", selecionar "Fixo".**
-5. **Preencher os campos obrigatórios:**
-    - Fornecedor
-    - Loja
-    - Moeda
-    - Condição de Pagamento
-    - Datas de Vigência (Início e Fim)
-    - Valor Total do Contrato
-    - Descrição do Contrato
-    - Informações Adicionais (se necessário)
-6. **Na aba "Itens do Contrato", incluir os itens de serviço de manutenção predial:**
-    - Código do Produto/Serviço
-    - Descrição do Item
-    - Unidade de Medida
-    - Quantidade
-    - Valor Unitário
-    - Valor Total do Item
-7. **Na aba "Cronograma de Pagamento", definir o cronograma de pagamentos do contrato fixo.**
-8. **Salvar o contrato.**
-9. **Validar o contrato:** Verificar se o contrato foi cadastrado corretamente e se todas as informações estão consistentes.
-
-**Informações adicionais para o analista humano:**
-
-- Verificar se há alguma documentação interna ou base de conhecimento com um passo a passo já existente para cadastro de contratos de parceria fixos.
-- Se necessário, criar um novo passo a passo detalhado com prints de tela do Protheus para facilitar o entendimento do usuário.
-- Considerar agendar um breve treinamento online com o usuário para demonstrar o processo de cadastro e tirar dúvidas.
-
-## RESPOSTA_INI
-Prezado(a) Usuário(a),
-
-Informamos que seu ticket sobre como cadastrar um contrato de parceria do tipo fixo no Protheus está sendo analisado. Em breve, um analista entrará em contato com um passo a passo detalhado para auxiliar no cadastro do contrato.
-
-### Sugestão de Dados adicionais a serem solicitados
-- Confirmar a versão do Protheus que o usuário está utilizando, pois a interface pode variar entre versões.
-- Perguntar se o usuário já possui alguma experiência com cadastro de contratos no Protheus ou se é a primeira vez.
-
-## SLA_SUGERIDO
-O SLA atual de 30 horas (low) parece adequado para este tipo de dúvida de usuário.
-
-## VENCIMENTO_SLA_ATUAL
-2025-02-07 00:11:57
-
----
-
-## TICKET
-5836
-
-## CATEGORIZACAO
-Ticket Categorizado Corretamente
-
-## TIPO_REQ
+### TIPO_REQ
 Solicitação de Usuário
 
-## DIFICULDADE
+### DIFICULDADE
 2 - CLASSE D
 
-**Justificativa:** O ticket é uma solicitação de usuário para configurar uma impressora ("Corporativo RH Barueri") em sua máquina. A dificuldade é D, pois envolve um procedimento padrão de configuração de impressora em ambiente Windows, que pode ser feito remotamente pelo analista ou guiando o usuário. A resolução pode levar em torno de 2 horas, considerando o acesso remoto, instalação/configuração do driver e testes de impressão.
+**Justificativa:** A criação de um novo perfil de acesso no Protheus é uma solicitação padrão, com um processo bem definido. A dificuldade é baixa, estimada em 2 horas para a criação do perfil, seguindo os fluxos de aprovação e configuração.
 
-## ORIENTACAO_H
-O analista humano deve realizar a configuração da impressora "Corporativo RH Barueri" na máquina da usuária Fernanda Jesus.
+### ORIENTACAO_H
+1. **Verificar Departamento do Usuário:** Confirmar se o departamento do usuário solicitante ("Compras") está correto, pois a solicitação veio do departamento de Compras.
+2. **Formulário de Criação de Acesso:**  Verificar se o usuário anexou ou preencheu o formulário padrão de "Criação ou Alteração de Perfil de Acesso no Protheus". Se não, enviar o formulário para o solicitante preencher, informando a necessidade de aprovação do Gestor da Área, Controller e Gestor de T.I. Corporativo.
+3. **Informações do Perfil:** Solicitar ao usuário que informe:
+    - Descrição detalhada das atividades que o novo colaborador irá realizar no Protheus.
+    - Módulos do Protheus que serão utilizados.
+    - Se possível, login de usuário de referência com acessos similares aos necessários.
+4. **Fluxo de Aprovação:** Após receber o formulário preenchido, iniciar o fluxo de aprovação com os responsáveis: Gestor da Área de Compras, Controller e Gestor de T.I. Corporativo.
+5. **Criação do Perfil:** Após aprovações, criar o perfil de acesso no Protheus conforme as informações e aprovações.
+6. **Testes e Validação:** Solicitar ao novo usuário que teste o acesso e valide se tudo está correto.
 
-**Passos a serem seguidos:**
+### RESPOSTA_INI
+Prezado(a) usuário(a),
 
-1. **Acessar remotamente a máquina da usuária Fernanda Jesus (fernanda.jesus@luft.com.br).** Utilizar ferramentas de acesso remoto como TeamViewer, AnyDesk, etc.
-2. **Verificar se a impressora "Corporativo RH Barueri" está instalada.**  Acessar "Painel de Controle > Dispositivos e Impressoras" e verificar se a impressora já está listada. Se estiver, verificar se é a impressora correta e se está configurada como padrão (se necessário).
-3. **Instalar o driver da impressora (se necessário).** Se a impressora não estiver instalada ou o driver estiver incorreto, baixar o driver correto do site do fabricante da impressora ou de um repositório interno de drivers. Executar o instalador do driver e seguir as instruções.
-4. **Adicionar a impressora (se necessário).** Se a impressora não estiver listada em "Dispositivos e Impressoras", clicar em "Adicionar uma impressora" e seguir o assistente de instalação. Selecionar a opção de impressora de rede ou sem fio, se for o caso, e buscar a impressora "Corporativo RH Barueri" na rede.
-5. **Configurar a impressora como padrão (se necessário).** Se a usuária deseja que esta seja a impressora padrão, clicar com o botão direito sobre a impressora "Corporativo RH Barueri" em "Dispositivos e Impressoras" e selecionar "Definir como impressora padrão".
-6. **Testar a impressão.** Imprimir uma página de teste para verificar se a impressora está funcionando corretamente.
-7. **Orientar a usuária sobre o uso da impressora.** Explicar à usuária como selecionar a impressora "Corporativo RH Barueri" ao imprimir documentos e como verificar o status da impressora.
+Seu ticket de ID 5837 referente à criação de acesso no Protheus para um novo colaborador foi recebido e está em análise. Para darmos andamento à sua solicitação, precisamos que preencha o formulário de "Criação ou Alteração de Perfil de Acesso no Protheus", caso ainda não o tenha feito. Este formulário é essencial para formalizar a sua solicitação e iniciar o processo de aprovação interna.
 
-## RESPOSTA_INI
-Prezado(a) Usuário(a),
+#### Sugestão de Dados adicionais a serem solicitados
+- Enviar o formulário padrão de "Criação ou Alteração de Perfil de Acesso no Protheus" e solicitar o preenchimento completo.
+- Reforçar a necessidade de detalhar as atividades, módulos e login de referência para agilizar a criação do perfil.
 
-Informamos que sua solicitação para configurar a impressora "Corporativo RH Barueri" em sua máquina já está sendo atendida. Um analista técnico irá entrar em contato em breve para realizar a configuração remotamente ou fornecer as instruções necessárias.
+### SLA_SUGERIDO
+O SLA atual de 24 horas para criação de acesso parece adequado, considerando o fluxo de aprovações e a configuração do perfil.
 
-### Sugestão de Dados adicionais a serem solicitados
-- Confirmar o nome da máquina da usuária para facilitar o acesso remoto.
-- Verificar se a usuária possui alguma preferência sobre como a configuração será realizada (remotamente pelo analista ou guiada por telefone/chat).
-
-## SLA_SUGERIDO
-O SLA atual de 12 horas (medium) parece adequado para este tipo de solicitação de configuração de impressora.
-
-## VENCIMENTO_SLA_ATUAL
-2025-02-17 22:06:42
+### VENCIMENTO_SLA_ATUAL
+2025-02-18 10:41
 
 ---
 
-## TICKET
+### TICKET
 5646
 
-## CATEGORIZACAO
+### CATEGORIZACAO
 Ticket Categorizado Corretamente
 
-## TIPO_REQ
+### TIPO_REQ
 Dúvida de Usuário
 
-## DIFICULDADE
-2 - CLASSE D
+### DIFICULDADE
+3 - CLASSE C
 
-**Justificativa:** O ticket é uma dúvida de usuário sobre como imprimir o livro de ISS (modelo 51) no Protheus. A dificuldade é D, pois envolve fornecer um passo a passo padrão para geração e impressão do livro fiscal no módulo Livros Fiscais do Protheus, um procedimento relativamente simples e documentado. A resolução pode levar em torno de 2 horas, considerando a elaboração do passo a passo e eventuais testes no ambiente de demonstração.
+**Justificativa:** A dúvida sobre como imprimir o livro de ISS é uma questão de usabilidade e procedimento no Protheus. A dificuldade é baixa, estimada em 3 horas para pesquisar o procedimento, documentar o passo a passo e orientar o usuário.
 
-## ORIENTACAO_H
-O analista humano deve fornecer um passo a passo para o usuário imprimir o livro de ISS (modelo 51) no Protheus.
+### ORIENTACAO_H
+1. **Identificar Versão do Protheus:** Verificar a versão do Protheus utilizada pelo cliente, pois o caminho e as telas podem variar entre versões.
+2. **Pesquisar o Processo:** Buscar na documentação do Protheus e base de conhecimento TOTVS o passo a passo para gerar e imprimir o livro de ISS (Modelo 51) no módulo Livros Fiscais.
+3. **Verificar Configurações Fiscais:** Confirmar se as configurações fiscais para o município e para o livro de ISS estão corretas no Protheus.
+4. **Gerar Passo a Passo Detalhado:** Criar um passo a passo detalhado com prints de tela (se possível) para enviar ao usuário, explicando como gerar o livro de ISS no Protheus.
+5. **Agendamento Remoto (opcional):** Se o passo a passo não for suficiente, oferecer uma sessão remota para guiar o usuário no processo.
 
-**Passos para orientar o usuário (a serem incluídos no passo a passo):**
+### RESPOSTA_INI
+Prezado(a) usuário(a),
 
-1. **Acessar o módulo Livros Fiscais (SIGAFIS) do Protheus.**
-2. **Navegar até o menu "Miscelânea > Livros Fiscais > Livro ISS".**
-3. **Na tela de "Livro ISS", preencher os parâmetros:**
-    - **Empresa:** Selecionar a empresa desejada.
-    - **Filial:** Selecionar a filial desejada (ou deixar em branco para todas).
-    - **Período:** Informar o período de apuração do ISS (mês/ano).
-    - **Modelo do Livro:** Selecionar "51 - Livro de ISS".
-    - **Outros parâmetros:** Preencher outros parâmetros conforme necessidade (ex: tipo de serviço, etc.).
-4. **Clicar em "OK" ou "Confirmar" para gerar o livro.**
-5. **Visualizar o livro gerado na tela (pré-visualização).**
-6. **Imprimir o livro:** Clicar no botão "Imprimir" ou opção similar para enviar o livro para a impressora.
-7. **Configurar a impressão (se necessário):**  Na tela de impressão, configurar opções como impressora, número de cópias, etc.
+Seu ticket de ID 5646 sobre como imprimir o livro de ISS no Protheus foi recebido e está sendo analisado. Nossa equipe irá preparar um passo a passo detalhado para te auxiliar na geração deste livro fiscal. Em breve, um analista entrará em contato com as instruções.
 
-**Informações adicionais para o analista humano:**
+#### Sugestão de Dados adicionais a serem solicitados
+- Confirmar a versão do Protheus que está sendo utilizada.
+- Questionar se já tentou gerar o livro de ISS antes e se ocorreu algum erro específico.
 
-- Verificar se há alguma documentação interna ou base de conhecimento com um passo a passo já existente para impressão do livro de ISS no Protheus.
-- Se necessário, criar um novo passo a passo detalhado com prints de tela do Protheus para facilitar o entendimento do usuário.
-- Considerar gravar um vídeo curto demonstrando o processo de impressão do livro ISS.
+### SLA_SUGERIDO
+O SLA atual de 30 horas para dúvidas de usuários parece adequado, dando tempo suficiente para pesquisar a solução e preparar a orientação.
 
-## RESPOSTA_INI
-Prezado(a) Usuário(a),
-
-Informamos que seu ticket sobre como imprimir o livro de ISS no Protheus está sendo analisado. Em breve, um analista entrará em contato com um passo a passo detalhado para auxiliar na impressão do livro fiscal.
-
-### Sugestão de Dados adicionais a serem solicitados
-- Confirmar a versão do Protheus que o usuário está utilizando, pois a interface pode variar entre versões.
-- Perguntar se o usuário já gerou o livro eletrônico do ISS (SPED ISS) e se a dúvida é sobre a impressão do livro em papel ou sobre a geração do arquivo digital.
-
-## SLA_SUGERIDO
-O SLA atual de 30 horas (low) parece adequado para este tipo de dúvida de usuário.
-
-## VENCIMENTO_SLA_ATUAL
-2025-02-07 23:20:01
+### VENCIMENTO_SLA_ATUAL
+2025-02-07 23:20
 
 ---
 
-## TICKET
+### TICKET
 5648
 
-## CATEGORIZACAO
+### CATEGORIZACAO
 Ticket Categorizado Corretamente
 
-## TIPO_REQ
+### TIPO_REQ
 Dúvida de Usuário
 
-## DIFICULDADE
-2 - CLASSE D
+### DIFICULDADE
+3 - CLASSE C
 
-**Justificativa:** O ticket é uma dúvida de usuário sobre como incluir um Pedido de Compras no Protheus. A dificuldade é D, pois envolve fornecer um passo a passo padrão para inclusão de pedidos de compra no módulo Compras do Protheus, um procedimento básico e amplamente utilizado. A resolução pode levar em torno de 2 horas, considerando a elaboração do passo a passo e eventuais testes no ambiente de demonstração.
+**Justificativa:**  A dúvida sobre como incluir um pedido de compras é uma questão de usabilidade e procedimento padrão do Protheus Compras. A dificuldade é baixa, estimada em 3 horas para elaborar um passo a passo e orientar o usuário.
 
-## ORIENTACAO_H
-O analista humano deve fornecer um passo a passo para o usuário incluir um Pedido de Compras no Protheus.
+### ORIENTACAO_H
+1. **Identificar Versão do Protheus:** Verificar a versão do Protheus utilizada pelo cliente, pois o caminho e as telas podem variar entre versões.
+2. **Pesquisar o Processo:** Buscar na documentação do Protheus e base de conhecimento TOTVS o passo a passo para inclusão de pedidos de compras no módulo Compras.
+3. **Verificar Configurações de Compras:**  Confirmar se existem configurações específicas de compras (tipo de pedido, parâmetros) que podem estar impactando a inclusão do pedido.
+4. **Gerar Passo a Passo Detalhado:** Criar um passo a passo detalhado com prints de tela (se possível) para enviar ao usuário, explicando como incluir um pedido de compras no Protheus.
+5. **Agendamento Remoto (opcional):** Se o passo a passo não for suficiente, oferecer uma sessão remota para guiar o usuário no processo.
 
-**Passos para orientar o usuário (a serem incluídos no passo a passo):**
+### RESPOSTA_INI
+Prezado(a) usuário(a),
 
-1. **Acessar o módulo Compras (SIGACOM) do Protheus.**
-2. **Navegar até o menu "Atualizações > Pedidos > Pedido de Compra".**
-3. **Clicar em "Incluir" para iniciar um novo pedido de compra.**
-4. **Preencher o cabeçalho do pedido de compra:**
-    - Fornecedor
-    - Loja do Fornecedor
-    - Condição de Pagamento
-    - Moeda
-    - Data de Emissão
-    - Data de Entrega
-    - Local de Entrega
-    - Observações (se necessário)
-5. **Na aba "Itens do Pedido", incluir os itens desejados:**
-    - Produto
-    - Quantidade
-    - Preço Unitário
-    - Unidade de Medida
-    - Centro de Custo
-    - Conta Contábil
-6. **Salvar o pedido de compra.**
-7. **Validar o pedido de compra:** Verificar se o pedido foi cadastrado corretamente e se todas as informações estão consistentes.
-8. **Liberar o pedido para aprovação (se necessário, dependendo da configuração do sistema e valores).**
+Seu ticket de ID 5648 sobre como incluir um pedido de compras no Protheus foi recebido e está sendo analisado. Nossa equipe irá preparar um passo a passo detalhado para te auxiliar na inclusão de pedidos de compras no sistema. Em breve, um analista entrará em contato com as instruções.
 
-**Informações adicionais para o analista humano:**
+#### Sugestão de Dados adicionais a serem solicitados
+- Confirmar a versão do Protheus que está sendo utilizada.
+- Questionar se já tentou incluir pedidos antes e se ocorreu algum erro específico ou em qual etapa está tendo dificuldade.
 
-- Verificar se há alguma documentação interna ou base de conhecimento com um passo a passo já existente para inclusão de pedidos de compra no Protheus.
-- Se necessário, criar um novo passo a passo detalhado com prints de tela do Protheus para facilitar o entendimento do usuário.
-- Considerar gravar um vídeo curto demonstrando o processo de inclusão de pedidos de compra.
+### SLA_SUGERIDO
+O SLA atual de 30 horas para dúvidas de usuários parece adequado.
 
-## RESPOSTA_INI
-Prezado(a) Usuário(a),
+### VENCIMENTO_SLA_ATUAL
+2025-02-07 23:43
 
-Informamos que seu ticket sobre como incluir um Pedido de Compras no Protheus está sendo analisado. Em breve, um analista entrará em contato com um passo a passo detalhado para auxiliar na inclusão do pedido.
+---
 
-### Sugestão de Dados adicionais a serem solicitados
-- Confirmar a versão do Protheus que o usuário está utilizando, pois a interface pode variar entre versões.
-- Perguntar se o usuário já possui alguma experiência com inclusão de pedidos de compra no Protheus ou se é a primeira vez.
-- Questionar se o usuário está enfrentando alguma mensagem de erro específica ao tentar incluir o pedido.
+### TICKET
+5649
 
-## SLA_SUGERIDO
-O SLA atual de 30 horas (low) parece adequado para este tipo de dúvida de usuário.
+### CATEGORIZACAO
+Ticket Categorizado Corretamente
 
-## VENCIMENTO_SLA_ATUAL
-2025-02-07 23:43:14
+### TIPO_REQ
+Dúvida de Usuário
+
+### DIFICULDADE
+3 - CLASSE C
+
+**Justificativa:** A dúvida sobre contrato de parceria fixo também é uma questão de usabilidade e procedimento no módulo de Compras do Protheus. A dificuldade é baixa, estimada em 3 horas para relembrar o processo e orientar o usuário.
+
+### ORIENTACAO_H
+1. **Identificar Versão do Protheus:** Verificar a versão do Protheus utilizada pelo cliente, pois o caminho e as telas podem variar entre versões.
+2. **Pesquisar o Processo:** Buscar na documentação do Protheus e base de conhecimento TOTVS o passo a passo para cadastrar contratos de parceria do tipo "Fixo" no módulo Compras.
+3. **Verificar Tipos de Contrato:** Confirmar se o tipo de contrato "Fixo" é o correto para o cenário de "AEs de Serviço de manutenção predial". Verificar se não seria mais adequado o tipo "Serviço".
+4. **Gerar Passo a Passo Detalhado:** Criar um passo a passo detalhado com prints de tela (se possível) para enviar ao usuário, explicando como cadastrar um contrato de parceria fixo no Protheus.
+5. **Agendamento Remoto (opcional):** Se o passo a passo não for suficiente, oferecer uma sessão remota para guiar o usuário no processo.
+
+### RESPOSTA_INI
+Prezado(a) usuário(a),
+
+Seu ticket de ID 5649 sobre como cadastrar um contrato de parceria fixo no Protheus foi recebido e está sendo analisado. Nossa equipe irá preparar um passo a passo detalhado para te auxiliar no cadastro deste tipo de contrato. Em breve, um analista entrará em contato com as instruções.
+
+#### Sugestão de Dados adicionais a serem solicitados
+- Confirmar a versão do Protheus que está sendo utilizada.
+- Questionar se já cadastrou contratos de parceria antes e qual a principal dúvida no tipo "Fixo".
+- Confirmar se o tipo de contrato "Fixo" é realmente o mais adequado para o lançamento de AEs de serviço de manutenção predial.
+
+### SLA_SUGERIDO
+O SLA atual de 30 horas para dúvidas de usuários parece adequado.
+
+### VENCIMENTO_SLA_ATUAL
+2025-02-08 00:11
 ```

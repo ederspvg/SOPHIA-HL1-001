@@ -26,13 +26,14 @@ if ambiente_local:
     key_database    = os.getenv('KEY_BANCO_DATABASE')
     key_user        = os.getenv('KEY_BANCO_USER')
     key_pass        = os.getenv('KEY_BANCO_PASS')
+    porta           = 5432
 else:
     import streamlit as st
     key_host_banco  = st.secrets["KEY_BANCO_HOST"]
     key_database    = st.secrets["KEY_BANCO_DATABASE"]
     key_user        = st.secrets["KEY_BANCO_USER"] 
     key_pass        = st.secrets["KEY_BANCO_PASS"] 
-
+    porta           = 7007
 
 #---------------------------------------------------------------------------------------------------------------
 #---------------------------------------------------------------------------------------------------------------
@@ -44,7 +45,8 @@ def consulta_sensr(_l_mostra,_query):
         host=key_host_banco,
         database=key_database,
         user=key_user,
-        password=key_pass
+        password=key_pass,
+        port=porta
     )
     # Crie um cursor
     cur = conn.cursor()
