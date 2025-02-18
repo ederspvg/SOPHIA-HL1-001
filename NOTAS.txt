@@ -12,27 +12,6 @@
 # Dica: para criar ou atualizar o arquivo requirements.txt use
 # o comando: pip freeze > requirements.txt
 #------------------------------------------------------------------
-# Mas, para instalar as bibliotecas uma a uma, segue uma lista de
-# comandos de instalão de cada biblioteca:
-#------------------------------------------------------------------
-
-pip install opencv-python
-pip install numpy
-pip install pyautogui
-python -m pip install pywin32
-pip install pyperclip
-pip install requests
-pip install SpeechRecognition
-pip install pyttsx3
-pip install PyAudio
-pip install setuptools
-pip install -U google-generativeai
-pip install Pillow
-pip install wikipedia
-pip install pywhatkit
-pip install pyttsx3 pypiwin32
-playwright install
-pip install cx_Oracle
 
 #------------------------------------------------------------------
 # PARA CRIAR E ATIVAR E EXCLUIR UM AMBIENTE VIRTUAL PELO CMD
@@ -46,7 +25,7 @@ pip install cx_Oracle
 #------------------------------------------------------------------
 # PARA SUBIR PROJETO NO GIT
 #
-https://github.com/ederspvg/rpa_001
+https://github.com/ederspvg/NOME_DO_REPOSITORIO
 
 git init
 git add .
@@ -59,8 +38,8 @@ Após isso:
 Sua identidade
 A primeira coisa que você deve fazer ao instalar o Git é definir seu nome de usuário e endereço de e-mail. Isso é importante porque cada commit do Git usa essas informações, e elas são imutavelmente incorporadas aos commits que você começa a criar:
 
-git config --global user.name "ederspvg"
-git config --global user.email snaykron@gmail.com
+git config --global user.name "******"
+git config --global user.email *******@gmail.com
 
 Para atualizar:
 
