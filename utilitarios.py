@@ -1,12 +1,23 @@
 import PyPDF2
 import csv
-import base64
+
 import io
 import easyocr
 import re
 from transformers import pipeline
 from PIL import Image
 from PIL.ExifTags import TAGS
+
+#--------------------------------------------------------
+# Para função que gera hash de keys
+#
+import streamlit_authenticator as stauth
+
+#--------------------------------------------------------
+# Para função que gera a signature key
+#
+import secrets
+import base64 # esta é usada para OUTRAS COISAS TAMBÉM, como converter arquivos armazenados em banco de dados como base64 para bytes
 
 #--------------------------------------------------------
 # Para função que imprime em pdf a partir de MarkDown
@@ -29,6 +40,37 @@ from xhtml2pdf import pisa
 from gtts import gTTS
 import playsound
 
+#---------------------------------------------------------
+# Para testar as variáveis de ambiente
+#
+from dotenv import load_dotenv
+import os
+load_dotenv(dotenv_path='ambiente.env')
+
+#---------------------------------------------------------------------------------------------------------------
+# Função que Converte MarkDown para PDF a partir de MarkDown
+# 
+
+def gerar_signature_key():
+    chave_secreta_bytes = secrets.token_bytes(32) # gera 32 bytes de dados aleatórios
+    signature_key = base64.urlsafe_b64encode(chave_secreta_bytes).decode('utf-8')
+    return signature_key
+    
+#
+# FIM: Função que Converte MarkDown para PDF
+#---------------------------------------------------------------------------------------------------------------
+
+#---------------------------------------------------------------------------------------------------------------
+# Função que Converte MarkDown para PDF a partir de MarkDown
+# 
+
+def gerar_hash(_key):
+    hash_gerado = stauth.Hasher.hash(_key)
+    return hash_gerado
+
+#
+# FIM: Função que Converte MarkDown para PDF
+#---------------------------------------------------------------------------------------------------------------
 
 #---------------------------------------------------------------------------------------------------------------
 # Função que Converte MarkDown para PDF a partir de MarkDown
@@ -555,6 +597,24 @@ def falar(arq_path):
 
 testar = False
 if testar:
+    
+    credentials         = os.getenv('CREDENTIALS')
+    print(" \n Credenciais \n ")
+    print(os.getenv('CRED'))
+    print(" \n FIM \n ")
+    
+    s_key = gerar_signature_key()
+    print(" \n SK \n ")
+    print(s_key)
+    print(" \n FIM \n ")
+    
+    
+    chave = input(" \n Informe a chave:   ") 
+    chave = gerar_hash(chave)
+    print(" \n HASH \n ")
+    print(chave)
+    print(" \n FIM \n ")
+    
     texto = f"""
      ```markdowns
 ## Inteligência Artificial (IA): Uma Visão Geral
