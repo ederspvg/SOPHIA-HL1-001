@@ -3,4 +3,4 @@
 #--------------------------
 # GLOBAIS
 #
-TESTE_LOCAL_ = False
+TESTE_LOCAL_ = True # False
