@@ -12,7 +12,7 @@ import os
 
 # --- Inicialização do st.session_state ---
 if 'autenticado' not in st.session_state:
-    st.session_state['autenticado'] = False # Inicializa como não autenticado
+    st.session_state['autenticado'] = False
 
 if 'analise_aprofundada' not in st.session_state:
     st.session_state['analise_aprofundada'] = ''
@@ -38,8 +38,8 @@ def obter_chamados_nao_categorizados():
 if OneRing.TESTE_LOCAL_:
     from dotenv import load_dotenv
     load_dotenv(dotenv_path='ambiente.env')
-    LOGIN_CORRETO = os.getenv('LOGIN_DE_ACESSO') 
-    SENHA_CORRETA = os.getenv('SENHA_DE_ACESSO') 
+    LOGIN_CORRETO = os.getenv('LOGIN_DE_ACESSO')
+    SENHA_CORRETA = os.getenv('SENHA_DE_ACESSO')
 else:
     import streamlit as st
     LOGIN_CORRETO = st.secrets["LOGIN_DE_ACESSO"]
@@ -48,7 +48,7 @@ else:
 #----------------------------------------------------------------------------------------------------
 # --- FORMULÁRIO DE LOGIN ---
 #
-if not st.session_state['autenticado']: # SE NÃO ESTÁ AUTENTICADO, MOSTRA O FORMULÁRIO DE LOGIN
+if not st.session_state['autenticado']:
     with st.form("login_form"):
         st.subheader("Login de Acesso")
         login_usuario = st.text_input("Login")
@@ -56,27 +56,27 @@ if not st.session_state['autenticado']: # SE NÃO ESTÁ AUTENTICADO, MOSTRA O FO
         botao_login = st.form_submit_button("Entrar")
 
         if botao_login:
-            if login_usuario == LOGIN_CORRETO and senha_usuario == SENHA_CORRETA: # VERIFICA AS CREDENCIAIS
-                st.session_state['autenticado'] = True # Define como autenticado em caso de sucesso
+            if login_usuario == LOGIN_CORRETO and senha_usuario == SENHA_CORRETA:
+                st.session_state['autenticado'] = True
                 st.success("Login bem-sucedido!")
-                time.sleep(1) # Pequeno delay para mostrar a mensagem de sucesso
-                st.rerun() # Recarrega a aplicação para exibir o conteúdo autenticado
+                time.sleep(1)
+                st.rerun()
             else:
-                st.error("Credenciais incorretas. Tente novamente.") # Mensagem de erro se as credenciais falharem
-else: # SE JÁ ESTÁ AUTENTICADO, EXIBE O CONTEÚDO DA APLICAÇÃO
+                st.error("Credenciais incorretas. Tente novamente.")
+else:
     # --- BOTÃO DE LOGOUT ---
     if st.sidebar.button("Logout"):
-        st.session_state['autenticado'] = False # Define como não autenticado ao clicar em logout
-        st.rerun() # Recarrega a aplicação para exibir o formulário de login novamente
+        st.session_state['autenticado'] = False
+        st.rerun()
 
-    # --- Título da aplicação 
+    # --- Título da aplicação
     st.title("Suporte Orientado Por Heurística Inteligente Artificial - Helpdesk Nível 1 - versão 001")
     st.subheader("Assistente Virtual Experimental Categorizador de Chamados")
 
     # --- ABAS DA APLICAÇÃO
     aba1, aba2 = st.tabs(["Listar Tickets Não Categorizados", "Análise Aprofundada de Ticket"])
 
-    # --- Aba 1: Listar Tickets Não Categorizados
+    # --- Aba 1: Listar Tickets Não Categorizados (SEM ALTERAÇÕES) ---
     with aba1:
         st.header("Listar Tickets Não Categorizados")
         st.markdown("Clique no botão abaixo para listar os tickets que ainda não foram categorizados.")
@@ -106,7 +106,7 @@ else: # SE JÁ ESTÁ AUTENTICADO, EXIBE O CONTEÚDO DA APLICAÇÃO
             else:
                 st.write("Falha ao enviar email. Verifique o console para mais detalhes.")
 
-    # --- Aba 2: Análise Aprofundada de Ticket
+    # --- Aba 2: Análise Aprofundada de Ticket (COM ALTERAÇÕES) ---
     with aba2:
         st.header("Análise Aprofundada de Ticket")
         st.markdown("Insira o ID do ticket desejado para uma análise mais detalhada e envie os resultados por email.")
@@ -125,6 +125,9 @@ else: # SE JÁ ESTÁ AUTENTICADO, EXIBE O CONTEÚDO DA APLICAÇÃO
 
         email = st.text_input("Email", key="email_input")
 
+        # *** CAIXA DE SELEÇÃO PARA GERAR ÁUDIO ***
+        gerar_audio_checkbox = st.checkbox("Gerar Arquivo de Áudio?", value=True, key="gerar_audio_checkbox") # Checkbox para controle do áudio
+
         if st.button("Enviar por Email", key="botao_enviar_email"):
             corpo_mail = st.session_state['analise_aprofundada']
             corpo_mail = Canivete.limpa_texto(corpo_mail, '```markdown', '')
@@ -135,17 +138,23 @@ else: # SE JÁ ESTÁ AUTENTICADO, EXIBE O CONTEÚDO DA APLICAÇÃO
             texto_audio = Canivete.limpa_texto(texto_audio, '#', '')
             texto_audio = Canivete.limpa_texto(texto_audio, '##', '')
 
-            with st.spinner('Aguarde... Gerando arquivo de áudio...'):
-                st.session_state['audio_path'] = Canivete.texto_para_audio(texto_audio)
+            arquivos = [Canivete.converter_html_em_pdf_xhtml2pdf(corpo_mail), "lista_de_tickets_nao_categorizados.csv"] # Inicializa a lista de arquivos ANTES do áudio
+
+            # *** GERAÇÃO DE ÁUDIO CONDICIONAL - VERIFICA SE CHECKBOX ESTÁ MARCADO ***
+            if gerar_audio_checkbox: # SE A CAIXA DE SELEÇÃO "Gerar Arquivo de Áudio?" ESTIVER MARCADA
+                with st.spinner('Aguarde... Gerando arquivo de áudio...'):
+                    st.session_state['audio_path'] = Canivete.texto_para_audio(texto_audio)
+                arquivos.append(st.session_state['audio_path']) # ADICIONA O ARQUIVO DE ÁUDIO À LISTA DE ANEXOS
 
             corpo_mail = Canivete.converter_texto_para_html(corpo_mail)
-            arquivos = [Canivete.converter_html_em_pdf_xhtml2pdf(corpo_mail), st.session_state['audio_path'], "lista_de_tickets_nao_categorizados.csv"]
+
             if Correio.enviar_email_gmail_smtp(email, "Categorização de Chamados com IA", corpo_mail, arquivos):
                 st.write("Email enviado com sucesso!")
-                if st.button("Reproduzir Áudio", key="botao_reproduzir_audio"):
-                    if st.session_state['audio_path']:
-                        Canivete.falar(st.session_state['audio_path'])
-                    else:
-                        st.warning("Áudio ainda não foi gerado. Envie o email primeiro para gerar o áudio.")
+                if gerar_audio_checkbox: # Botão de Reproduzir Áudio SÓ APARECE SE O ÁUDIO FOI GERADO/ENVIADO
+                    if st.button("Reproduzir Áudio", key="botao_reproduzir_audio"):
+                        if st.session_state['audio_path']:
+                            Canivete.falar(st.session_state['audio_path'])
+                        else:
+                            st.warning("Áudio ainda não foi gerado. Envie o email primeiro para gerar o áudio.")
             else:
                 st.write("Falha ao enviar email. Verifique o console para mais detalhes.")
