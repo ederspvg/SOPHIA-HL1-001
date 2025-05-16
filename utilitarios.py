@@ -2,6 +2,7 @@ import PyPDF2
 import csv
 
 import io
+import numpy as np
 import easyocr
 import re
 from transformers import pipeline
@@ -71,6 +72,18 @@ load_dotenv(dotenv_path='ambiente.env')
 #
 # FIM: Função que Converte MarkDown para PDF
 #---------------------------------------------------------------------------------------------------------------
+
+#---------------------------------------------------------------------------------------------------------------
+# Função que salva Texto em um arquivo txt
+# 
+
+def salvar_txt(_texto, _nome_arquivo):
+    try:
+        with open(_nome_arquivo, 'w', encoding='utf-8') as arquivo:
+            arquivo.write(_texto)
+        print(f"Texto Markdown salvo com sucesso em '{_nome_arquivo}'")
+    except Exception as e:
+        print(f"Erro ao salvar o arquivo '{_nome_arquivo}': {e}")
 
 #---------------------------------------------------------------------------------------------------------------
 # Função que Converte MarkDown para PDF a partir de MarkDown
@@ -382,7 +395,9 @@ def extrair_texto_de_imagem_sem_ia_EasyOCR(imagem_bytes):
     texto_extraido = ""
     try:
         leitor = easyocr.Reader(['pt', 'en'])  # 'pt' para português, 'en' para inglês
-        resultado = leitor.readtext(imagem)
+        imagem_np_array = np.array(imagem)
+        resultado = leitor.readtext(imagem_np_array)
+        # resultado = leitor.readtext(imagem)
         # texto_extraido = ""
         for (caixa_delimitadora, texto, confianca) in resultado:
             texto_extraido += texto + " "
@@ -594,151 +609,3 @@ def falar(arq_path):
 #---------------------------------------------------------------------------------------------------------------
 # START: TESTES
 # 
-
-testar = False
-if testar:
-    
-    # credentials         = os.getenv('CREDENTIALS')
-    # print(" \n Credenciais \n ")
-    # print(os.getenv('CRED'))
-    # print(" \n FIM \n ")
-    
-    # s_key = gerar_signature_key()
-    # print(" \n SK \n ")
-    # print(s_key)
-    # print(" \n FIM \n ")
-    
-    
-    # chave = input(" \n Informe a chave:   ") 
-    # chave = gerar_hash(chave)
-    # print(" \n HASH \n ")
-    # print(chave)
-    # print(" \n FIM \n ")
-    
-    texto = f"""
-     ```markdowns
-## Inteligência Artificial (IA): Uma Visão Geral
-
-**Inteligência Artificial (IA)** refere-se à capacidade de sistemas de computador de executar tarefas que normalmente exigiriam inteligência humana.  Em termos mais técnicos, IA envolve o desenvolvimento de algoritmos e modelos computacionais que permitem que máquinas aprendam, raciocinem, resolvam problemas, compreendam linguagem natural e até mesmo percebam o ambiente ao seu redor.
-
-O objetivo principal da IA é criar sistemas que possam simular aspectos da inteligência humana, não necessariamente replicando a inteligência humana em si, mas sim emulando suas capacidades para realizar tarefas específicas de forma eficaz.
-
-### Tipos de Inteligência Artificial
-
-A IA pode ser categorizada de diversas maneiras, sendo uma das mais comuns a divisão baseada em sua **capacidade**:    
-
-*   **IA Fraca ou Estreita (Narrow AI ou Weak AI):** Este é o tipo de IA mais comum atualmente. Ela é projetada e treinada para realizar tarefas **específicas** e bem definidas.  Embora possa ser extremamente eficiente em sua área de atuação, ela não possui inteligência geral ou consciência.
-
-    *   **Exemplos:**
-        *   **Sistemas de recomendação:** Netflix, Amazon, Spotify usam IA para recomendar filmes, produtos e músicas. 
-        *   **Assistentes virtuais:** Siri, Alexa, Google Assistant conseguem responder perguntas, definir alarmes, tocar música, etc.
-        *   **Filtros de spam:** Sistemas que identificam e filtram e-mails indesejados.
-        *   **Carros autônomos (níveis mais baixos de autonomia):**  Sistemas de assistência ao motorista, como piloto 
-automático adaptativo e assistência de estacionamento.
-        *   **Chatbots de atendimento ao cliente:**  Sistemas que respondem a perguntas frequentes em sites e aplicativos.
-
-*   **IA Forte ou Geral (General AI ou Strong AI):** Este tipo de IA, ainda **teórico**, teria a capacidade de entender, aprender e aplicar conhecimento em **qualquer** tarefa intelectual que um ser humano possa realizar.  Ela possuiria inteligência geral e adaptabilidade semelhantes às humanas. Atualmente, **não existe IA Forte**.
-
-    *   **Exemplo hipotético:** Uma IA capaz de aprender a dirigir um carro, depois aprender a cozinhar, depois aprender a programar computadores, tudo com a mesma facilidade e adaptabilidade que um ser humano.
-
-*   **Superinteligência (Superintelligence):**  Também **teórica**, a superinteligência excederia a inteligência humana em **todos** os aspectos, incluindo criatividade, resolução de problemas e sabedoria geral. É um conceito muito debatido e frequentemente explorado na ficção científica.
-
-Além da categorização por capacidade, a IA também pode ser dividida por **funcionalidade**:
-
-*   **IA Reativa (Reactive Machines):**  São as formas mais básicas de IA.  Elas reagem a estímulos presentes e **não possuem memória** ou capacidade de aprender com experiências passadas.
-
-    *   **Exemplo:** Deep Blue, o computador da IBM que venceu Garry Kasparov no xadrez. Ele selecionava os melhores movimentos com base na posição atual do tabuleiro, sem histórico de jogos anteriores.
-
-*   **IA com Memória Limitada (Limited Memory):** Estas IAs conseguem **utilizar experiências passadas** para tomar decisões. A memória é temporária e usada para melhorar o desempenho em tarefas específicas.
-
-    *   **Exemplo:** A maioria dos carros autônomos atuais. Eles memorizam dados recentes como a velocidade de outros carros, a distância de faixas, etc., para tomar decisões de direção, mas essa memória é de curto prazo.
-
-*   **IA com Teoria da Mente (Theory of Mind AI):** Este tipo de IA, **ainda em desenvolvimento**,  seria capaz de **entender emoções, crenças e intenções** de outros agentes (humanos ou outras IAs).  É um passo crucial para criar interações mais naturais e complexas entre humanos e máquinas.
-
-*   **IA Autoconsciente (Self-Aware AI):**  Este é o tipo de IA mais avançado e **também puramente teórico**.  Uma IA autoconsciente teria **consciência de si mesma**, de sua própria existência e de seu estado interno.  Ainda não há consenso sobre se ou como isso seria possível.
-
-### Aplicações da Inteligência Artificial
-
-A IA já está presente em inúmeras áreas e continua a expandir seu alcance:
-
-*   **Saúde:**
-    *   Diagnóstico médico:  IA auxilia na análise de imagens médicas (raio-X, ressonância magnética) para detectar doenças.
-    *   Descoberta de medicamentos: IA acelera o processo de identificação e desenvolvimento de novos fármacos.        
-    *   Medicina personalizada: IA analisa dados genéticos e históricos de pacientes para tratamentos individualizados.    *   Cirurgia robótica assistida por IA.
-
-*   **Finanças:**
-    *   Detecção de fraudes: IA identifica padrões suspeitos em transações financeiras.
-    *   Análise de risco de crédito:  IA avalia o risco de empréstimos com base em diversos dados.
-    *   Robo-advisors:  Plataformas automatizadas que oferecem aconselhamento financeiro e gestão de investimentos.    
-    *   Trading algorítmico: IA realiza negociações na bolsa de valores de forma rápida e automatizada.
-
-*   **Transporte:**
-    *   Carros autônomos: Desenvolvimento de veículos que dirigem sem intervenção humana (em diferentes níveis de autonomia).
-    *   Otimização de rotas e logística: IA melhora a eficiência de sistemas de transporte e entrega.
-    *   Gestão de tráfego inteligente: IA analisa dados de tráfego para otimizar semáforos e reduzir congestionamentos.
-*   **Manufatura:**
-    *   Robótica industrial avançada: Robôs com IA realizam tarefas complexas em linhas de produção.
-    *   Manutenção preditiva: IA analisa dados de sensores para prever falhas em equipamentos e programar manutenção preventiva.
-    *   Controle de qualidade automatizado: IA inspeciona produtos para identificar defeitos.
-
-*   **Varejo e Atendimento ao Cliente:**
-    *   Chatbots e assistentes virtuais para suporte ao cliente.
-    *   Recomendação de produtos personalizada.
-    *   Otimização de estoque e previsão de demanda.
-    *   Análise de sentimentos de clientes em redes sociais para melhorar o atendimento.
-
-*   **Entretenimento:**
-    *   Sistemas de recomendação de conteúdo (música, filmes, séries).
-    *   Geração de conteúdo criativo (música, arte, texto).
-    *   Personagens de jogos mais inteligentes e realistas.
-
-*   **Agricultura:**
-    *   Agricultura de precisão: IA analisa dados de sensores e drones para otimizar o uso de recursos (água, fertilizantes).
-    *   Detecção de pragas e doenças em plantações.
-    *   Colheita automatizada com robôs.
-
-### Breve História e Evolução da Inteligência Artificial
-
-A história da IA pode ser dividida em algumas fases principais:
-
-*   **Anos 1950: Nascimento da IA:** O termo "Inteligência Artificial" foi cunhado em 1956 na Conferência de Dartmouth.  Os primeiros programas de IA focavam em resolução de problemas, jogos (como xadrez) e linguagem natural, usando abordagens baseadas em regras e lógica simbólica.
-
-*   **Anos 1960 e 1970: O Primeiro "Inverno da IA":**  Embora houvesse entusiasmo inicial, as expectativas não se concretizaram rapidamente. As limitações das abordagens iniciais e a falta de poder computacional levaram a uma diminuição do financiamento e do interesse pela área.
-
-*   **Anos 1980: Sistemas Especialistas e a Retomada:**  Os sistemas especialistas, que aplicavam conhecimento específico de um domínio para resolver problemas, trouxeram um novo fôlego à IA. Houve um aumento do financiamento e do interesse comercial.
-
-*   **Final dos anos 1980 e início dos anos 1990: O Segundo "Inverno da IA":**  As limitações dos sistemas especialistas, os altos custos e as dificuldades de manutenção levaram a um novo declínio do interesse e do financiamento.
-
-*   **Anos 2000 até o Presente: O Renascimento da IA:**  O ressurgimento da IA é impulsionado por diversos fatores:    
-    *   **Aumento Exponencial do Poder Computacional:**  Leis como a Lei de Moore proporcionaram poder de processamento muito maior e mais barato.
-    *   **Disponibilidade de Grandes Volumes de Dados (Big Data):** A era da internet e da digitalização gerou enormes 
-conjuntos de dados, cruciais para treinar modelos de Machine Learning.
-    *   **Avanços em Algoritmos de Machine Learning e Deep Learning:**  Novas técnicas e algoritmos, especialmente redes neurais profundas (Deep Learning), revolucionaram áreas como visão computacional, processamento de linguagem natural 
-e reconhecimento de voz.
-    *   **Investimento Maciço:** Empresas de tecnologia e governos investem bilhões em pesquisa e desenvolvimento de IA.
-
-Hoje, a IA está em constante evolução, com avanços rápidos e contínuos.  Estamos vendo progressos em direção a IAs mais sofisticadas, embora ainda estejamos longe da IA Forte ou Superinteligência teóricas. O campo da IA é dinâmico e promissor, com potencial para transformar muitos aspectos da nossa sociedade.
-
-Espero que esta explicação tenha sido útil e clara! Se tiver mais perguntas, é só perguntar.
-```
-"""
-    # texto = limpa_texto(texto, '*', '')
-    # texto = limpa_texto(texto, '#', '')
-    # texto = limpa_texto(texto, '```markdowns', '')
-    # texto = limpa_texto(texto, '**', '')
-    # texto = limpa_texto(texto, '```', '')
-    # texto = limpa_texto(texto, '##', '')
-    # texto_para_audio(texto, 'pt-br')
-    print(" \n ")
-
-    texto = converter_texto_para_html(texto)
-    print(" \n ")
-    texto = limpa_texto(texto,'*','')
-    texto = limpa_texto(texto,'#','')
-    print(texto)
-    print(" \n ")
-    print(converter_html_em_pdf_xhtml2pdf(texto))
-    
-    converter_markdown_para_pdf(texto)
-    converter_markdown_para_pdf_2(texto, "relatorio_2.pdf")
-    print(" \n FIM DA CONVERSÃO \n ")
