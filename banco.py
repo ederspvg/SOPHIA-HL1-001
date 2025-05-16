@@ -6,9 +6,6 @@ from PIL import Image
 import io
 import os
 
-import chromadb
-from rag import SistemaRAG  # Importa a classe do sistema RAG
-
 from PyPDF2 import PdfReader
 import pandas as pd
 
@@ -19,8 +16,7 @@ import utilitarios as Canivete
 import send_email as Correio
 import markdownify
 
-#--------------------------------------------
-# Define se vai trabalhar local ou no cloud
+
 ambiente_local = OneRing.TESTE_LOCAL_ # False
 
 if ambiente_local:
@@ -126,7 +122,7 @@ def consulta_chamados_abertos(STATUS_, TICKET_START, TICKET_END):
     # Query para buscar os Tickets Abertos no Sensr
     # CHAMADOS ABERTOS
     query_tickets = f'''
-    select tb_tickets.email_user,tb_tickets.sla_task,tb_tickets.id_user_name,tb_tickets.company_name,tb_tickets.category_name,tb_tickets.catalog_service_name,tb_tickets.catalog_task_name,tb_tickets.department_name,tb_tickets.group_tech_name,tb_tickets.user_cad_name,tb_tickets.sla,tb_tickets.notes,tb_tickets.dt_up,tb_tickets.dt_cad,tb_tickets.status,tb_tickets.description,tb_tickets.subject,tb_tickets.id_tickets,tb_person.phone,tb_person.ramal,tb_city.name,tb_state.name,tb_country.name,tb_tickets.real_id,tb_tickets.group_tech_name
+    select tb_tickets.email_user,tb_tickets.sla_task,tb_tickets.id_user_name,tb_tickets.company_name,tb_tickets.category_name,tb_tickets.catalog_service_name,tb_tickets.catalog_task_name,tb_tickets.department_name,tb_tickets.group_tech_name,tb_tickets.user_cad_name,tb_tickets.sla,tb_tickets.notes,tb_tickets.dt_up,tb_tickets.dt_cad,tb_tickets.status,tb_tickets.description,tb_tickets.subject,tb_tickets.id_tickets,tb_person.phone,tb_person.ramal,tb_city.name,tb_state.name,tb_country.name,tb_tickets.real_id
     from tb_tickets
     LEFT JOIN tb_user ON tb_user.id_user = fk_id_user
     LEFT JOIN tb_person ON tb_person.id_person = tb_user.fk_id_person
@@ -158,8 +154,8 @@ def consulta_chamados_abertos(STATUS_, TICKET_START, TICKET_END):
         dados_do_chamado += "\n" +  " Técnico alocado, caso haja: " + linha[TECNICO]
         dados_do_chamado += "\n" +  " Data do SLA do Ticket: " + linha[DATA_SLA]
         #dados_do_chamado += "\n" +  " Informações do Ticket: " + linha[INFO]
-        if len(linha[INFO]) > 300:
-            info_truncada = linha[INFO][:300] + "..."
+        if len(linha[INFO]) > 100:
+            info_truncada = linha[INFO][:100] + "..."
         else:
             info_truncada = linha[INFO]
         dados_do_chamado += "\n" + " Informações do Ticket: " + info_truncada
@@ -391,8 +387,7 @@ def consulta_chamados_nao_categorizados(STATUS_, TICKET_START, TICKET_END):
         COALESCE(tb_catalog_task.time_sla, 0) AS SLA_TAREFA,
         COALESCE(tb_catalog_task.complexity, '') AS COMPLEXIDADE_TAREFA,
         tb_request.dt_cad AS DATA_INPUT,
-        tb_person.name as NOME,
-        
+        tb_person.name as NOME
     FROM tb_request
     LEFT JOIN tb_tickets ON tb_tickets.fk_id_request = tb_request.id_request
     LEFT JOIN tb_user ON tb_user.id_user = tb_request.user_cad::integer
@@ -721,243 +716,10 @@ def consulta_chamados_nao_categorizados(STATUS_, TICKET_START, TICKET_END):
 
 #---------------------------------------------------------------------------------------------------------------
 # Função que conecta no banco do Sensr e retorna o resultado de uma query em uma tabela
-# CHAMADOS JÁ CATEGORIZADOS
-#
-def analise_profunda_tickets_categorizados(STATUS_, TICKET_START, TICKET_END):
-
-    #---------------------
-    # CONSTANTES
-    #
-    # TICKET
-    ID_                     = 24
-    ASSUNTO_                = 16
-    DESC_                   = 15
-    CIDADE_                 = 20
-    UF_                     = 21
-    PAIS_                   = 22
-    TELEFONE_               = 18
-    RAMAL_                  = 19
-    MAIL_                   = 0
-    CATEGORIA_              = 4
-    SERVICO_                = 5
-    TAREFA_                 = 6
-    DEPARTAMENTO_           = 7
-    EMPRESA_                = 3
-    SLA_TAREFA_             = 1
-    COMPLEXIDADE_TAREFA_    = 14
-    DATA_TICKET_            = 15
-    NOME_USER_              = 2
-    ID_PARA_ANEXOS          = 25
-    DEPTO_TECH_             = 26
-
-
-    # ANEXOS 
-    POS_ARQUIVO_TIPO  = 0
-    POS_ARQUIVO_BLOB  = 1
-    
-    #---------------------
-    # Variaveis
-    # 
-    descricao_anexos = ''
-    dados_do_chamado = ''
-    tabela_categorizacao = []
-    
-    # Query para buscar os Tickets Abertos no Sensr
-    # CHAMADOS NÃO CATEGORIZADOS
-    query_tickets = f'''
-    select 
-        COALESCE(tb_tickets.email_user, '') AS MAIL,
-        tb_tickets.sla_task AS SLA_TAREFA,
-        tb_tickets.id_user_name AS NOME,
-        COALESCE(tb_tickets.company_name, '') AS EMPRESA_USER,
-        COALESCE(tb_tickets.category_name, '') AS CATEGORIA,
-        COALESCE(tb_tickets.catalog_service_name, '') AS SERVICO,
-        COALESCE(tb_tickets.catalog_task_name, '') AS TAREFA,
-        COALESCE(tb_tickets.department_name, '') AS DEPARTAMENTO,
-        COALESCE(tb_tickets.group_tech_name, ''),
-        COALESCE(tb_tickets.user_cad_name, ''),
-        tb_tickets.sla AS SLA_DATA,
-        COALESCE(tb_tickets.notes, ''),
-        tb_tickets.dt_up,
-        tb_tickets.dt_cad as DATA_INPUT,
-        COALESCE(tb_tickets.status, ''),
-        COALESCE(tb_tickets.description, '') AS DESC,
-        COALESCE(tb_tickets.subject, '') AS ASSUNTO,
-        tb_tickets.id_tickets AS ID_INTERNO,
-        COALESCE(tb_person.phone, '') AS TELEFONE,
-        COALESCE(tb_person.ramal, '') AS RAMAL_USER,
-        COALESCE(tb_city.name, '') AS CIDADE,
-        COALESCE(tb_state.name, '') AS UF,
-        COALESCE(tb_country.name, '') AS PAIS,
-        COALESCE(tb_catalog_task.complexity, '') AS COMPLEXIDADE_TAREFA,
-        tb_tickets.real_id AS ID,
-        tb_tickets.fk_id_request AS ID_ANEXO,
-        tb_tickets.group_tech_name AS DEPTO_TECH
-            from tb_tickets
-            LEFT JOIN tb_user ON tb_user.id_user = fk_id_user
-            LEFT JOIN tb_person ON tb_person.id_person = tb_user.fk_id_person
-            LEFT JOIN tb_city ON tb_city.id_city = tb_user.id_city
-            LEFT JOIN tb_state ON tb_state.id_state = tb_user.id_state
-            LEFT JOIN tb_country ON tb_country.id_country = tb_user.id_country
-            LEFT JOIN tb_catalog_task ON tb_catalog_task.id_catalog_task = tb_tickets.fk_id_catalog_task
-            where 
-            tb_tickets.real_id >= '{str(TICKET_START)}'
-            and tb_tickets.real_id <= '{str(TICKET_END)}'
-            order by tb_tickets.id_tickets
-    '''
-            # tb_tickets.status = '{str(STATUS_)}'
-            # and tb_tickets.id_tickets >= '{str(TICKET_START)}'
-            # and tb_tickets.id_tickets <= '{str(TICKET_END)}'
-    #res = consulta_sensr(False,"select email_user,sla_task,id_user_name,company_name,category_name,catalog_service_name,catalog_task_name,department_name,group_tech_name,user_cad_name,sla,notes,dt_up,dt_cad,status,description,subject,id_tickets from tb_tickets where status = 'Open' Order By id_tickets ")
-    res = consulta_sensr(False, query_tickets)
-    #print("CONSULTA TICKETS ABERTOS:")
-    # Varre o resultado da query, ticket por ticket
-    for linha in res:
-        
-        # Obtem os dados do chamado para análise
-        dados_do_chamado = 'Dados do Chamado: '
-        dados_do_chamado +=  "\n" + " ID da Requisição: " + str(linha[ID_])
-        dados_do_chamado +=  "\n" + " Data do Ticket: " + str(linha[DATA_TICKET_])
-        dados_do_chamado +=  "\n" + " Assunto da Requisição: " + linha[ASSUNTO_]
-        # dados_do_chamado +=  "\n" + " Descrição da Requisição: " + linha[DESC_]
-        
-        if len(linha[DESC_]) > 300:
-            dados_do_chamado +=  "\n" + " Descrição da Requisição: " + linha[DESC_][:300] + "..."
-        else:
-            dados_do_chamado +=  "\n" + " Descrição da Requisição: " + linha[DESC_]
-        
-        dados_do_chamado +=  "\n" + " Cidade do Usuário: " + linha[CIDADE_]
-        dados_do_chamado +=  "\n" + " UF do Usuário: " + linha[UF_]
-        dados_do_chamado +=  "\n" + " País do Usuário: " + linha[PAIS_]
-        dados_do_chamado +=  "\n" + " Telefone do Usuário: " + linha[TELEFONE_]
-        dados_do_chamado +=  "\n" + " Ramal do Usuário: " + linha[RAMAL_]
-        dados_do_chamado +=  "\n" + " Email do Usuário: " + linha[MAIL_]
-        dados_do_chamado +=  "\n" + " Categoria da Requisição: " + linha[CATEGORIA_]
-        dados_do_chamado +=  "\n" + " Serviço da Requisição: " + linha[SERVICO_]
-        dados_do_chamado +=  "\n" + " Tarefa da Requisição: " + linha[TAREFA_]
-        dados_do_chamado +=  "\n" + " SLA da Tarefa: " + str(linha[SLA_TAREFA_])
-        dados_do_chamado +=  "\n" + " Complexidade da Tarefa: " + linha[COMPLEXIDADE_TAREFA_]
-        dados_do_chamado +=  "\n" + " Departamento do Usuário: " + linha[DEPARTAMENTO_]
-        dados_do_chamado +=  "\n" + " Empresa do Usuário: " + linha[EMPRESA_]
-        dados_do_chamado +=  "\n" + " Nome do Usuário: " + linha[NOME_USER_]
-        dados_do_chamado +=  "\n" + " Departamento Tecnico: " + str(linha[DEPTO_TECH_])
-        
-        
-        #print(linha[EMAIL_USUARIO] )
-        #print(linha[TICKET] )
-        
-        # Query para buscar os anexos do Ticket no Sensr
-        # CHAMADOS NÃO CATEGORIZADOS
-        #
-        # query_file_ref = f'''
-        # SELECT
-        #     COALESCE(tb_attach_global.namefile, '') AS namefile,
-        #     COALESCE(tb_attach_global.blob, '') AS blob
-        # FROM tb_request_file
-        # LEFT JOIN tb_attach_global ON tb_attach_global.id_ref = tb_request_file.id_request_file AND tb_attach_global.type = 'request'
-        # WHERE tb_request_file.fk_id_request = {str(linha[ID_])}
-        # ORDER BY tb_attach_global.namefile
-        # '''
-
-        #----------------------------------------------------------------------------
-        # Buscar descrição dos anexos, caso haja
-        #
-        descricao_anexos = ""
-        
-        descricao_anexos = busca_descricao_anexos_tickets_categorizados(str(linha[ID_PARA_ANEXOS]))
-        
-        print("\n Descrição \n " + descricao_anexos + " \n ")
-        
-        #----------------------------------------------------------------------------
-        # Chama a IA para analisar o chamado   
-        # 
-        analise_ia  = ''
-        question    = ''
-        _instrucao  = ''
-        
-        _instrucao  = Persona.biblioteca_de_prompts(Persona.BIBLIOTECARIO_)
-        question    = "por favor analise as informações detalhadas do Ticket e a descrição dos anexos (caso haja algum anexo) e faça uma análise técnica preliminar conforme suas instruções ditam e responda indicando qual manual é mais indicado para orientar o analista que cuidará do caso."
-        question    += "\n" + " DESCRIÇÃO DOS ANEXOS: " + descricao_anexos + "\n" + " DADOS DO CHAMADO: " + dados_do_chamado
-        
-        manual_indicado = brain.analisar_com_gemini("", "", question, _instrucao, 10, brain.GLOBAL_MODELO_MEDIO)
-        if '\n' in manual_indicado:
-            manual_indicado = manual_indicado.replace('\n', '')
-            
-        arquivo_path  = manual_indicado # 'manuais/sigacom.pdf' # "protheus_custom/Lutms097.pdf"
-        if manual_indicado == '#N/A':
-            texto_do_manual = arquivo_path = ''
-        else:
-            texto_do_manual = Canivete.extrair_texto_de_pdf(arquivo_path)
-        
-        question    = f"""
-                        Resolva o chamado a seguir: 
-                        """
-        
-        question    = question + "\n" + " DESCRIÇÃO DOS ANEXOS: \n " + descricao_anexos + "\n" + " DADOS DO CHAMADO: \n " + dados_do_chamado
-        
-        _instrucao = Persona.biblioteca_de_prompts(Persona.ANALISTA_GENERALISTA_2_)
-        
-        # arquivo_path  = manual_indicado # 'manuais/sigacom.pdf' # "protheus_custom/Lutms097.pdf"
-        # if manual_indicado == '#N/A':
-        #     texto_do_manual = arquivo_path = ''
-        # else:
-        #     texto_do_manual = Canivete.extrair_texto_de_pdf(arquivo_path)
-        
-        question += "\n" + "Manual em Texto: \n" + texto_do_manual
-        arquivo_path = ''
-        
-        usa_rag = True
-        
-        if usa_rag:
-            print(" \n USANDO RAG \n")
-            #--------------------------------------------
-            try:
-                rag_system = SistemaRAG(diretorio_persistencia=OneRing.PASTA_BANCO)
-                print(f"Coleções RAG rastreadas atualmente: {len(rag_system.lista_nomes_colecoes)}")
-                if not os.path.exists(rag_system.diretorio_persistencia):
-                    print(f"Diretório de persistência '{rag_system.diretorio_persistencia}' não encontrado.")
-            except Exception as e:
-                print(f"Erro ao inicializar o Sistema RAG: {e}")
-                
-            _instrucao = Persona.biblioteca_de_prompts(Persona.QUESTIONADOR_)
-            pergunta   = brain.analisar_com_gemini("", arquivo_path, question, _instrucao, 10, brain.GLOBAL_MODELO_PESADO)
-
-            analise_ia = rag_system.consultar_multiplas_colecoes(
-                                    pergunta=pergunta,
-                                    instrucao="Haja como um especialista nos assuntos questionados e responda de forma clara, detalhada e ao mesmo tempo didática.",
-                                    # pdf_path="caminho/para/um/pdf_extra.pdf", # Exemplo
-                                    # imagem_path="caminho/para/uma/imagem_extra.png", # Exemplo
-                                    modelo_de_pensamento="gemini-2.0-flash-thinking-exp", # gemini-2.0-flash-thinking-exp # gemini-2.0-flash
-                                    n_results_per_colecao=15, # Quantos chunks buscar por *cada* coleção/documento
-                                    max_distance_threshold=0.8 # Limiar de distância máxima para filtrar os chunks recuperados
-                                )
-            question = question + "\n" + "BASE DE CONHECIMENTO: \n" + analise_ia
-            # print(f" \n Pergunta Final: {question} \n ")
-            _instrucao = Persona.biblioteca_de_prompts(Persona.ANALISTA_GENERALISTA_2_)
-            analise_ia  = brain.analisar_com_gemini("", arquivo_path, question, _instrucao, 10, brain.GLOBAL_MODELO_PESADO)
-        else:
-            analise_ia  = brain.analisar_com_gemini("", arquivo_path, question, _instrucao, 10, brain.GLOBAL_MODELO_MEDIO)
-            
-        # analise_ia  = brain.limpa_texto(analise_ia)
-        # analise_ia  = " \n Analise IA: \n " + analise_ia
-        # resultado_final = "DADOS DO CHAMADO: "  + "\n" + dados_do_chamado  + "\n" + "RESULTADO FINAL DA ANÁLISE AUTOMÁTICA:" + "\n" + "ANEXOS:" + "\n" + descricao_anexos + "\n" + "ANALISE FEITA POR IA:" + "\n" + analise_ia
-        
-        
-    return analise_ia
-#
-# FIM
-#---------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-#---------------------------------------------------------------------------------------------------------------
-# Função que conecta no banco do Sensr e retorna o resultado de uma query em uma tabela
 # CHAMADOS NÃO CATEGORIZADOS
 #
-def analise_profunda_ticket_nao_categorizados(STATUS_, TICKET_START, TICKET_END, DEPARTAMENTO_TECNICO):
-    print(" \n APTNC: PASSO 1 \n ")
+def analise_profunda_ticket_nao_categorizados(STATUS_, TICKET_START, TICKET_END):
+
     #---------------------
     # CONSTANTES
     #
@@ -980,8 +742,7 @@ def analise_profunda_ticket_nao_categorizados(STATUS_, TICKET_START, TICKET_END,
     COMPLEXIDADE_TAREFA_    = 15
     DATA_TICKET_            = 16
     NOME_USER_              = 17
-    DEPTO_TECH_             = 18
-    
+
 
     # ANEXOS 
     POS_ARQUIVO_TIPO  = 0
@@ -993,8 +754,6 @@ def analise_profunda_ticket_nao_categorizados(STATUS_, TICKET_START, TICKET_END,
     descricao_anexos = ''
     dados_do_chamado = ''
     tabela_categorizacao = []
-    
-    print(" \n APTNC: PASSO 2 \n ")
     
     # Query para buscar os Tickets Abertos no Sensr
     # CHAMADOS NÃO CATEGORIZADOS
@@ -1017,8 +776,7 @@ def analise_profunda_ticket_nao_categorizados(STATUS_, TICKET_START, TICKET_END,
         COALESCE(tb_catalog_task.time_sla, 0) AS SLA_TAREFA,
         COALESCE(tb_catalog_task.complexity, '') AS COMPLEXIDADE_TAREFA,
         tb_request.dt_cad AS DATA_INPUT,
-        tb_person.name as NOME,
-        DEPTO_TECH.name
+        tb_person.name as NOME
     FROM tb_request
     LEFT JOIN tb_tickets ON tb_tickets.fk_id_request = tb_request.id_request
     LEFT JOIN tb_user ON tb_user.id_user = tb_request.user_cad::integer
@@ -1032,29 +790,17 @@ def analise_profunda_ticket_nao_categorizados(STATUS_, TICKET_START, TICKET_END,
     LEFT JOIN tb_department ON tb_department.id_department = tb_user.fk_id_department
     LEFT JOIN tb_company ON tb_company.id_company = tb_request.fk_id_company
     LEFT JOIN tb_person AS EMPRESA ON EMPRESA.id_person = tb_company.fk_id_person
-    LEFT JOIN tb_department AS DEPTO_TECH ON DEPTO_TECH.id_department = tb_request.fk_id_department
     WHERE
         tb_request.status = '{str(STATUS_)}'
         AND tb_request.id_request >= '{str(TICKET_START)}'
         AND tb_request.id_request <= '{str(TICKET_END)}'
-        AND tb_request.fk_id_department = '{str(DEPARTAMENTO_TECNICO)}'
     ORDER BY tb_request.id_request
     '''
-    
-    print(" \n APTNC: PASSO 3 \n ")
     #res = consulta_sensr(False,"select email_user,sla_task,id_user_name,company_name,category_name,catalog_service_name,catalog_task_name,department_name,group_tech_name,user_cad_name,sla,notes,dt_up,dt_cad,status,description,subject,id_tickets from tb_tickets where status = 'Open' Order By id_tickets ")
     res = consulta_sensr(False, query_tickets)
     #print("CONSULTA TICKETS ABERTOS:")
-    
-    analise_ia  = ''
-    question    = ''
-    _instrucao  = ''
-    
-    print(" \n APTNC: PASSO 4 \n ")
-    
     # Varre o resultado da query, ticket por ticket
     for linha in res:
-        print(" \n APTNC: PASSO 5 \n ")
         
         # Obtem os dados do chamado para análise
         dados_do_chamado = 'Dados do Chamado: '
@@ -1076,7 +822,6 @@ def analise_profunda_ticket_nao_categorizados(STATUS_, TICKET_START, TICKET_END,
         dados_do_chamado +=  "\n" + " Departamento do Usuário: " + linha[DEPARTAMENTO_]
         dados_do_chamado +=  "\n" + " Empresa do Usuário: " + linha[EMPRESA_]
         dados_do_chamado +=  "\n" + " Nome do Usuário: " + linha[NOME_USER_]
-        dados_do_chamado +=  "\n" + " Departamento Tecnico: " + str(linha[DEPTO_TECH_])
         
         
         #print(linha[EMAIL_USUARIO] )
@@ -1115,7 +860,7 @@ def analise_profunda_ticket_nao_categorizados(STATUS_, TICKET_START, TICKET_END,
         question    = "por favor analise as informações detalhadas do Ticket e a descrição dos anexos (caso haja algum anexo) e faça uma análise técnica preliminar conforme suas instruções ditam e responda indicando qual manual é mais indicado para orientar o analista que cuidará do caso."
         question    += "\n" + " DESCRIÇÃO DOS ANEXOS: " + descricao_anexos + "\n" + " DADOS DO CHAMADO: " + dados_do_chamado
         
-        manual_indicado = brain.analisar_com_gemini("", "", question, _instrucao, 10, brain.GLOBAL_MODELO_PESADO)
+        manual_indicado = brain.analisar_com_gemini("", "", question, _instrucao, 10, brain.GLOBAL_MODELO_MEDIO)
         if '\n' in manual_indicado:
             manual_indicado = manual_indicado.replace('\n', '')
             
@@ -1126,12 +871,15 @@ def analise_profunda_ticket_nao_categorizados(STATUS_, TICKET_START, TICKET_END,
             texto_do_manual = Canivete.extrair_texto_de_pdf(arquivo_path)
         
         question    = f"""
-                        Resolva o chamado a seguir: 
+                        Peço que você analise as informações detalhadas do ticket e a descrição dos anexos (casa haja alguma descrição)
+                        e me retorne um relatório detalhado sobre o ticket.
+                        Por favor, responda formatando o texto com MarkDown (com quebras de linhas, marcas de título e subtítulo, palavras destacas, etc).
+                        Analise com calma e leve o tempo que precisar para responder.
                         """
         
         question    = question + "\n" + " DESCRIÇÃO DOS ANEXOS: \n " + descricao_anexos + "\n" + " DADOS DO CHAMADO: \n " + dados_do_chamado
         
-        _instrucao = Persona.biblioteca_de_prompts(Persona.ANALISTA_GENERALISTA_2_)
+        _instrucao = Persona.biblioteca_de_prompts(Persona.ANALISTA_GENERALISTA_3_)
         
         # arquivo_path  = manual_indicado # 'manuais/sigacom.pdf' # "protheus_custom/Lutms097.pdf"
         # if manual_indicado == '#N/A':
@@ -1140,47 +888,13 @@ def analise_profunda_ticket_nao_categorizados(STATUS_, TICKET_START, TICKET_END,
         #     texto_do_manual = Canivete.extrair_texto_de_pdf(arquivo_path)
         
         question += "\n" + "Manual em Texto: \n" + texto_do_manual
-        arquivo_path = ''
         
-        usa_rag = True
-        
-        if usa_rag:
-            print(" \n USANDO RAG \n")
-            #--------------------------------------------
-            try:
-                rag_system = SistemaRAG(diretorio_persistencia=OneRing.PASTA_BANCO)
-                print(f"Coleções RAG rastreadas atualmente: {len(rag_system.lista_nomes_colecoes)}")
-                if not os.path.exists(rag_system.diretorio_persistencia):
-                    print(f"Diretório de persistência '{rag_system.diretorio_persistencia}' não encontrado.")
-            except Exception as e:
-                print(f"Erro ao inicializar o Sistema RAG: {e}")
-                
-            _instrucao = Persona.biblioteca_de_prompts(Persona.QUESTIONADOR_)
-            pergunta   = brain.analisar_com_gemini("", arquivo_path, question, _instrucao, 10, brain.GLOBAL_MODELO_PESADO)
-            
-            print(f" \n Pergunta: {pergunta} \n ")
-
-            analise_ia = rag_system.consultar_multiplas_colecoes(
-                                    pergunta=pergunta,
-                                    instrucao="Haja como um especialista nos assuntos questionados e responda de forma clara, detalhada e ao mesmo tempo didática.",
-                                    # pdf_path="caminho/para/um/pdf_extra.pdf", # Exemplo
-                                    # imagem_path="caminho/para/uma/imagem_extra.png", # Exemplo
-                                    modelo_de_pensamento= "gemini-2.0-flash-thinking-exp", #"gemini-2.0-flash"
-                                    n_results_per_colecao=15, # Quantos chunks buscar por *cada* coleção/documento
-                                    max_distance_threshold=0.8 # Limiar de distância máxima para filtrar os chunks recuperados
-                                )
-            question = question + "\n" + "BASE DE CONHECIMENTO: \n" + analise_ia
-            # print(f" \n Pergunta Final: {question} \n ")
-            _instrucao = Persona.biblioteca_de_prompts(Persona.ANALISTA_GENERALISTA_2_)
-            analise_ia  = brain.analisar_com_gemini("", arquivo_path, question, _instrucao, 10, brain.GLOBAL_MODELO_PESADO)
-        else:
-            analise_ia  = brain.analisar_com_gemini("", arquivo_path, question, _instrucao, 10, brain.GLOBAL_MODELO_PESADO)
-            
+        analise_ia  = brain.analisar_com_gemini("", arquivo_path, question, _instrucao, 10, brain.GLOBAL_MODELO_PESADO)
         # analise_ia  = brain.limpa_texto(analise_ia)
         # analise_ia  = " \n Analise IA: \n " + analise_ia
         # resultado_final = "DADOS DO CHAMADO: "  + "\n" + dados_do_chamado  + "\n" + "RESULTADO FINAL DA ANÁLISE AUTOMÁTICA:" + "\n" + "ANEXOS:" + "\n" + descricao_anexos + "\n" + "ANALISE FEITA POR IA:" + "\n" + analise_ia
-        print(f" \n ANALISA IA: {analise_ia} \n ")
-    print(" \n APTNC: PASSO 6 \n ")
+        
+        
     return analise_ia
 #
 # FIM
@@ -1266,7 +980,7 @@ def busca_descricao_anexos_tickets(_ticket_buscado):
                 
                 if len(descricao_anexos) > 5000:
                     _instrucao = Persona.biblioteca_de_prompts(Persona.SINTETIZADOR_)
-                    question    = "por favor, analise o arquivo anexo e forneça uma descrição detalhada do mesmo de modo que um analista humano possa realizar sua análise técnica sem precisar ler desenas de páginas de error log."
+                    question    = "por favor, analise o arquivo anexo e forneça uma descrição simplificada do mesmo de modo que um analista humano possa realizar sua análise técnica sem precisar ler desenas de páginas de error log."
                     question    = question + " Descrição do Anexo: \n " + str(contador_anexo) + " - descrição detalhada: "+ descricao_anexos
                     #arquivo_path  = "arquivo_temporario.pdf"
                     #descricao_anexos += "anexo " + str(contador_anexo) + " - descrição detalhada: "
@@ -1312,7 +1026,7 @@ def busca_descricao_anexos_tickets(_ticket_buscado):
                 
                 if len(descricao_anexos) > 5000:
                     _instrucao = Persona.biblioteca_de_prompts(Persona.SINTETIZADOR_)
-                    question    = "por favor, analise o arquivo anexo e forneça uma descrição detalhada do mesmo de modo que um analista humano possa realizar sua análise técnica sem precisar ler desenas de páginas de error log."
+                    question    = "por favor, analise o arquivo anexo e forneça uma descrição simplificada do mesmo de modo que um analista humano possa realizar sua análise técnica sem precisar ler desenas de páginas de error log."
                     question    = question + " Descrição do Anexo: \n " + str(contador_anexo) + " - descrição detalhada: "+ descricao_anexos
                     #arquivo_path  = "arquivo_temporario.pdf"
                     #descricao_anexos += "anexo " + str(contador_anexo) + " - descrição detalhada: "
@@ -1367,7 +1081,7 @@ def busca_descricao_anexos_tickets(_ticket_buscado):
                 
                 if len(descricao_anexos) > 5000:
                     _instrucao = Persona.biblioteca_de_prompts(Persona.SINTETIZADOR_)
-                    question    = "por favor, analise o arquivo anexo e forneça uma descrição detalhada do mesmo de modo que um analista humano possa realizar sua análise técnica sem precisar ler desenas de páginas de error log."
+                    question    = "por favor, analise o arquivo anexo e forneça uma descrição simplificada do mesmo de modo que um analista humano possa realizar sua análise técnica sem precisar ler desenas de páginas de error log."
                     question    = question + " Descrição do Anexo: \n " + str(contador_anexo) + " - descrição detalhada: "+ descricao_anexos
                     #arquivo_path  = "arquivo_temporario.pdf"
                     #descricao_anexos += "anexo " + str(contador_anexo) + " - descrição detalhada: "
@@ -1383,209 +1097,12 @@ def busca_descricao_anexos_tickets(_ticket_buscado):
 #
 # FIM
 #---------------------------------------------------------------------------------------------------------------
-
-#---------------------------------------------------------------------------------------------------------------
-# Função que busca e retorna a descrição dos anexos de um ticket (tipos atuais: jpg, png e pdf)
-#
-def busca_descricao_anexos_tickets_categorizados(_ticket_buscado):
-    # ANEXOS 
-    POS_ARQUIVO_TIPO  = 0
-    POS_ARQUIVO_BLOB  = 1
-    
-    #---------------------
-    # Variaveis
-    # 
-    descricao_anexos = ''
-    # Query para buscar os anexos do Ticket no Sensr
-    # CHAMADOS NÃO CATEGORIZADOS
-    #
-    query_file_ref = f'''
-        
-        select tb_attach_global.namefile,tb_attach_global.blob
-        from tb_request_file
-        LEFT JOIN tb_attach_global ON tb_attach_global.id_ref = tb_request_file.id_request_file and tb_attach_global.type = 'request'
-        where tb_request_file.fk_id_request = {_ticket_buscado}
-        order by tb_attach_global.namefile
-        
-        '''
-    
-    res_file_ref = consulta_sensr(False, query_file_ref)
-    contador_anexo = 0
-    descricao_anexos = ""
-    l_descricao_img_com_Gemini = False
-    l_descricao_pdf_com_Gemini = False
-    l_usa_Gemini    = False
-    for linha_file_ref in res_file_ref:
-        contador_anexo += 1
-        if linha_file_ref[POS_ARQUIVO_TIPO].lower().endswith(".jpg"):
-            #-------------------------------------------------------------------------------------------------------
-            # Extrai o BLOB contendo a codificação da imagem em base64 (MELHORAR ISSO, pois pode ser .jpg ou .pdf)
-            blob_data = linha_file_ref[1]
-            #-----------------------------------------------------------------------------------
-            # Obter a descrição da imagem via transform para econimizar consultas a API GEMINI
-            # STATUS: desabilitado, pois a descrição gerada é pobre em detalhes
-            #
-            # descricao_imagem_exp = Canivete.extrair_texto_de_imagem(blob_data)
-            # print(" \n Descrição da Imagem: \n " + descricao_imagem_exp + " \n ")
-            #------------------------------------------------------------------------------------
-            
-            #-----------------------------------------------    
-            # Decodificar o Base64
-            #
-            image_data = base64.b64decode(blob_data)
-                
-            if l_usa_Gemini:
-                #----------------------------------------------------------------------------------------
-                # Cria um objeto de imagem a partir dos dados binários extraídos na decodificação do Blob
-                image = Image.open(io.BytesIO(image_data))
-
-                #----------------------------------------------------------------------------------------
-                # Salva a imagem em um arquivo (ou exibe, se preferir)
-                image.save("imagem_temporaria.jpg")  # Salva como PNG. Você pode ajustar o formato.
-                # Ou, para exibir a imagem:
-                # Usado apenas para teste do funcionamento da conversão do arquivo
-                # image.show()
-                _instrucao = Persona.biblioteca_de_prompts(Persona.LEITOR_DE_ANEXOS_)
-                question    = "por favor, analise o arquivo anexo e forneça uma descrição detalhada do mesmo de modo que um analista humano possa realizar sua análise técnica."
-                image_path  = "imagem_temporaria.jpg"
-                descricao_anexos += "anexo " + str(contador_anexo) + " - descrição detalhada: "
-                descricao_anexos += brain.analisar_com_gemini(image_path, "", question, _instrucao, 10, brain.GLOBAL_MODELO_MEDIO)
-                descricao_anexos = brain.limpa_texto(descricao_anexos)
-            else:
-                #-----------------------------------------------------------------------------------
-                # Obter a descrição da imagem via biblioteca EasyOCR (sem uso de IA) para
-                # economizar consultas à API Gemini, reservando-as para analisar o contexto geral
-                #
-                descricao_imagem_ocr = Canivete.extrair_texto_de_imagem_sem_ia_EasyOCR(image_data)
-                print(" \n Descrição da Imagem: \n " + descricao_imagem_ocr + " \n ")
-                descricao_anexos += "anexo " + str(contador_anexo) + " - descrição detalhada: " + descricao_imagem_ocr
-                
-                if len(descricao_anexos) > 5000:
-                    _instrucao = Persona.biblioteca_de_prompts(Persona.SINTETIZADOR_)
-                    question    = "por favor, analise o arquivo anexo e forneça uma descrição detalhada do mesmo de modo que um analista humano possa realizar sua análise técnica sem precisar ler desenas de páginas de error log."
-                    question    = question + " Descrição do Anexo: \n " + str(contador_anexo) + " - descrição detalhada: "+ descricao_anexos
-                    #arquivo_path  = "arquivo_temporario.pdf"
-                    #descricao_anexos += "anexo " + str(contador_anexo) + " - descrição detalhada: "
-                    descricao_anexos = brain.analisar_com_gemini("", "", question, _instrucao, 10, brain.GLOBAL_MODELO_MEDIO)
-                    descricao_anexos = brain.limpa_texto(descricao_anexos)
-                    
-                    print(" \n Descrição Anexo - " + str(contador_anexo) +  " TAMANHO: " + str(len(descricao_anexos)) + " \n" + descricao_anexos)
-                
-        elif linha_file_ref[POS_ARQUIVO_TIPO].lower().endswith(".png"):
-            # Extrai o BLOB contendo a codificação da imagem em base64 (MELHORAR ISSO, pois pode ser .jpg ou .pdf)
-            #
-            blob_data = linha_file_ref[1]
-            
-            #------------------------------------------------    
-            # Decodificar o Base64
-            image_data = base64.b64decode(blob_data)
-                
-            if l_usa_Gemini:
-                #---------------------------------------------------------------------------------------------
-                # Cria um objeto de imagem a partir dos dados binários extraídos na decodificação do Blob
-                image = Image.open(io.BytesIO(image_data))
-                #---------------------------------------------------------------------------------------------
-                # Salva a imagem em um arquivo (ou exibe, se preferir)
-                image.save("imagem_temporaria.png")  # Salva como PNG. Você pode ajustar o formato.
-                # Ou, para exibir a imagem:
-                # Usado apenas para testar a conversão do arquivo
-                # image.show()
-                #_instrucao  = "você é um assistente virtual especializado em descrever de forma detalhada prints de tela enviados em chamados de helpdesk para auxiliar um analista de tecnologia humano a compreender os anexos enviados pelos usuários de sistema nos chamados. Com sua descrição detalhada o analista de tecnologia humano deve ser capaz de compreender e tomar conhecimento de todos os detalhes presentes nos arquivos anexados aos chamados. Sendo assim, ao receber um anexo, analise o arquivo e forneça a descrição mais detalhada possível para que o analista de Tecnologia humano possa atender ao chamado dos usuários de sistema sem precisar fazer o download e acessar os arquivos anexos propriamente diretamente, bastante sua descrição dos mesmos."
-                _instrucao = Persona.biblioteca_de_prompts(Persona.LEITOR_DE_ANEXOS_)
-                question    = "por favor, analise o arquivo anexo e forneça uma descrição detalhada do mesmo de modo que um analista humano possa realizar sua análise técnica."
-                image_path  = "imagem_temporaria.png"
-                descricao_anexos += "anexo " + str(contador_anexo) + " - descrição detalhada: "
-                descricao_anexos += brain.analisar_com_gemini(image_path, "", question, _instrucao, 10, brain.GLOBAL_MODELO_MEDIO)
-                descricao_anexos = brain.limpa_texto(descricao_anexos)
-            else:
-                #-----------------------------------------------------------------------------------
-                # Obter a descrição da imagem via biblioteca EasyOCR (sem uso de IA) para
-                # economizar consultas à API Gemini, reservando-as para analisar o contexto geral
-                #
-                descricao_imagem_ocr = Canivete.extrair_texto_de_imagem_sem_ia_EasyOCR(image_data)
-                print(" \n Descrição da Imagem: \n " + descricao_imagem_ocr + " \n ")
-                descricao_anexos += "anexo " + str(contador_anexo) + " - descrição detalhada: " + descricao_imagem_ocr
-                
-                if len(descricao_anexos) > 5000:
-                    _instrucao = Persona.biblioteca_de_prompts(Persona.SINTETIZADOR_)
-                    question    = "por favor, analise o arquivo anexo e forneça uma descrição detalhada do mesmo de modo que um analista humano possa realizar sua análise técnica sem precisar ler desenas de páginas de error log."
-                    question    = question + " Descrição do Anexo: \n " + str(contador_anexo) + " - descrição detalhada: "+ descricao_anexos
-                    #arquivo_path  = "arquivo_temporario.pdf"
-                    #descricao_anexos += "anexo " + str(contador_anexo) + " - descrição detalhada: "
-                    descricao_anexos = brain.analisar_com_gemini("", "", question, _instrucao, 10, brain.GLOBAL_MODELO_MEDIO)
-                    descricao_anexos = brain.limpa_texto(descricao_anexos)
-                    
-                    print(" \n Descrição Anexo - " + str(contador_anexo) +  " TAMANHO: " + str(len(descricao_anexos)) + " \n" + descricao_anexos)
-            
-               
-        elif linha_file_ref[0].lower().endswith(".pdf"):
-            #------------------------------------------------------------------------------------------------------
-            # Extrai o BLOB contendo a codificação da imagem em base64 (MELHORAR ISSO, pois pode ser .jpg ou .pdf)
-            blob_data = linha_file_ref[POS_ARQUIVO_BLOB]
-            
-            #-------------------------------------------------------    
-            # Decodifica o Base4
-            pdf_data = base64.b64decode(blob_data)
-            #-------------------------------------------------------    
-            # Cria um "arquivo em memória" com os dados do PDF
-            pdf_file = io.BytesIO(pdf_data)
-                
-            # Salva o arquivo PDF
-            with open("arquivo_temporario.pdf", "wb") as f:
-                f.write(pdf_file.getvalue())
-                
-            if l_usa_Gemini:
-                #-------------------------------------------------------
-                # Abrir o arquivo PDF com visualizador padrão
-                # Usado apenas para testar a conversão do arquivo
-                # os.startfile("arquivo_temporario.pdf") # para o Windows
-                # Ou:
-                # os.system("open arquivo.pdf") # Para macOS ou Linux
-                    
-                #-------------------------------------------------------
-                # Ler informações do PDF (opicional)
-                #
-                pdf_reader = PdfReader(pdf_file)
-                num_paginas = len(pdf_reader.pages)
-                #print(f"Número de páginas: {num_paginas}")
-                #-------------------------------------------------------
-                # Obter informações do arquivo com Gemini
-                #
-                _instrucao = Persona.biblioteca_de_prompts(Persona.LEITOR_DE_ANEXOS_)
-                question    = "por favor, analise o arquivo anexo e forneça uma descrição detalhada do mesmo de modo que um analista humano possa realizar sua análise técnica."
-                arquivo_path  = "arquivo_temporario.pdf"
-                descricao_anexos += "anexo " + str(contador_anexo) + " - descrição detalhada: "
-                descricao_anexos += brain.analisar_com_gemini("", arquivo_path, question, _instrucao, 10, brain.GLOBAL_MODELO_MEDIO)
-                descricao_anexos = brain.limpa_texto(descricao_anexos)
-            else:
-                arquivo_path = "arquivo_temporario.pdf"
-                descricao_anexos += Canivete.extrair_texto_de_pdf(arquivo_path)
-                
-                if len(descricao_anexos) > 5000:
-                    _instrucao = Persona.biblioteca_de_prompts(Persona.SINTETIZADOR_)
-                    question    = "por favor, analise o arquivo anexo e forneça uma descrição detalhada do mesmo de modo que um analista humano possa realizar sua análise técnica sem precisar ler desenas de páginas de error log."
-                    question    = question + " Descrição do Anexo: \n " + str(contador_anexo) + " - descrição detalhada: "+ descricao_anexos
-                    #arquivo_path  = "arquivo_temporario.pdf"
-                    #descricao_anexos += "anexo " + str(contador_anexo) + " - descrição detalhada: "
-                    descricao_anexos = brain.analisar_com_gemini("", "", question, _instrucao, 10, brain.GLOBAL_MODELO_MEDIO)
-                    descricao_anexos = brain.limpa_texto(descricao_anexos)
-                    
-                    print(" \n Descrição Anexo - " + str(contador_anexo) +  " TAMANHO: " + str(len(descricao_anexos)) + " \n" + descricao_anexos)
-        else:
-            print("tipo de arquivo do anexo não previsto")
-            pass
-    print(" \n ANEXO - RESULTADO FINAL: \n " + descricao_anexos)
-    return descricao_anexos
-#
-# FIM
-#---------------------------------------------------------------------------------------------------------------
-
 
 #---------------------------------------------------------------------------------------------------------------
 # Função que conecta no banco do Sensr e retorna o resultado de uma query em uma tabela
 # CHAMADOS NÃO CATEGORIZADOS
 #
-def listar_chamados_nao_categorizados(STATUS_, TICKET_START, TICKET_END, DEPTO_SELECIONADO):
+def listar_chamados_nao_categorizados(STATUS_, TICKET_START, TICKET_END):
 
     #---------------------
     # CONSTANTES
@@ -1609,7 +1126,6 @@ def listar_chamados_nao_categorizados(STATUS_, TICKET_START, TICKET_END, DEPTO_S
     COMPLEXIDADE_TAREFA_    = 15
     DATA_TICKET_            = 16
     NOME_USUARIO_           = 17
-    DEPTO_TECH_             = 18
 
 
     #---------------------
@@ -1646,8 +1162,7 @@ def listar_chamados_nao_categorizados(STATUS_, TICKET_START, TICKET_END, DEPTO_S
         COALESCE(tb_catalog_task.time_sla, 0) AS SLA_TAREFA,
         COALESCE(tb_catalog_task.complexity, '') AS COMPLEXIDADE_TAREFA,
         tb_request.dt_cad AS DATA_INPUT,
-        tb_person.name as NOME,
-        DEPTO_TECH.name
+        tb_person.name as NOME
     FROM tb_request
     LEFT JOIN tb_tickets ON tb_tickets.fk_id_request = tb_request.id_request
     LEFT JOIN tb_user ON tb_user.id_user = tb_request.user_cad::integer
@@ -1661,12 +1176,10 @@ def listar_chamados_nao_categorizados(STATUS_, TICKET_START, TICKET_END, DEPTO_S
     LEFT JOIN tb_department ON tb_department.id_department = tb_user.fk_id_department
     LEFT JOIN tb_company ON tb_company.id_company = tb_request.fk_id_company
     LEFT JOIN tb_person AS EMPRESA ON EMPRESA.id_person = tb_company.fk_id_person
-    LEFT JOIN tb_department AS DEPTO_TECH ON DEPTO_TECH.id_department = tb_request.fk_id_department
     WHERE
         tb_request.status = '{str(STATUS_)}'
         AND tb_request.id_request >= '{str(TICKET_START)}'
         AND tb_request.id_request <= '{str(TICKET_END)}'
-        AND tb_request.fk_id_department = '{str(DEPTO_SELECIONADO)}'
     ORDER BY tb_request.id_request
     '''
     #res = consulta_sensr(False,"select email_user,sla_task,id_user_name,company_name,category_name,catalog_service_name,catalog_task_name,department_name,group_tech_name,user_cad_name,sla,notes,dt_up,dt_cad,status,description,subject,id_tickets from tb_tickets where status = 'Open' Order By id_tickets ")
@@ -1745,7 +1258,6 @@ def listar_chamados_nao_categorizados(STATUS_, TICKET_START, TICKET_END, DEPTO_S
         dept_ticket     = linha[DEPARTAMENTO_]
         emp_ticket      = linha[EMPRESA_]
         nome_user       = linha[NOME_USUARIO_]
-        depart_tech     = linha[DEPTO_TECH_]
         
         
         anexos_ticket   = busca_descricao_anexos_tickets(id_ticket)
@@ -1771,8 +1283,7 @@ def listar_chamados_nao_categorizados(STATUS_, TICKET_START, TICKET_END, DEPTO_S
             "Tarefa Atual": tar_ticket,
             "SLA Atual": sla_ticket,
             "Grau de Dificuldade": complex_ticket,
-            "Departamento do Usuário": dept_ticket,
-            "Departamento Técnico": depart_tech,
+            "Departamento": dept_ticket,
             "Empresa": emp_ticket,
             "Nome do Usuário": nome_user,
             "Anexos": anexos_ticket,
@@ -1785,7 +1296,7 @@ def listar_chamados_nao_categorizados(STATUS_, TICKET_START, TICKET_END, DEPTO_S
     campos_csv  = ["ID do Ticket", "Data", "Assunto", "Descrição", 
                    "Cidade", "UF", "País", "Fone", "Ramal", "Email", 
                    "Categoria Atual", "Serviço Atual", "Tarefa Atual", 
-                   "SLA Atual", "Grau de Dificuldade", "Departamento do Usuário", "Departamento Técnico", 
+                   "SLA Atual", "Grau de Dificuldade", "Departamento", 
                    "Empresa", "Nome do Usuário", "Anexos"]
     Canivete.converter_para_csv_v2(lista_de_requisicoes, arq_csv,campos_csv )
     
@@ -1824,12 +1335,9 @@ def listar_chamados_nao_categorizados(STATUS_, TICKET_START, TICKET_END, DEPTO_S
 # Resolved
 # In Progress
 
-testar = False
+testar = False #True
 
 if testar:
-    
-    resposta_da_ia = analise_profunda_tickets_categorizados('Open', 'R6097', 'R6097')
-    print("\n RESPOSTA - TICKET EM ANDAMENTO \n  " + resposta_da_ia)
     
     resposta_da_ia = analise_profunda_ticket_nao_categorizados('Open', '5649', '5649')
     print(" \n sem markdownify \n " + resposta_da_ia)

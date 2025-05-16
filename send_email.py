@@ -50,7 +50,7 @@ def enviar_email_gmail_smtp(destinatario, assunto, corpo, arquivos_anexos=None):
             mensagem.attach(parte)
 
     try:
-        with smtplib.SMTP('smtp.gmail.com', 587) as servidor_smtp: # porta padrão 587 # Conexão com servidor Gmail SMTP
+        with smtplib.SMTP('smtp.gmail.com', 587) as servidor_smtp: # Conexão com servidor Gmail SMTP
             servidor_smtp.starttls() # Inicia a encriptação TLS
             servidor_smtp.login(EMAIL_REMETENTE_GMAIL, SENHA_REMETENTE_GMAIL) # Login com email e senha
             texto = mensagem.as_string()
@@ -72,3 +72,17 @@ if teste:
     
     enviar_email_gmail_smtp(destino, assunto, corpo, arquivos)
     print(" \n ")
+    
+# # Exemplo de uso (em outro script.py)
+# from enviar_email import enviar_email
+
+# arquivos = ["/caminho/para/arquivo1.pdf", "/caminho/para/arquivo2.docx"]  # Lista de arquivos anexos
+# # Ou, para enviar apenas um arquivo:
+# # arquivos = ["/caminho/para/arquivo1.pdf"]
+
+# if st.button("Enviar por Email"):
+#     # Chama a função que envia a análise por email, com anexos
+#     if enviar_email(email, "Análise Aprofundada do Ticket", analise_aprofundada, arquivos):
+#         st.write("Email enviado com sucesso!")
+#     else:
+#         st.write("Falha ao enviar email. Verifique o console para mais detalhes.")

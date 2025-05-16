@@ -5,10 +5,6 @@
 2: Set-ExecutionPolicy RemoteSigned (confirmar com A, que salva para todo o computador)
 3: Reabrir o VS Code
 
-#------------------------------------------------------------------
-# PARA ATUALIZAR O PIP 
-# python.exe -m pip install --upgrade pip
-#------------------------------------------------------------------
 
 #------------------------------------------------------------------
 # PARA INSTALAR TODAS AS BIBLIOTECAS LISTAS EM requirements.txt
