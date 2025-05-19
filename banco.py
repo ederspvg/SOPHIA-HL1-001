@@ -1180,6 +1180,7 @@ def listar_chamados_nao_categorizados(STATUS_, TICKET_START, TICKET_END):
         tb_request.status = '{str(STATUS_)}'
         AND tb_request.id_request >= '{str(TICKET_START)}'
         AND tb_request.id_request <= '{str(TICKET_END)}'
+        AND tb_request.fk_id_department = '1'
     ORDER BY tb_request.id_request
     '''
     #res = consulta_sensr(False,"select email_user,sla_task,id_user_name,company_name,category_name,catalog_service_name,catalog_task_name,department_name,group_tech_name,user_cad_name,sla,notes,dt_up,dt_cad,status,description,subject,id_tickets from tb_tickets where status = 'Open' Order By id_tickets ")
